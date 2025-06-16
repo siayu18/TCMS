@@ -14,7 +14,7 @@ public class FileHandler {
     private List<String> headers;
 
     public FileHandler(String fileName, List<String> headerCols) throws IOException {
-        this.path = Paths.get("src/main/resources/entity", fileName);
+        this.path = Paths.get("src/main/entity", fileName);
         this.headers = new ArrayList<>(headerCols);
         ensureFile();
     }
