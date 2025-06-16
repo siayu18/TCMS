@@ -77,7 +77,7 @@ public class LoginController {
 
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/javfxproject/view/" + targetFile)
+                    getClass().getResource("/org/tcms/view/" + targetFile)
             );
             Parent root = loader.load();
             Stage stage = (Stage) loginButton.getScene().getWindow();
