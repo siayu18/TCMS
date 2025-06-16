@@ -48,12 +48,14 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+<!--  This is additional dependencies we add on to the project-->
     <dependency>
       <groupId>com.opencsv</groupId>
       <artifactId>opencsv</artifactId>
       <version>5.9</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
