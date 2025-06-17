@@ -9,9 +9,8 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.TutorDashboard">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.ReceptionistDashboard">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="BLACK" strokeType="INSIDE" width="203.0">
          <fill>
@@ -32,10 +31,7 @@
          </fill>
       </Rectangle>
 
-      <Button alignment="BASELINE_LEFT" layoutY="195.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Add Student &amp; Enrolment" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+      <Button fx:id="addStuBtn" alignment="BASELINE_LEFT" layoutY="195.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Add Student &amp; Enrolment" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="16" fitWidth="16">
                <image>
@@ -45,35 +41,22 @@
          </graphic>
       </Button>
 
-      <Button alignment="BASELINE_LEFT" layoutY="237.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Update Student Enrolment" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+      <Button fx:id="updateStuBtn" alignment="BASELINE_LEFT" layoutY="237.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Update Student Enrolment" textFill="WHITE">
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutY="279.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Accept Payment" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+
+      <Button fx:id="acceptPayBtn" alignment="BASELINE_LEFT" layoutY="279.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Accept Payment" textFill="WHITE">
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutY="321.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Generate Receipts" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+
+      <Button fx:id="genRecBtn" alignment="BASELINE_LEFT" layoutY="321.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Generate Receipts" textFill="WHITE">
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutY="363.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Delete Students" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+
+      <Button fx:id="delStuBtn" alignment="BASELINE_LEFT" layoutY="363.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Delete Students" textFill="WHITE">
       </Button>
-      <Button alignment="BASELINE_LEFT" layoutY="405.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Communication Hub" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+
+      <Button fx:id="comHubBtn" alignment="BASELINE_LEFT" layoutY="405.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Communication Hub" textFill="WHITE">
       </Button>
-      <Button alignment="BOTTOM_CENTER" layoutX="-1.0" mnemonicParsing="false" prefHeight="154.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" contentDisplay="TOP" text="Update Profile" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
+
+      <Button fx:id="profileBtn" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="-1.0" mnemonicParsing="false" prefHeight="154.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Update Profile" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="100" fitWidth="100">
                <image>
@@ -82,6 +65,7 @@
             </ImageView>
          </graphic>
       </Button>
+
       <Line endX="84.60002136230469" endY="1.52587890625E-5" layoutX="108.0" layoutY="176.0" startX="-100.0" stroke="WHITE" />
    </children>
 </AnchorPane>

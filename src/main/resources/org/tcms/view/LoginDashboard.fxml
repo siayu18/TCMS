@@ -26,16 +26,19 @@
                         </ImageView>
                     </graphic>
                 </Label>
+
                 <Label layoutX="33.0" layoutY="188.0" text="Username: ">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
+
                 <Label layoutX="33.0" layoutY="248.0" text="Password:">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
+
                 <TextField fx:id="usernameField" layoutX="104.0" layoutY="185.0" prefHeight="26.0" prefWidth="163.0" styleClass="text-field" />
                 <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="245.0" prefHeight="26.0" prefWidth="163.0" />
                 <TextField fx:id="visiblePasswordField" layoutX="104.0" layoutY="245.0" managed="false" prefHeight="26.0" prefWidth="163.0" visible="false" />

@@ -1,5 +1,6 @@
 .button {
     -fx-background-color: transparent;
+    -fx-font-size: 14;
 }
 
 .button:hover {
