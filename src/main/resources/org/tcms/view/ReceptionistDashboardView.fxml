@@ -7,6 +7,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -31,9 +32,9 @@
          </fill>
       </Rectangle>
 
-      <Button layoutY="60.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Test1" textFill="WHITE">
+      <Button alignment="BASELINE_LEFT" layoutY="195.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Add Student &amp; Enrolment" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="13.0" />
          </font>
          <graphic>
             <ImageView fitHeight="16" fitWidth="16">
@@ -44,10 +45,43 @@
          </graphic>
       </Button>
 
-      <Button layoutY="102.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Test2" textFill="WHITE">
+      <Button alignment="BASELINE_LEFT" layoutY="237.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Update Student Enrolment" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="13.0" />
          </font>
       </Button>
+      <Button alignment="BASELINE_LEFT" layoutY="279.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Accept Payment" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button alignment="BASELINE_LEFT" layoutY="321.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Generate Receipts" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button alignment="BASELINE_LEFT" layoutY="363.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Delete Students" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button alignment="BASELINE_LEFT" layoutY="405.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Communication Hub" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button alignment="BOTTOM_CENTER" layoutX="-1.0" mnemonicParsing="false" prefHeight="154.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" contentDisplay="TOP" text="Update Profile" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="100" fitWidth="100">
+               <image>
+                  <Image url="@../img/UserIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Line endX="84.60002136230469" endY="1.52587890625E-5" layoutX="108.0" layoutY="176.0" startX="-100.0" stroke="WHITE" />
    </children>
 </AnchorPane>

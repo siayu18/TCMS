@@ -40,7 +40,7 @@
                 <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="245.0" prefHeight="26.0" prefWidth="163.0" />
                 <TextField fx:id="visiblePasswordField" layoutX="104.0" layoutY="245.0" managed="false" prefHeight="26.0" prefWidth="163.0" visible="false" />
                 <CheckBox fx:id="showPasswordCheckBox" layoutX="102.0" layoutY="283.0" onAction="#handleShowPassword" styleClass="check-box" text="Show Password" />
-                <Button fx:id="loginButton" layoutX="108.0" layoutY="345.0" prefHeight="40.0" prefWidth="83.0" styleClass="button" text="Login" onAction="#handleLogin" />
+                <Button fx:id="loginButton" layoutX="108.0" layoutY="345.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="83.0" styleClass="button" text="Login" />
             </children>
         </AnchorPane>
         <ImageView fx:id="tuitionBackground1" fitHeight="500.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
