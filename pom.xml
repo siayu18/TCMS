@@ -15,6 +15,7 @@
   </properties>
 
   <dependencies>
+    <!-- Java  -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -48,11 +49,18 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-<!--  This is additional dependencies we add on to the project-->
+<!--  OpenCSV -->
     <dependency>
       <groupId>com.opencsv</groupId>
       <artifactId>opencsv</artifactId>
       <version>5.9</version>
+    </dependency>
+<!-- Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.34</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 

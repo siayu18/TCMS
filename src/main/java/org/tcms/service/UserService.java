@@ -2,7 +2,6 @@ package org.tcms.service;
 
 import org.tcms.model.*;
 import org.tcms.utils.FileHandler;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class UserService {
             String rowName = row.get("Name");
             String rowPassword = row.get("Password");
 
-            // 2) Check if this is the right user
+            //  Check if this is the right user
             if (rowName.equals(name) && rowPassword.equals(password)) {
                 return checkRoleAndCreate(row);
             }
