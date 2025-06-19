@@ -39,6 +39,8 @@
                     </font>
                 </Label>
 
+                <Label fx:id="incorrectLabel" layoutX="70.0" layoutY="319.0" text="Incorrect Username or Password" textFill="RED" visible="false" />
+                <Label fx:id="failedLabel" layoutX="70.0" layoutY="319.0" text="Unable to Login: Failed 3 Attempts" textFill="RED" visible="false" />
                 <TextField fx:id="usernameField" layoutX="104.0" layoutY="185.0" prefHeight="26.0" prefWidth="163.0" styleClass="text-field" />
                 <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="245.0" prefHeight="26.0" prefWidth="163.0" />
                 <TextField fx:id="visiblePasswordField" layoutX="104.0" layoutY="245.0" managed="false" prefHeight="26.0" prefWidth="163.0" visible="false" />

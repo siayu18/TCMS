@@ -14,13 +14,13 @@ import java.io.IOException;
 public class LoginController {
 
     private UserService userService;
+    private int loginCount;
 
+    @FXML public Label incorrectLabel, failedLabel;
     @FXML public Button loginButton;
-    @FXML public ImageView tuitionBackground1;
-    @FXML public ImageView tuitionBackground2;
-    @FXML private TextField usernameField;
+    @FXML public ImageView tuitionBackground1, tuitionBackground2;
+    @FXML private TextField usernameField, visiblePasswordField;
     @FXML private PasswordField passwordField;
-    @FXML private TextField visiblePasswordField;
     @FXML private CheckBox showPasswordCheckBox;
 
     @FXML
@@ -56,7 +56,14 @@ public class LoginController {
         if (user != null) {
             goToDashboard(user);
         } else {
-            AlertUtils.showAlert("Login Failed", "Invalid username or password.");
+            incorrectLabel.setVisible(true);
+            loginCount += 1;
+
+            if (loginCount >= 3) {
+                incorrectLabel.setVisible(false);
+                failedLabel.setVisible(true);
+                loginButton.setDisable(true);
+            }
         }
     }
 
