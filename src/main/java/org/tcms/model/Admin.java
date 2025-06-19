@@ -5,6 +5,7 @@ public class Admin extends User {
         super(id, name, pwd, role);
     }
 
+    // test
     @Override public String getDashboardFxml() { return "AdminDashboardView.fxml"; }
     @Override public String getDashboardTitle() { return "Admin Dashboard"; }
 }
