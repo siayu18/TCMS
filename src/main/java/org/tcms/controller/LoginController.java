@@ -1,5 +1,7 @@
 package org.tcms.controller;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
@@ -15,16 +17,18 @@ public class LoginController {
 
     private UserService userService;
     private int loginCount;
-
+    @FXML public AnchorPane rootPane;
     @FXML public Label incorrectLabel, failedLabel;
     @FXML public Button loginButton;
-    @FXML public ImageView tuitionBackground1, tuitionBackground2;
     @FXML private TextField usernameField, visiblePasswordField;
     @FXML private PasswordField passwordField;
     @FXML private CheckBox showPasswordCheckBox;
+    @FXML public Rectangle leftRect, rightRect;
 
     @FXML
     public void initialize() {
+        leftRect.heightProperty().bind(rootPane.heightProperty());
+        rightRect.heightProperty().bind(rootPane.heightProperty());
         visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
 
         try {
