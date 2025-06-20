@@ -23,12 +23,9 @@ public class LoginController {
     @FXML private TextField usernameField, visiblePasswordField;
     @FXML private PasswordField passwordField;
     @FXML private CheckBox showPasswordCheckBox;
-    @FXML public Rectangle leftRect, rightRect;
 
     @FXML
     public void initialize() {
-        leftRect.heightProperty().bind(rootPane.heightProperty());
-        rightRect.heightProperty().bind(rootPane.heightProperty());
         visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
 
         try {

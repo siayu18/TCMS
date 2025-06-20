@@ -12,34 +12,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="500" prefWidth="700" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.LoginController">
+<AnchorPane fx:id="rootPane" prefHeight="500" prefWidth="700" style="-fx-background-color: #7F8CAA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.LoginController">
     <children>
-        <Rectangle fx:id="leftRect"
-                   layoutX="0.0"
-                   width="200.0"
-                   arcWidth="5.0" arcHeight="5.0"
-                   stroke="BLACK"
-                   fill="#7F8CAA"
-                   AnchorPane.topAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0" />
-
-        <!-- Right Rectangle -->
-        <Rectangle fx:id="rightRect"
-                   layoutX="500.0"
-                   width="200.0"
-                   arcWidth="5.0" arcHeight="5.0"
-                   stroke="BLACK"
-                   fill="#7F8CAA"
-                   AnchorPane.topAnchor="0.0"
-                   AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" />
         <!-- Center login pane -->
-        <AnchorPane style="-fx-border-color: black; -fx-border-insets: 10;" stylesheets="@../css/Login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane style="-fx-border-color: black; -fx-border-insets: 10; -fx-background-color: white;" stylesheets="@../css/Login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
             <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="106.0">
                 <children>
                     <HBox alignment="CENTER" spacing="10">
