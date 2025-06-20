@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="500" prefWidth="700" style="-fx-background-color: #7F8CAA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.LoginController">
+<AnchorPane fx:id="holderPane" prefHeight="500" prefWidth="700" style="-fx-background-color: #7F8CAA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.LoginController">
     <children>
         <!-- Center login pane -->
         <AnchorPane style="-fx-border-color: black; -fx-border-insets: 10; -fx-background-color: white;" stylesheets="@../css/Login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">

@@ -3,6 +3,7 @@ module org.tcms {
     requires javafx.fxml;
     requires com.dlsc.formsfx;
     requires com.opencsv;
+    requires java.desktop;
 
     opens org.tcms to javafx.fxml;
     exports org.tcms;

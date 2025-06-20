@@ -17,7 +17,7 @@ public class LoginController {
 
     private UserService userService;
     private int loginCount;
-    @FXML public AnchorPane rootPane;
+    @FXML public AnchorPane holderPane;
     @FXML public Label incorrectLabel, failedLabel;
     @FXML public Button loginButton;
     @FXML private TextField usernameField, visiblePasswordField;
@@ -82,8 +82,8 @@ public class LoginController {
                 return;
         }
 
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        SceneUtils.switchScene(stage, "/org/tcms/view/" + targetFile, role + " Dashboard");
+        SceneUtils.setContent(holderPane,"/org/tcms/view/" + targetFile);
+        SceneUtils.clearScreenColor(holderPane);
     }
 
 }
