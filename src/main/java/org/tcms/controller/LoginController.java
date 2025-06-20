@@ -1,15 +1,12 @@
 package org.tcms.controller;
 
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
 import org.tcms.service.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -70,20 +67,7 @@ public class LoginController {
 
     private void goToDashboard(User user) {
         String role = user.getRole();
-        String targetFile;
-
-        switch (role) {
-            case "Admin": targetFile = "AdminDashboardView.fxml"; break;
-            case "Student": targetFile = "StudentDashboardView.fxml"; break;
-            case "Tutor": targetFile = "TutorDashboardView.fxml"; break;
-            case "Receptionist": targetFile = "ReceptionistDashboardView.fxml"; break;
-            default:
-                AlertUtils.showAlert("Unknown Role", "Cannot load dashboard for role: " + role);
-                return;
-        }
-
-        SceneUtils.setContent(holderPane,"/org/tcms/view/" + targetFile);
+        SceneUtils.setSideBarAndDashboard(holderPane,"/org/tcms/view/ToolbarView.fxml", role);
         SceneUtils.clearScreenColor(holderPane);
     }
-
 }

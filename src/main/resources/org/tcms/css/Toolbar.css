@@ -1,0 +1,45 @@
+.jfx-toolbar{
+    -fx-background-color: #333446;
+    -fx-min-height:40;
+}
+.toolbar-label{
+    -fx-background-color: transparent;
+    -fx-font-size: 20.0px;
+    -fx-padding: 5 0 5 0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.jfx-hamburger{
+    -fx-spacing: 4;
+    -fx-cursor: hand;
+    -fx-padding: 3px;
+}
+
+.jfx-hamburger StackPane{
+    -fx-pref-width: 35px;
+    -fx-pref-height: 4px;
+    -fx-background-color : #ffffff;
+    -fx-background-radius :3px;
+}
+
+.jfx-drawer .button {
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 180px;
+    -fx-cursor: hand;
+    -fx-padding: 10 15;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.jfx-drawer .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.jfx-drawer .button:selected,
+.jfx-drawer .button:focused {
+    -fx-font-weight: bold;
+}
