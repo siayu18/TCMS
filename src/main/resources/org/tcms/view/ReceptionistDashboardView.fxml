@@ -69,5 +69,6 @@
 
       <Line endX="84.60002136230469" endY="1.52587890625E-5" layoutX="108.0" layoutY="176.0" startX="-100.0" stroke="WHITE" />
       <JFXButton layoutX="394.0" layoutY="300.0" text="Test111" />
+      <Button layoutX="74.0" layoutY="203.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>

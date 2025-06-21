@@ -10,8 +10,8 @@ import java.io.IOException;
 public class SceneUtils {
 
     // load the fxml file
-    public static Node loadFxml(String fxmlPath, Object controller) throws IOException {
-        FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource(fxmlPath));
+    public static Node loadFxml(String fileName, Object controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource("/org/tcms/view/" + fileName + ".fxml"));
         if (controller != null) {
             loader.setController(controller);
         }
@@ -28,27 +28,27 @@ public class SceneUtils {
     }
 
     // set the content of the sidebar and dashboard based on role
-    public static void setSideBarAndDashboard(AnchorPane holderPane, String fxmlPath, String role) {
+    public static void setSideBarAndDashboard(AnchorPane holderPane, String fileName, String role) {
         try {
             ToolbarController controller = new ToolbarController(role);
-            Node sideBar = loadFxml(fxmlPath, controller);
+            Node sideBar = loadFxml(fileName, controller);
             applyAnchor(holderPane, sideBar);
             controller.loadRoleDashboard();
 
         } catch (IOException e) {
             e.printStackTrace();
-            AlertUtils.showAlert("Load Error", "Could not load: " + fxmlPath);
+            AlertUtils.showAlert("Load Error", "Could not load: " + fileName + ".fxml");
         }
     }
 
     // set the content of the AnchorPane (holderPane)
-    public static void setContent(AnchorPane holderPane, String fxmlPath) {
+    public static void setContent(AnchorPane holderPane, String fileName) {
         try {
-            Node node = loadFxml(fxmlPath, null);
+            Node node = loadFxml(fileName, null);
             applyAnchor(holderPane, node);
         } catch (IOException e) {
             e.printStackTrace();
-            AlertUtils.showAlert("Load Error", "Could not load: " + fxmlPath);
+            AlertUtils.showAlert("Load Error", "Could not load: " + fileName + ".fxml");
         }
     }
 

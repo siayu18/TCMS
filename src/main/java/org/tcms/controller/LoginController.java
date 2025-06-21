@@ -84,7 +84,7 @@ public class LoginController {
 
     private void goToDashboard(User user) {
         String role = user.getRole();
-        SceneUtils.setSideBarAndDashboard(holderPane,"/org/tcms/view/ToolbarView.fxml", role);
+        SceneUtils.setSideBarAndDashboard(holderPane,"ToolbarView", role);
         SceneUtils.clearScreenColor(holderPane);
     }
 

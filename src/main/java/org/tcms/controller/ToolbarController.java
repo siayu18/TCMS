@@ -34,11 +34,12 @@ public class ToolbarController implements Initializable {
                 case "Student" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
                 case "Tutor" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
                 case "Receptionist" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
-                default -> "/org/tcms/view/LoginDashboard.fxml";
+                default -> "/org/tcms/view/LoginView.fxml";
             };
             Parent sidePane = FXMLLoader.load(getClass().getResource(sideMenuPath));
             sidePane.setStyle("-fx-background-color: transparent;");
             drawer.setSidePane(sidePane);
+            drawer.setMouseTransparent(true); // to fix unable to tap button on the drawer zone though closed
 
             HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
             transition.setRate(-1);
@@ -48,8 +49,10 @@ public class ToolbarController implements Initializable {
 
                 if (drawer.isOpened()) {
                     drawer.close();
+                    drawer.setMouseTransparent(true); // to fix unable to tap button on the drawer zone though closed
                 } else {
                     drawer.open();
+                    drawer.setMouseTransparent(false); // to fix unable to tap button on the drawer zone though closed
                 }
 
             });
@@ -61,16 +64,16 @@ public class ToolbarController implements Initializable {
     }
 
     public void loadRoleDashboard() {
-        String dashboardPath = switch (userRole) {
-            case "Admin" -> "/org/tcms/view/AdminDashboardView.fxml";
-            case "Tutor" -> "/org/tcms/view/TutorDashboardView.fxml";
-            case "Student" -> "/org/tcms/view/StudentDashboardView.fxml";
-            case "Receptionist" -> "/org/tcms/view/ReceptionistDashboardView.fxml";
+        String dashboardFileName = switch (userRole) {
+            case "Admin" -> "AdminDashboardView";
+            case "Tutor" -> "TutorDashboardView";
+            case "Student" -> "StudentDashboardView";
+            case "Receptionist" -> "ReceptionistDashboardView";
             default -> null;
         };
 
-        if (dashboardPath != null) {
-            SceneUtils.setContent(holderPane, dashboardPath);
+        if (dashboardFileName != null) {
+            SceneUtils.setContent(holderPane, dashboardFileName);
         }
     }
 
