@@ -8,27 +8,31 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
 public class SceneUtils {
+
+    // load the fxml file
+    public static Node loadFxml(String fxmlPath, Object controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource(fxmlPath));
+        if (controller != null) {
+            loader.setController(controller);
+        }
+        return loader.load();
+    }
+
+    // clear the AnchorPane and add new screen (content)
+    private static void applyAnchor(AnchorPane holder, Node node) {
+        holder.getChildren().setAll(node);
+        AnchorPane.setTopAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
+        AnchorPane.setBottomAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+    }
+
+    // set the content of the sidebar and dashboard based on role
     public static void setSideBarAndDashboard(AnchorPane holderPane, String fxmlPath, String role) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource(fxmlPath));
-            // Inject controller with role
             ToolbarController controller = new ToolbarController(role);
-            loader.setController(controller);
-
-            Node node = loader.load();
-
-            // Clear old content
-            holderPane.getChildren().clear();
-
-            // Add new content
-            holderPane.getChildren().add(node);
-
-            // Anchor new content to all edges
-            AnchorPane.setTopAnchor(node, 0.0);
-            AnchorPane.setRightAnchor(node, 0.0);
-            AnchorPane.setBottomAnchor(node, 0.0);
-            AnchorPane.setLeftAnchor(node, 0.0);
-
+            Node sideBar = loadFxml(fxmlPath, controller);
+            applyAnchor(holderPane, sideBar);
             controller.loadRoleDashboard();
 
         } catch (IOException e) {
@@ -37,29 +41,18 @@ public class SceneUtils {
         }
     }
 
+    // set the content of the AnchorPane (holderPane)
     public static void setContent(AnchorPane holderPane, String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource(fxmlPath));
-            Node node = loader.load();
-
-            // Clear old content
-            holderPane.getChildren().clear();
-
-            // Add new content
-            holderPane.getChildren().add(node);
-
-            // Anchor new content to all edges
-            AnchorPane.setTopAnchor(node, 0.0);
-            AnchorPane.setRightAnchor(node, 0.0);
-            AnchorPane.setBottomAnchor(node, 0.0);
-            AnchorPane.setLeftAnchor(node, 0.0);
-
+            Node node = loadFxml(fxmlPath, null);
+            applyAnchor(holderPane, node);
         } catch (IOException e) {
             e.printStackTrace();
             AlertUtils.showAlert("Load Error", "Could not load: " + fxmlPath);
         }
     }
 
+    // remove screen background colour
     public static void clearScreenColor(AnchorPane pane) {
         pane.setBackground(null);
     }
