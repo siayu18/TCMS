@@ -18,7 +18,6 @@ public class LoginController {
     // Variables/Constants
     private UserService userService;
     private static final int loginCountMax = 3;
-//    private static final int cooldownTimer = 30;
     private Timeline cooldownTimeline;
     private int loginCount = 0;
 
@@ -72,7 +71,7 @@ public class LoginController {
             goToDashboard(user);
         } else {
             incorrectLabel.setVisible(true);
-            loginCount += 1;
+            loginCount ++;
             incorrectLabel.setText("Incorrect username or password.\n Login attempts remaining: " + (loginCountMax - loginCount));
 
             if (loginCount >= loginCountMax) {
@@ -89,11 +88,18 @@ public class LoginController {
         SceneUtils.clearScreenColor(holderPane);
     }
 
-    private void startCooldownTimer() {
-        final int[] secondsLeft = { 5 }; // countdown starting value
+    private void showOnly(Label labelToShow) {
+        // Hide all labels first
+        incorrectLabel.setVisible(false);
+        cooldownLabel.setVisible(false);
+        // Show the requested label
+        labelToShow.setVisible(true);
+    }
 
-        cooldownLabel.setVisible(true);
-        loginButton.setDisable(true);
+    private void startCooldownTimer() {
+        final int[] secondsLeft = { 3 }; // countdown starting value
+
+        showOnly(cooldownLabel);
 
         cooldownLabel.setText("Please wait " + secondsLeft[0] + " seconds before trying again.");
 
@@ -110,8 +116,7 @@ public class LoginController {
                     }
                 })
         );
-
-        cooldownTimeline.setCycleCount(5);
+        cooldownTimeline.setCycleCount(3);
         cooldownTimeline.play();
     }
 }
