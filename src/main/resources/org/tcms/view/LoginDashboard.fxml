@@ -62,8 +62,8 @@
 
                     <CheckBox fx:id="showPasswordCheckBox" onAction="#handleShowPassword" text="Show Password" />
 
-                    <Label fx:id="incorrectLabel" text="Incorrect Username or Password" textFill="RED" visible="false" />
-                    <Label fx:id="failedLabel" text="Unable to Login: Failed 3 Attempts" textFill="RED" visible="false" />
+                    <Label fx:id="incorrectLabel" text="Incorrect Username or Password" textAlignment="CENTER" textFill="RED" visible="false" />
+                    <Label fx:id="failedLabel" text="Unable to Login: Failed 3 Attempts" textAlignment="CENTER" textFill="RED" visible="false" />
 
                     <Button fx:id="loginButton" onAction="#handleLogin" prefWidth="100.0" text="Login" />
                 </children>

@@ -14,6 +14,7 @@ public class LoginController {
 
     private UserService userService;
     private int loginCount;
+    private int loginCountMax = 3;
     @FXML public AnchorPane holderPane;
     @FXML public Label incorrectLabel, failedLabel;
     @FXML public Button loginButton;
@@ -27,6 +28,7 @@ public class LoginController {
 
         try {
             userService = new UserService();
+            loginButton.setDefaultButton(true);
         } catch (IOException e) {
             AlertUtils.showAlert("Error", "Could not load user data.");
             loginButton.setDisable(true);
@@ -49,6 +51,13 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
+        // Check for empty fields
+        if (username.isEmpty() || password.isEmpty()) {
+            incorrectLabel.setText("Username or password cannot be empty.");
+            incorrectLabel.setVisible(true);
+            return;
+        }
+
         User user = userService.authenticate(username, password);
 
         if (user != null) {
@@ -56,6 +65,7 @@ public class LoginController {
         } else {
             incorrectLabel.setVisible(true);
             loginCount += 1;
+            incorrectLabel.setText("Incorrect username or password.\n Login attempts remaining: " + (loginCountMax - loginCount));
 
             if (loginCount >= 3) {
                 incorrectLabel.setVisible(false);

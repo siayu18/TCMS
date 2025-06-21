@@ -3,7 +3,7 @@ module org.tcms {
     requires javafx.fxml;
     requires com.dlsc.formsfx;
     requires com.opencsv;
-    requires java.desktop;
+    requires static lombok;
     requires java.logging;
     requires com.jfoenix;
 

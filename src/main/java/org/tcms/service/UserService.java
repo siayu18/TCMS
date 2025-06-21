@@ -37,7 +37,7 @@ public class UserService {
         String role = row.get("Role");
 
         if (role.equals("Admin")) {
-            return new Admin(id, name, pwd, role);
+            return new Admin(id, name, pwd);
         }
         else if (role.equals("Student")) {
             return new Student(id, name, pwd, role);

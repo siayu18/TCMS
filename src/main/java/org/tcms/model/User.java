@@ -1,22 +1,15 @@
 package org.tcms.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public abstract class User {
     private final String accountId;
-    private final String name;
+    private final String username;
     private final String password;
     private final String role;
-
-    protected User(String accountId, String name, String password, String role) {
-        this.accountId = accountId;
-        this.name = name;
-        this.password  = password;
-        this.role = role;
-    }
-
-    public String getAccountId() { return accountId; }
-    public String getName() { return name; }
-    public String getPassword() { return password; }
-    public String getRole() { return role; }
 
     public abstract String getDashboardFxml();
     public abstract String getDashboardTitle();

@@ -10,10 +10,10 @@ import java.util.*;
 
 
 public class FileHandler {
-    private Path path;
-    private List<String> headers;
+    private final Path path;
+    private final List<String> headers;
 
-    public FileHandler(String fileName, List<String> headerCols) throws IOException {
+    public FileHandler(String fileName, List<String> headerCols) {
         this.path = Paths.get("src/main/entity", fileName);
         this.headers = new ArrayList<>(headerCols);
         ensureFile();
@@ -50,6 +50,7 @@ public class FileHandler {
             }
             return rows;
         } catch (IOException | CsvValidationException e) {
+            assert e instanceof IOException;
             throw new UncheckedIOException("Could not read CSV file", (IOException) e);
         }
     }
