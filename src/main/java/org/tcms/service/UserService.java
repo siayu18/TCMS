@@ -36,20 +36,12 @@ public class UserService {
         String pwd  = row.get("Password");
         String role = row.get("Role");
 
-        if (role.equals("Admin")) {
-            return new Admin(id, name, pwd);
-        }
-        else if (role.equals("Student")) {
-            return new Student(id, name, pwd, role);
-        }
-        else if (role.equals("Tutor")) {
-            return new Tutor(id, name, pwd, role);
-        }
-        else if (role.equals("Receptionist")) {
-            return new Receptionist(id, name, pwd, role);
-        }
-        else {
-            return null;
-        }
+        return switch (role) {
+            case "Admin" -> new Admin(id, name, pwd);
+            case "Student" -> new Student(id, name, pwd, role);
+            case "Tutor" -> new Tutor(id, name, pwd, role);
+            case "Receptionist" -> new Receptionist(id, name, pwd, role);
+            default -> null;
+        };
     }
 }

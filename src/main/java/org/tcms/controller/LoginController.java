@@ -1,22 +1,30 @@
 package org.tcms.controller;
 
-import javafx.scene.layout.AnchorPane;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
 import org.tcms.service.UserService;
+// JavaFX Libraries
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+// Java Libraries
 import java.io.IOException;
 
 public class LoginController {
-
+    // Variables/Constants
     private UserService userService;
-    private int loginCount;
-    private int loginCountMax = 3;
+    private static final int loginCountMax = 3;
+//    private static final int cooldownTimer = 30;
+    private Timeline cooldownTimeline;
+    private int loginCount = 0;
+
+    // FXML Variables/Constants
     @FXML public AnchorPane holderPane;
-    @FXML public Label incorrectLabel, failedLabel;
+    @FXML public Label incorrectLabel, cooldownLabel;
     @FXML public Button loginButton;
     @FXML private TextField usernameField, visiblePasswordField;
     @FXML private PasswordField passwordField;
@@ -67,10 +75,10 @@ public class LoginController {
             loginCount += 1;
             incorrectLabel.setText("Incorrect username or password.\n Login attempts remaining: " + (loginCountMax - loginCount));
 
-            if (loginCount >= 3) {
+            if (loginCount >= loginCountMax) {
                 incorrectLabel.setVisible(false);
-                failedLabel.setVisible(true);
                 loginButton.setDisable(true);
+                startCooldownTimer();
             }
         }
     }
@@ -79,5 +87,31 @@ public class LoginController {
         String role = user.getRole();
         SceneUtils.setSideBarAndDashboard(holderPane,"/org/tcms/view/ToolbarView.fxml", role);
         SceneUtils.clearScreenColor(holderPane);
+    }
+
+    private void startCooldownTimer() {
+        final int[] secondsLeft = { 5 }; // countdown starting value
+
+        cooldownLabel.setVisible(true);
+        loginButton.setDisable(true);
+
+        cooldownLabel.setText("Please wait " + secondsLeft[0] + " seconds before trying again.");
+
+        cooldownTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    secondsLeft[0]--;
+                    if (secondsLeft[0] > 0) {
+                        cooldownLabel.setText("Please wait " + secondsLeft[0] + " seconds before trying again.");
+                    } else {
+                        cooldownTimeline.stop();
+                        loginCount = 0;
+                        cooldownLabel.setVisible(false);
+                        loginButton.setDisable(false);
+                    }
+                })
+        );
+
+        cooldownTimeline.setCycleCount(5);
+        cooldownTimeline.play();
     }
 }

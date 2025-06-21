@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -61,9 +62,12 @@
                     </HBox>
 
                     <CheckBox fx:id="showPasswordCheckBox" onAction="#handleShowPassword" text="Show Password" />
-
-                    <Label fx:id="incorrectLabel" text="Incorrect Username or Password" textAlignment="CENTER" textFill="RED" visible="false" />
-                    <Label fx:id="failedLabel" text="Unable to Login: Failed 3 Attempts" textAlignment="CENTER" textFill="RED" visible="false" />
+               <StackPane>
+                  <children>
+                      <Label fx:id="incorrectLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
+                      <Label fx:id="cooldownLabel" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
+                  </children>
+               </StackPane>
 
                     <Button fx:id="loginButton" onAction="#handleLogin" prefWidth="100.0" text="Login" />
                 </children>
