@@ -22,10 +22,6 @@ public class ToolbarController implements Initializable {
     @FXML private Label txtCurrentWindow;
     private final String userRole;
 
-    public ToolbarController() {
-        this.userRole = "Unknown";
-    }
-
     public ToolbarController(String userRole) {
         this.userRole = userRole;
     }
@@ -74,7 +70,11 @@ public class ToolbarController implements Initializable {
         };
 
         if (dashboardPath != null) {
-            SceneUtils.setContent(holderPane, dashboardPath); // ✅ Now holderPane is injected correctly
+            SceneUtils.setContent(holderPane, dashboardPath);
         }
+    }
+
+    public void loadContent(String fileName) {
+        SceneUtils.setContent(holderPane, "/org/tcms/view/" + fileName + ".fxml");
     }
 }
