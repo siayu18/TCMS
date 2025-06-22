@@ -19,6 +19,7 @@ public class LoginController {
     private UserService userService;
     private static final int loginCountMax = 3;
     private Timeline cooldownTimeline;
+    private static final int cooldownTime = 3;
     private int loginCount = 0;
 
     // FXML Variables/Constants
@@ -97,8 +98,7 @@ public class LoginController {
     }
 
     private void startCooldownTimer() {
-        final int[] secondsLeft = { 3 }; // countdown starting value
-
+        final int[] secondsLeft = { cooldownTime }; // countdown starting value
         showOnly(cooldownLabel);
 
         cooldownLabel.setText("Please wait " + secondsLeft[0] + " seconds before trying again.");
@@ -116,7 +116,7 @@ public class LoginController {
                     }
                 })
         );
-        cooldownTimeline.setCycleCount(3);
+        cooldownTimeline.setCycleCount(cooldownTime);
         cooldownTimeline.play();
     }
 }

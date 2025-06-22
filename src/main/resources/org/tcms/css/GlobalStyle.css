@@ -1,63 +1,3 @@
-.login-button {
-    -fx-background-color: #7F8CAA; /* Normal */
-    -fx-font-size: 18;
-    -fx-text-fill: #EAEFEF;
-    -fx-font-weight: bold;
-}
-
-.login-button:hover {
-    -fx-background-color: #333446; /* On hover */
-    -fx-font-size: 18;
-}
-
-.text-field {
-    -fx-background-color: #EAEFEF , white , white;
-    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
-}
-
-.text-field:focused {
-    -fx-background-color: #7F8CAA , white , white;
-    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
-}
-
-.check-box .box {
-    -fx-background-color: white;
-    -fx-border-color:grey;
-    -fx-border-radius:3px;
-}
-
-.check-box:selected .mark {
-    -fx-background-color: white;
-}
-
-.check-box:selected .box {
-    -fx-background-color: #7F8CAA;
-}
-
-.error-label {
-    -fx-text-fill: red;
-}
-
-.label {
-    -fx-font-size: 14px;
-}
-
-.login-title {
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333446;
-}
-
-.background {
-    -fx-background-color: #7F8CAA;
-}
-
-.login-panel {
-    -fx-border-color: black;
-    -fx-border-insets: 10;
-    -fx-background-color: #EAEFEF;
-}
-
 /* Standard button style for the program */
 .button-standard {
     -fx-background-radius: 8;
@@ -80,7 +20,6 @@
     -fx-cursor: default;
     -fx-effect: none;
 }
-
 /* Large Heading Label */
 .label-heading-large {
     -fx-font-size: 32px;
@@ -111,8 +50,15 @@
     -fx-line-spacing: 1.1em;
 }
 
+/* Small text to display errors */
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-line-spacing: 1.1em;
+}
+
 /* Standard Text Field Style */
-.text-field2 {
+.text-field {
     -fx-background-color: #EAEFEF, white, white;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
     -fx-background-radius: 5;           /* Rounded corners */
@@ -125,8 +71,25 @@
 }
 
 /* Focused Text Field Style */
-.text-field2:focused {
+.text-field:focused {
     -fx-background-color: #7F8CAA , white , white;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
 }
 
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #7F8CAA;
+}
+
+.background {
+    -fx-background-color: #EAEFEF;
+}
