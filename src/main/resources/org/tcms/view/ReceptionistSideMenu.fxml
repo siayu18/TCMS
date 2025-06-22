@@ -6,51 +6,44 @@
 <?import javafx.scene.layout.Pane?>
 <VBox fx:id="sideMenu"
       prefWidth="200.0"
-      style="-fx-background-color: #263238;"
-      styleClass="card-unpadded"
-      stylesheets="@../css/Toolbar.css"
+      stylesheets="@../css/Sidemenu.css"
+      styleClass="side-menu"
       xmlns="http://javafx.com/javafx/8.0.111"
       xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <JFXButton fx:id="homeBtn"
                    accessibleText="homeMenu"
-                   prefHeight="43.0"
                    maxWidth="Infinity"
                    styleClass="drawer-buttons"
                    text="Home" />
 
         <JFXButton fx:id="doctorBtn"
                    accessibleText="doctorMenu"
-                   prefHeight="43.0"
                    maxWidth="Infinity"
                    styleClass="drawer-buttons"
                    text="Doctors" />
 
         <JFXButton fx:id="appointmentBtn"
                    accessibleText="appointmentMenu"
-                   prefHeight="43.0"
                    maxWidth="Infinity"
                    styleClass="drawer-buttons"
                    text="Appointments" />
 
         <JFXButton fx:id="paymentBtn"
                    accessibleText="paymentMenu"
-                   prefHeight="43.0"
                    maxWidth="Infinity"
                    styleClass="drawer-buttons"
                    text="Payments" />
 
         <JFXButton fx:id="logoutBtn"
                    accessibleText="logoutMenu"
-                   prefHeight="43.0"
                    maxWidth="Infinity"
                    styleClass="drawer-buttons"
                    text="Log out" />
 
         <JFXButton fx:id="exitBtn"
                    accessibleText="exitMenu"
-                   prefHeight="43.0"
                    maxWidth="Infinity"
                    styleClass="drawer-buttons"
                    text="Exit" />

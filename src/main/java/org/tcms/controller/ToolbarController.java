@@ -30,14 +30,13 @@ public class ToolbarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             String sideMenuPath = switch (userRole) {
-                case "Admin" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
-                case "Student" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
-                case "Tutor" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
-                case "Receptionist" -> "/org/tcms/view/ReceptionistSideMenu.fxml";
-                default -> "/org/tcms/view/LoginView.fxml";
+                case "Admin" -> "ReceptionistSideMenu";
+                case "Student" -> "ReceptionistSideMenu";
+                case "Tutor" -> "ReceptionistSideMenu";
+                case "Receptionist" -> "ReceptionistSideMenu";
+                default -> "LoginView";
             };
-            Parent sidePane = FXMLLoader.load(getClass().getResource(sideMenuPath));
-            sidePane.setStyle("-fx-background-color: transparent;");
+            Parent sidePane = FXMLLoader.load(getClass().getResource("/org/tcms/view/" + sideMenuPath + ".fxml"));
             drawer.setSidePane(sidePane);
             drawer.setMouseTransparent(true); // to fix unable to tap button on the drawer zone though closed
 

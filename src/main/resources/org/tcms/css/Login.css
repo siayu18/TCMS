@@ -1,11 +1,11 @@
-.button {
+.login-button {
     -fx-background-color: #4CAF50; /* Normal */
     -fx-font-size: 18;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
-.button:hover {
+.login-button:hover {
     -fx-background-color: #45a049; /* On hover */
     -fx-font-size: 18;
 }
@@ -32,4 +32,27 @@
 
 .check-box:selected .box {
     -fx-background-color: #28a3f4;
+}
+
+.error-label {
+    -fx-text-fill: red;
+}
+
+.label {
+    -fx-font-size: 14px;
+}
+
+.login-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.background {
+    -fx-background-color: #7F8CAA;
+}
+
+.login-panel {
+    -fx-border-color: black;
+    -fx-border-insets: 10;
+    -fx-background-color: white;
 }
