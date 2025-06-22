@@ -3,80 +3,75 @@ package org.tcms.controller;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.tcms.utils.SceneUtils;
+import org.tcms.navigation.Role;
+import org.tcms.navigation.View;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ToolbarController implements Initializable {
     @FXML private JFXHamburger hamburger;
-    @FXML private AnchorPane holderPane;
     @FXML private JFXDrawer drawer;
     @FXML private Label txtCurrentWindow;
-    private final String userRole;
+    @FXML private AnchorPane holderPane;
 
-    public ToolbarController(String userRole) {
-        this.userRole = userRole;
+    private Role role;
+
+    // not called by FXML – we’ll invoke this manually after loadScene()
+    public void initializeWith(Role role) {
+        this.role = role;
+
+        setupDrawer();
+        SceneUtils.setContent(holderPane, role.getDashboard());
+        txtCurrentWindow.setText(role.name() + " Dashboard");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
+    private void setupDrawer() {
+        // load the side-menu FXML into a Node
         try {
-            String sideMenuPath = switch (userRole) {
-                case "Admin" -> "ReceptionistSideMenu";
-                case "Student" -> "ReceptionistSideMenu";
-                case "Tutor" -> "ReceptionistSideMenu";
-                case "Receptionist" -> "ReceptionistSideMenu";
-                default -> "LoginView";
-            };
-            Parent sidePane = FXMLLoader.load(getClass().getResource("/org/tcms/view/" + sideMenuPath + ".fxml"));
-            drawer.setSidePane(sidePane);
-            drawer.setMouseTransparent(true); // to fix unable to tap button on the drawer zone though closed
-
-            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
-            transition.setRate(-1);
-            hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (MouseEvent e) -> {
-                transition.setRate(transition.getRate() * -1);
-                transition.play();
-
-                if (drawer.isOpened()) {
-                    drawer.close();
-                    drawer.setMouseTransparent(true); // to fix unable to tap button on the drawer zone though closed
-                } else {
-                    drawer.open();
-                    drawer.setMouseTransparent(false); // to fix unable to tap button on the drawer zone though closed
-                }
-
-            });
-
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(role.getSideMenu().getPath()));
+            Node sideMenuNode = loader.load();
+            // now attach it to the drawer
+            drawer.setSidePane(sideMenuNode);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Could not load side menu: " + role.getSideMenu(), e);
         }
 
+        drawer.setMouseTransparent(true);
+
+        HamburgerBackArrowBasicTransition t = new HamburgerBackArrowBasicTransition(hamburger);
+        t.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+            t.setRate(t.getRate() * -1);
+            t.play();
+            if (drawer.isOpened()) {
+                drawer.close();
+                drawer.setMouseTransparent(true);
+            } else {
+                drawer.open();
+                drawer.setMouseTransparent(false);
+            }
+        });
     }
 
-    public void loadRoleDashboard() {
-        String dashboardFileName = switch (userRole) {
-            case "Admin" -> "AdminDashboardView";
-            case "Tutor" -> "TutorDashboardView";
-            case "Student" -> "StudentDashboardView";
-            case "Receptionist" -> "ReceptionistDashboardView";
-            default -> null;
-        };
-
-        if (dashboardFileName != null) {
-            SceneUtils.setContent(holderPane, dashboardFileName);
-        }
-    }
-
-    public void loadContent(String fileName) {
-        SceneUtils.setContent(holderPane, "/org/tcms/view/" + fileName + ".fxml");
+    // to swap content for the holderPane
+    public void loadContent(View view, String title) {
+        SceneUtils.setContent(holderPane, view);
+        txtCurrentWindow.setText(title);
     }
 }

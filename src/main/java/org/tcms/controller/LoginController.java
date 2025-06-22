@@ -1,5 +1,7 @@
 package org.tcms.controller;
 
+import org.tcms.navigation.Role;
+import org.tcms.navigation.View;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
@@ -69,7 +71,10 @@ public class LoginController {
         User user = userService.authenticate(username, password);
 
         if (user != null) {
-            goToDashboard(user);
+            Role role = Role.fromString(user.getRole());
+            ToolbarController tbController = SceneUtils.setContent(holderPane, View.TOOLBAR);
+            tbController.initializeWith(role);
+            SceneUtils.clearScreenColor(holderPane);
         } else {
             incorrectLabel.setVisible(true);
             loginCount ++;
@@ -81,12 +86,6 @@ public class LoginController {
                 startCooldownTimer();
             }
         }
-    }
-
-    private void goToDashboard(User user) {
-        String role = user.getRole();
-        SceneUtils.setSideBarAndDashboard(holderPane,"ToolbarView", role);
-        SceneUtils.clearScreenColor(holderPane);
     }
 
     private void showOnly(Label labelToShow) {

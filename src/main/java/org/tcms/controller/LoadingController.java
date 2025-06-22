@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.tcms.navigation.View;
 import org.tcms.utils.SceneUtils;
 
 public class LoadingController {
@@ -31,7 +32,7 @@ public class LoadingController {
 
         timeline.setOnFinished(event -> {
             // After animation completes, go to login page
-            SceneUtils.setContent(holderPane, "LoginView");
+            SceneUtils.setContent(holderPane, View.LOGIN);
         });
 
         timeline.play();
