@@ -9,7 +9,8 @@ import java.io.IOException;
 
 public class SceneUtils {
 
-    // clear the screen and add the content for the desired anchorpane
+    // clear the screen and add the content for the desired AnchorPane
+    // type <T> means I can choose whether to return or not returning value
     public static <T> T setContent(AnchorPane container, View view) {
         try {
             FXMLLoader loader = new FXMLLoader(SceneUtils.class.getResource(view.getPath()));

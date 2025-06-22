@@ -26,7 +26,7 @@ public class ToolbarController implements Initializable {
 
     private Role role;
 
-    // not called by FXML – we’ll invoke this manually after loadScene()
+    // invoke this manually after login
     public void initializeWith(Role role) {
         this.role = role;
 
@@ -37,14 +37,12 @@ public class ToolbarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     private void setupDrawer() {
         // load the side-menu FXML into a Node
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(role.getSideMenu().getPath()));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(role.getSideMenu().getPath()));
             Node sideMenuNode = loader.load();
             // now attach it to the drawer
             drawer.setSidePane(sideMenuNode);
