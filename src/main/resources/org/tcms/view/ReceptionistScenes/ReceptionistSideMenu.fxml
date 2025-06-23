@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.RecepSideBarController">
+<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.RecepSideBarController">
 
     <children>
         <JFXButton fx:id="homeBtn" accessibleText="homeMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Home" />

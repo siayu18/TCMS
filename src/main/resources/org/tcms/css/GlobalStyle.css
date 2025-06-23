@@ -11,6 +11,7 @@
 /* Hover state */
 .button-standard:hover {
     -fx-background-color: #333446;
+    -fx-font-size: 19;
 }
 
 /* Disabled state */
@@ -90,6 +91,6 @@
     -fx-background-color: #7F8CAA;
 }
 
-.background {
+.background1 {
     -fx-background-color: #EAEFEF;
 }

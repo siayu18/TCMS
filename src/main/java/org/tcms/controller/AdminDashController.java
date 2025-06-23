@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.util.List;
 
-public class AdminDashboard {
+public class AdminDashController {
     @FXML public Button testbtn1, testbtn2;
 
     @FXML
