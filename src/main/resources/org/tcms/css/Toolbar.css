@@ -1,0 +1,24 @@
+.jfx-toolbar{
+    -fx-background-color: #333446;
+    -fx-min-height:40;
+}
+
+.toolbar-title {
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 20.0px;
+}
+
+.jfx-hamburger{
+    -fx-spacing: 4;
+    -fx-cursor: hand;
+    -fx-padding: 3px;
+}
+
+.jfx-hamburger StackPane{
+    -fx-pref-width: 35px;
+    -fx-pref-height: 4px;
+    -fx-background-color : #ffffff;
+    -fx-background-radius :3px;
+}

@@ -10,8 +10,8 @@ public class UserService {
     private final FileHandler csv;
 
     public UserService() throws IOException {
-        csv = new FileHandler("account.csv",
-                List.of("AccountID","Name","Password","Role"));
+        // read the account file
+        csv = new FileHandler("account.csv", List.of("AccountID","Name","Password","Role"));
     }
 
     public User authenticate(String name, String password) {
@@ -27,6 +27,7 @@ public class UserService {
                 return checkRoleAndCreate(row);
             }
         }
+        // return null if no user is found
         return null;
     }
 
@@ -36,20 +37,12 @@ public class UserService {
         String pwd  = row.get("Password");
         String role = row.get("Role");
 
-        if (role.equals("Admin")) {
-            return new Admin(id, name, pwd, role);
-        }
-        else if (role.equals("Student")) {
-            return new Student(id, name, pwd, role);
-        }
-        else if (role.equals("Tutor")) {
-            return new Tutor(id, name, pwd, role);
-        }
-        else if (role.equals("Receptionist")) {
-            return new Receptionist(id, name, pwd, role);
-        }
-        else {
-            return null;
-        }
+        return switch (role) {
+            case "Admin" -> new Admin(id, name, pwd);
+            case "Student" -> new Student(id, name, pwd, role);
+            case "Tutor" -> new Tutor(id, name, pwd, role);
+            case "Receptionist" -> new Receptionist(id, name, pwd, role);
+            default -> null;
+        };
     }
 }

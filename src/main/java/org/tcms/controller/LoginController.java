@@ -1,26 +1,35 @@
 package org.tcms.controller;
 
+import org.tcms.navigation.Role;
+import org.tcms.navigation.View;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
 import org.tcms.service.UserService;
+// JavaFX Libraries
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+// Java Libraries
 import java.io.IOException;
 
 public class LoginController {
-
+    // Variables/Constants
     private UserService userService;
+    private static final int loginCountMax = 3;
+    private Timeline cooldownTimeline;
+    private static final int cooldownTime = 3;
+    private int loginCount = 0;
 
+    // FXML Variables/Constants
+    @FXML public AnchorPane holderPane;
+    @FXML public Label incorrectLabel, cooldownLabel;
     @FXML public Button loginButton;
-    @FXML public ImageView tuitionBackground1;
-    @FXML public ImageView tuitionBackground2;
-    @FXML private TextField usernameField;
+    @FXML private TextField usernameField, visiblePasswordField;
     @FXML private PasswordField passwordField;
-    @FXML private TextField visiblePasswordField;
     @FXML private CheckBox showPasswordCheckBox;
 
     @FXML
@@ -29,6 +38,7 @@ public class LoginController {
 
         try {
             userService = new UserService();
+            loginButton.setDefaultButton(true);
         } catch (IOException e) {
             AlertUtils.showAlert("Error", "Could not load user data.");
             loginButton.setDisable(true);
@@ -51,31 +61,69 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
+        // Check for empty fields
+        if (username.isEmpty() || password.isEmpty()) {
+            incorrectLabel.setText("Username or password cannot be empty.");
+            incorrectLabel.setVisible(true);
+            return;
+        }
+
         User user = userService.authenticate(username, password);
 
         if (user != null) {
-            goToDashboard(user);
+            // Convert the user role to your enum
+            Role role = Role.fromString(user.getRole());
+
+            // Load toolbarView.fxml into the login's holderPane (AnchorPane)
+            // return the controller to the object created, so we can control and initialize the scene
+            ToolbarController tbController = SceneUtils.setContent(holderPane, View.TOOLBAR);
+
+            // initialize side menu and dashboard
+            tbController.initializeWith(role);
+
+            // clear background colour
+            SceneUtils.clearScreenColor(holderPane);
         } else {
-            AlertUtils.showAlert("Login Failed", "Invalid username or password.");
+            incorrectLabel.setVisible(true);
+            loginCount ++;
+            incorrectLabel.setText("Incorrect username or password.\n Login attempts remaining: " + (loginCountMax - loginCount));
+
+            if (loginCount >= loginCountMax) {
+                incorrectLabel.setVisible(false);
+                loginButton.setDisable(true);
+                startCooldownTimer();
+            }
         }
     }
 
-    private void goToDashboard(User user) {
-        String role = user.getRole();
-        String targetFile;
-
-        switch (role) {
-            case "Admin": targetFile = "AdminDashboardView.fxml"; break;
-            case "Student": targetFile = "StudentDashboardView.fxml"; break;
-            case "Tutor": targetFile = "TutorDashboardView.fxml"; break;
-            case "Receptionist": targetFile = "ReceptionistDashboardView.fxml"; break;
-            default:
-                AlertUtils.showAlert("Unknown Role", "Cannot load dashboard for role: " + role);
-                return;
-        }
-
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        SceneUtils.switchScene(stage, "/org/tcms/view/" + targetFile, role + " Dashboard");
+    private void showOnly(Label labelToShow) {
+        // Hide all labels first
+        incorrectLabel.setVisible(false);
+        cooldownLabel.setVisible(false);
+        // Show the requested label
+        labelToShow.setVisible(true);
     }
 
+    private void startCooldownTimer() {
+        final int[] secondsLeft = { cooldownTime }; // countdown starting value
+        showOnly(cooldownLabel);
+
+        cooldownLabel.setText("Please wait " + secondsLeft[0] + " seconds before trying again.");
+
+        cooldownTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    secondsLeft[0]--;
+                    if (secondsLeft[0] > 0) {
+                        cooldownLabel.setText("Please wait " + secondsLeft[0] + " seconds before trying again.");
+                    } else {
+                        cooldownTimeline.stop();
+                        loginCount = 0;
+                        cooldownLabel.setVisible(false);
+                        loginButton.setDisable(false);
+                    }
+                })
+        );
+        cooldownTimeline.setCycleCount(cooldownTime);
+        cooldownTimeline.play();
+    }
 }

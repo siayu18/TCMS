@@ -1,0 +1,27 @@
+.side-menu {
+    -fx-background-color: #333446;
+}
+
+.jfx-drawer .button {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-height: 43px;
+    -fx-pref-width: 180px;
+    -fx-cursor: hand;
+    -fx-padding: 10 15;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.jfx-drawer .button:hover {
+    -fx-font-size: 16px;
+    -fx-background-color: #484961FF;
+}
+
+.jfx-drawer .button:selected,
+.jfx-drawer .button:focused {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

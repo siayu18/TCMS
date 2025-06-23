@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.RecepSideBarController">
+
+    <children>
+        <JFXButton fx:id="homeBtn" accessibleText="homeMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Home" />
+
+        <JFXButton fx:id="doctorBtn" accessibleText="doctorMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Doctors" />
+
+        <JFXButton fx:id="appointmentBtn" accessibleText="appointmentMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Appointments" />
+
+        <!-- Payments button that toggles its submenu -->
+        <JFXButton fx:id="paymentBtn" onAction="#togglePaymentMenu" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Payments" />
+
+        <!-- Hidden submenu under Payments -->
+        <VBox fx:id="paymentSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
+            <children>
+                <JFXButton fx:id="payBtn" maxWidth="Infinity" styleClass="drawer-subbuttons" text="Pay" />
+                <JFXButton fx:id="retrieveBtn" maxWidth="Infinity" styleClass="drawer-subbuttons" text="Retrieve" />
+            </children>
+        </VBox>
+
+        <JFXButton fx:id="logoutBtn" accessibleText="logoutMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Log out" />
+
+        <JFXButton fx:id="exitBtn" accessibleText="exitMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Exit" />
+    </children>
+</VBox>
