@@ -2,7 +2,7 @@
     -fx-background-color: #333446;
 }
 
-.jfx-drawer .button {
+.jfx-drawer .button-standard {
     -fx-text-fill: white;
     -fx-background-color: transparent;
     -fx-font-size: 14px;
@@ -15,13 +15,37 @@
     -fx-border-radius: 0;
 }
 
-.jfx-drawer .button:hover {
+.jfx-drawer .button-standard:hover {
     -fx-font-size: 16px;
     -fx-background-color: #484961FF;
 }
 
-.jfx-drawer .button:selected,
+.jfx-drawer .button-standard:selected,
 .jfx-drawer .button:focused {
     -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.jfx-drawer .button-small {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 180px;
+    -fx-cursor: hand;
+    -fx-padding: 10 15;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.jfx-drawer .button-small:hover {
+    -fx-font-size: 14px;
+    -fx-background-color: #484961FF;
+}
+
+.jfx-drawer .button-small:selected,
+.jfx-drawer .button:focused {
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
 }

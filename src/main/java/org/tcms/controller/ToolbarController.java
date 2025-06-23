@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class ToolbarController implements Initializable {
     @FXML private JFXHamburger hamburger;
     @FXML private JFXDrawer drawer;
+    @FXML public AnchorPane mainPane;
     @FXML private Label txtCurrentWindow;
     @FXML private AnchorPane holderPane;
 
@@ -45,7 +46,8 @@ public class ToolbarController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(role.getSideMenu().getPath()));
             Node sideMenuNode = loader.load();
-            // now attach it to the drawer
+            BaseSideMenuController sideController = loader.getController();
+            sideController.setToolbarController(this);
             drawer.setSidePane(sideMenuNode);
         } catch (IOException e) {
             throw new RuntimeException("Could not load side menu: " + role.getSideMenu(), e);
@@ -72,5 +74,10 @@ public class ToolbarController implements Initializable {
     public void loadContent(View view, String title) {
         SceneUtils.setContent(holderPane, view);
         txtCurrentWindow.setText(title);
+    }
+
+    // to swap content for the mainPane
+    public void loadWholeScene(View view) {
+        SceneUtils.setContent(mainPane, view);
     }
 }

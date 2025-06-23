@@ -10,7 +10,8 @@ public enum View {
     ADMIN_SIDE_MENU("/org/tcms/view/AdminSideMenu.fxml"),
     TUTOR_SIDE_MENU("/org/tcms/view/TutorSideMenu.fxml"),
     STUDENT_SIDE_MENU("/org/tcms/view/StudentSideMenu.fxml"),
-    RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml");
+    RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml"),
+    COMMUNICATION("/org/tcms/view/ReceptionistScenes/Communication.fxml");
 
     private final String fxmlPath;
     View(String fxmlPath) { this.fxmlPath = fxmlPath; }

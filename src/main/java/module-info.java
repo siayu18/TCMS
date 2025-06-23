@@ -6,6 +6,7 @@ module org.tcms {
     requires static lombok;
     requires java.logging;
     requires com.jfoenix;
+    requires java.compiler;
 
     opens org.tcms to javafx.fxml;
     exports org.tcms;

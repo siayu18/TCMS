@@ -3,28 +3,34 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.RecepSideBarController">
-
+<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.RecepSideMenuController">
     <children>
-        <JFXButton fx:id="homeBtn" accessibleText="homeMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Home" />
+        <JFXButton fx:id="homeBtn" accessibleText="homeMenu" maxWidth="Infinity" styleClass="button-standard" text="Home" />
 
-        <JFXButton fx:id="doctorBtn" accessibleText="doctorMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Doctors" />
+        <JFXButton fx:id="stuMangementBtn" accessibleText="stuManagementMenu" maxWidth="Infinity" styleClass="button-standard" text="Student Management" />
 
-        <JFXButton fx:id="appointmentBtn" accessibleText="appointmentMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Appointments" />
-
-        <!-- Payments button that toggles its submenu -->
-        <JFXButton fx:id="paymentBtn" onAction="#togglePaymentMenu" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Payments" />
-
-        <!-- Hidden submenu under Payments -->
-        <VBox fx:id="paymentSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
+        <VBox fx:id="stuManagementSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
             <children>
-                <JFXButton fx:id="payBtn" maxWidth="Infinity" styleClass="drawer-subbuttons" text="Pay" />
-                <JFXButton fx:id="retrieveBtn" maxWidth="Infinity" styleClass="drawer-subbuttons" text="Retrieve" />
+                <JFXButton fx:id="registerBtn" maxWidth="Infinity" styleClass="button-small" text="> Register and Enrolment" />
+                <JFXButton fx:id="updateProfileBtn" maxWidth="Infinity" styleClass="button-small" text="> Update Student Profile" />
+                <JFXButton fx:id="updateEnrolmentBtn" maxWidth="Infinity" styleClass="button-small" text="> Update Student Enrolment" />
+                <JFXButton fx:id="deleteBtn" maxWidth="Infinity" styleClass="button-small" text="> Delete Student" />
             </children>
         </VBox>
 
-        <JFXButton fx:id="logoutBtn" accessibleText="logoutMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Log out" />
+        <JFXButton fx:id="paymentBtn" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="button-standard" text="Payments" />
 
-        <JFXButton fx:id="exitBtn" accessibleText="exitMenu" maxWidth="Infinity" styleClass="drawer-buttons" text="Exit" />
+        <VBox fx:id="paymentSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
+            <children>
+                <JFXButton fx:id="acceptPaymentBtn" maxWidth="Infinity" styleClass="button-small" text="> Pay" />
+                <JFXButton fx:id="generateRcptBtn" maxWidth="Infinity" styleClass="button-small" text="> Retrieve" />
+            </children>
+        </VBox>
+
+        <JFXButton fx:id="communicationBtn" accessibleText="communicationMenu" maxWidth="Infinity" styleClass="button-standard" text="Communication Hub" />
+
+        <JFXButton fx:id="logoutBtn" accessibleText="logoutMenu" maxWidth="Infinity" styleClass="button-standard" text="Log out" />
+
+        <JFXButton fx:id="exitBtn" accessibleText="exitMenu" maxWidth="Infinity" styleClass="button-standard" text="Exit" />
     </children>
 </VBox>
