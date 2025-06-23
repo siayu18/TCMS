@@ -71,9 +71,17 @@ public class LoginController {
         User user = userService.authenticate(username, password);
 
         if (user != null) {
+            // Convert the user role to your enum
             Role role = Role.fromString(user.getRole());
+
+            // Load toolbarView.fxml into the login's holderPane (AnchorPane)
+            // return the controller to the object created, so we can control and initialize the scene
             ToolbarController tbController = SceneUtils.setContent(holderPane, View.TOOLBAR);
+
+            // initialize side menu and dashboard
             tbController.initializeWith(role);
+
+            // clear background colour
             SceneUtils.clearScreenColor(holderPane);
         } else {
             incorrectLabel.setVisible(true);
