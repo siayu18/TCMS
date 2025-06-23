@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.StudentDashboard">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.TutorDashboard">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="BLACK" strokeType="INSIDE" width="203.0">
          <fill>
@@ -18,12 +18,12 @@
                <stops>
                   <Stop>
                      <color>
-                        <Color red="1.0" />
+                        <Color green="0.0833333358168602" blue="1.0" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="1.0" green="0.6499999761581421" blue="0.6499999761581421" />
+                        <Color red="0.6481481194496155" green="0.6598765254020691" blue="1.0" />
                      </color>
                   </Stop>
                </stops>
@@ -31,17 +31,17 @@
          </fill>
       </Rectangle>
 
-      <Button fx:id="testbtn5" layoutY="60.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Test1" textFill="WHITE">
-         <graphic>
-            <ImageView fitHeight="16" fitWidth="16">
-               <image>
-                  <Image url="@../img/Home.png" />
-               </image>
-            </ImageView>
-         </graphic>
+      <Button fx:id="testbtn7" layoutY="60.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../../css/Dashboard.css" text="Test1" textFill="WHITE">
+          <graphic>
+              <ImageView fitHeight="16" fitWidth="16">
+                  <image>
+                      <Image url="@../../img/Home.png" />
+                  </image>
+              </ImageView>
+          </graphic>
       </Button>
 
-      <Button fx:id="testbtn6" layoutY="102.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Test2" textFill="WHITE">
+      <Button fx:id="testbtn8" layoutY="102.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../../css/Dashboard.css" text="Test2" textFill="WHITE">
       </Button>
    </children>
 </AnchorPane>

@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.AdminDashboard">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.AdminDashController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" height="500.0" stroke="BLACK" strokeType="INSIDE" width="203.0">
             <fill>
@@ -30,17 +30,17 @@
             </fill>
         </Rectangle>
 
-        <Button fx:id="testbtn1" layoutY="60.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Test1" textFill="WHITE">
+        <Button fx:id="testbtn1" layoutY="60.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../../css/Dashboard.css" text="Test1" textFill="WHITE">
             <graphic>
                 <ImageView fitHeight="16" fitWidth="16">
                     <image>
-                        <Image url="@../img/Home.png" />
+                        <Image url="@../../img/Home.png" />
                     </image>
                 </ImageView>
             </graphic>
         </Button>
 
-        <Button fx:id="testbtn2" layoutY="102.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../css/Dashboard.css" text="Test2" textFill="WHITE">
+        <Button fx:id="testbtn2" layoutY="102.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" stylesheets="@../../css/Dashboard.css" text="Test2" textFill="WHITE">
         </Button>
     </children>
 </AnchorPane>

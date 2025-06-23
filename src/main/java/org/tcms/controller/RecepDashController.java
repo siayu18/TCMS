@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import java.util.List;
 
 
-public class ReceptionistDashboard {
+public class RecepDashController {
     @FXML public Button updateStuBtn, acceptPayBtn, genRecBtn, delStuBtn, comHubBtn, profileBtn, addStuBtn;
 
     @FXML
