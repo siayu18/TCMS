@@ -34,7 +34,7 @@
                                 <Label styleClass="label-heading-large" text="Login" />
                             </HBox>
             
-                                                          <HBox alignment="CENTER">
+                            <HBox alignment="CENTER">
                                 <GridPane hgap="10" vgap="10">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="RIGHT" />
@@ -45,7 +45,7 @@
                                         <RowConstraints />
                                     </rowConstraints>
             
-                                                                  <children>
+                                    <children>
                                         <Label styleClass="label-text-regular" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                         <TextField fx:id="usernameField" maxWidth="160.0" styleClass="text-field2" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <Label styleClass="label-text-regular" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -55,7 +55,7 @@
                                 </GridPane>
                             </HBox>
             
-                                                          <CheckBox fx:id="showPasswordCheckBox" onAction="#handleShowPassword" text="Show Password" />
+                            <CheckBox fx:id="showPasswordCheckBox" onAction="#handleShowPassword" text="Show Password" />
                             <StackPane>
                                 <children>
                                     <Label fx:id="incorrectLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
@@ -63,7 +63,7 @@
                                 </children>
                             </StackPane>
             
-                                                          <Button fx:id="loginButton" onAction="#handleLogin" prefWidth="100.0" styleClass="button-standard" text="Login" />
+                            <Button fx:id="loginButton" onAction="#handleLogin" prefWidth="100.0" styleClass="button-standard" text="Login" />
                         </children>
                     </VBox>
                </children>
