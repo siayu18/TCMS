@@ -10,8 +10,8 @@ public class UserService {
     private final FileHandler csv;
 
     public UserService() throws IOException {
-        csv = new FileHandler("account.csv",
-                List.of("AccountID","Name","Password","Role"));
+        // read the account file
+        csv = new FileHandler("account.csv", List.of("AccountID","Name","Password","Role"));
     }
 
     public User authenticate(String name, String password) {
@@ -27,6 +27,7 @@ public class UserService {
                 return checkRoleAndCreate(row);
             }
         }
+        // return null if no user is found
         return null;
     }
 

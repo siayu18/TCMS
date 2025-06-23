@@ -26,7 +26,7 @@ public class ToolbarController implements Initializable {
 
     private Role role;
 
-    // invoke this manually after login
+    // invoke this manually after login to get the role of user and initialize the dashboard and side menu
     public void initializeWith(Role role) {
         this.role = role;
 
@@ -39,6 +39,7 @@ public class ToolbarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    // setup side menu and animations etc.
     private void setupDrawer() {
         // load the side-menu FXML into a Node
         try {
