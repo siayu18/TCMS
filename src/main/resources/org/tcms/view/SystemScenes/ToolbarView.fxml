@@ -15,7 +15,7 @@
                 <JFXHamburger fx:id="hamburger" prefHeight="40.0" prefWidth="58.0" styleClass="jfx-hamburger" BorderPane.alignment="CENTER" />
             </left>
             <center>
-                <Label fx:id="txtCurrentWindow" prefHeight="40.0" prefWidth="98.0" styleClass="toolbar-title" text="TCMS" BorderPane.alignment="CENTER" />
+                <Label fx:id="txtCurrentWindow" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="650.0" styleClass="toolbar-title" text="TCMS" BorderPane.alignment="CENTER" />
             </center>
         </JFXToolbar>
 

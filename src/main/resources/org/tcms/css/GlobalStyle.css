@@ -21,6 +21,31 @@
     -fx-cursor: default;
     -fx-effect: none;
 }
+
+/* Small button style for the program */
+.button-small {
+    -fx-background-radius: 8;
+    -fx-background-color: #7F8CAA;
+    -fx-font-size: 13;
+    -fx-text-fill: #EAEFEF;
+    -fx-font-weight: bold;
+    -fx-padding: 5 5 5 5;
+}
+
+/* Hover state */
+.button-small:hover {
+    -fx-background-color: #333446;
+    -fx-font-size: 14;
+}
+
+/* Disabled state */
+.button-small:disabled {
+    -fx-background-color: #B8CFCE;
+    -fx-text-fill: #EAEFEF;
+    -fx-cursor: default;
+    -fx-effect: none;
+}
+
 /* Large Heading Label */
 .label-heading-large {
     -fx-font-size: 32px;

@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import org.tcms.utils.Session;
 // Java Libraries
 import java.io.IOException;
 
@@ -71,6 +72,9 @@ public class LoginController {
         User user = userService.authenticate(username, password);
 
         if (user != null) {
+            // Set current user
+            Session.setCurrentUser(user);
+
             // Convert the user role to your enum
             Role role = Role.fromString(user.getRole());
 

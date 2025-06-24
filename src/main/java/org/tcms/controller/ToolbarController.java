@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.tcms.utils.Helper;
 import org.tcms.utils.SceneUtils;
 import org.tcms.navigation.Role;
 import org.tcms.navigation.View;
@@ -33,7 +34,7 @@ public class ToolbarController implements Initializable {
 
         setupDrawer();
         SceneUtils.setContent(holderPane, role.getDashboard());
-        txtCurrentWindow.setText(role.name() + " Dashboard");
+        txtCurrentWindow.setText(Helper.capitalize(role.name()) + " Dashboard");
     }
 
     @Override

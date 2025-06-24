@@ -1,0 +1,17 @@
+.sender-message {
+    -fx-background-color: #B8CFCE;       /* Muted teal */
+    -fx-background-radius: 12px 12px 0px 12px;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: #333446;              /* Dark slate text */
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0.0, 0, 2);
+}
+
+.receiver-message {
+    -fx-background-color: #7F8CAA;       /* Soft blue gray */
+    -fx-background-radius: 12px 12px 12px 0px;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: #EAEFEF;              /* Light gray text */
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0.0, 0, 1);
+}

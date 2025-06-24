@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.tcms.controller.CommunicationController"
-            prefHeight="460.0" prefWidth="700.0">
+<AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.CommunicationController">
+   <children>
+       <BorderPane prefHeight="460.0" prefWidth="700.0" stylesheets="@../../css/GlobalStyle.css, @../../css/Communication.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <center>
+                   <AnchorPane prefHeight="460.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                       <AnchorPane fx:id="chatPane" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                           <children>
+                               <VBox alignment="CENTER" layoutX="300.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0">
+                                   <children>
+                                       <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" styleClass="label-heading-small">
+                                           <VBox.margin>
+                                               <Insets bottom="15.0" />
+                                           </VBox.margin></Label>
 
+                                       <ScrollPane fx:id="scrollBar" fitToWidth="true" VBox.vgrow="ALWAYS">
+                                           <content>
+                                                 <VBox fx:id="chatBox" spacing="8" />
+                                           </content>
+                                       </ScrollPane>
+
+                                       <HBox alignment="CENTER">
+                                           <VBox.margin>
+                                               <Insets top="10.0" />
+                                           </VBox.margin>
+                                           <children>
+                                               <Label styleClass="label-text-regular" text="Send message: " />
+                                               <TextField fx:id="msgField" />
+                                               <JFXButton fx:id="sendBtn" prefHeight="29.0" prefWidth="58.0" styleClass="button-small" text="Send">
+                                                   <HBox.margin>
+                                                       <Insets left="10.0" />
+                                                   </HBox.margin>
+                                               </JFXButton>
+                                           </children>
+                                       </HBox>
+
+                                       <Label fx:id="emptyFieldError" styleClass="error-label" visible = "false" text="Message Cannot be Empty!">
+                                          <VBox.margin>
+                                             <Insets left="27.0" />
+                                          </VBox.margin>
+                                       </Label>
+                                   </children>
+                               </VBox>
+                           </children>
+                       </AnchorPane>
+                       <VBox AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                           <children>
+                               <HBox alignment="CENTER">
+                                   <children>
+                                       <Label styleClass="label-text-regular" text="Select a student:    " />
+
+                                       <JFXComboBox fx:id="chooseStudentBox" prefHeight="15.0" prefWidth="140.0" />
+                                   </children>
+                               </HBox>
+                           </children>
+                       </VBox>
+                   </AnchorPane>
+               </center>
+       </BorderPane>
+   </children>
 </AnchorPane>
