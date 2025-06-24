@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import org.tcms.service.CommunicationService;
+import org.tcms.utils.Helper;
 import org.tcms.utils.Session;
 
 import java.util.List;
@@ -71,7 +72,9 @@ public class CommunicationController {
         sendBtn.setOnAction(e -> {
             String text = msgField.getText().trim();
             Map<String,String> other = chooseStudentBox.getValue();
-            if (text.isEmpty() || other == null) {
+
+            boolean isEmpty = Helper.validateNotEmpty(msgField, emptyFieldError, "Message Cannot be Empty!");
+            if (isEmpty) {
                 emptyFieldError.setVisible(true);
                 return;
             }

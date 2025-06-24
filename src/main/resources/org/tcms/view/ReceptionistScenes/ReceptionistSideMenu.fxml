@@ -11,10 +11,9 @@
 
         <VBox fx:id="stuManagementSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
             <children>
-                <JFXButton fx:id="registerBtn" maxWidth="Infinity" styleClass="button-small" text="> Register and Enrolment" />
-                <JFXButton fx:id="updateProfileBtn" maxWidth="Infinity" styleClass="button-small" text="> Update Student Profile" />
-                <JFXButton fx:id="updateEnrolmentBtn" maxWidth="Infinity" styleClass="button-small" text="> Update Student Enrolment" />
-                <JFXButton fx:id="deleteBtn" maxWidth="Infinity" styleClass="button-small" text="> Delete Student" />
+                <JFXButton fx:id="registerBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Register and Enrolment" />
+                <JFXButton fx:id="updDelStudentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update &amp; Delete Student" />
+                <JFXButton fx:id="updateEnrolmentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update Student Enrolment" />
             </children>
         </VBox>
 
@@ -22,8 +21,8 @@
 
         <VBox fx:id="paymentSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
             <children>
-                <JFXButton fx:id="acceptPaymentBtn" maxWidth="Infinity" styleClass="button-small" text="> Pay" />
-                <JFXButton fx:id="generateRcptBtn" maxWidth="Infinity" styleClass="button-small" text="> Retrieve" />
+                <JFXButton fx:id="acceptPaymentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Pay" />
+                <JFXButton fx:id="generateRcptBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Retrieve" />
             </children>
         </VBox>
 

@@ -13,7 +13,7 @@ public class RecepSideMenuController extends BaseSideMenuController {
     @FXML private JFXButton stuMangementBtn;
     @FXML private VBox stuManagementSubMenu;
     @FXML private JFXButton registerBtn;
-    @FXML private JFXButton updateProfileBtn;
+    @FXML private JFXButton updDelStudentBtn;
     @FXML private JFXButton updateEnrolmentBtn;
     @FXML private JFXButton deleteBtn;
 
@@ -33,6 +33,7 @@ public class RecepSideMenuController extends BaseSideMenuController {
 
         // go-to page
         communicationBtn.setOnAction(e -> toolbarController.loadContent(View.COMMUNICATION, "Communication Hub"));
+        updDelStudentBtn.setOnAction(e -> toolbarController.loadContent(View.UPDDELSTUDENT, "Update & Delete Student"));
     }
 
     private void toggleSubMenu(VBox menu) {

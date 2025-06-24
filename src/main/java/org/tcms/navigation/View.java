@@ -1,5 +1,7 @@
 package org.tcms.navigation;
 
+import org.tcms.controller.UpdDelStudentController;
+
 public enum View {
     TOOLBAR("/org/tcms/view/SystemScenes/ToolbarView.fxml"),
     LOGIN("/org/tcms/view/SystemScenes/LoginView.fxml"),
@@ -11,7 +13,8 @@ public enum View {
     TUTOR_SIDE_MENU("/org/tcms/view/TutorSideMenu.fxml"),
     STUDENT_SIDE_MENU("/org/tcms/view/StudentSideMenu.fxml"),
     RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml"),
-    COMMUNICATION("/org/tcms/view/ReceptionistScenes/Communication.fxml");
+    COMMUNICATION("/org/tcms/view/ReceptionistScenes/CommunicationView.fxml"),
+    UPDDELSTUDENT("/org/tcms/view/ReceptionistScenes/UpdDelStudentView.fxml");
 
     private final String fxmlPath;
     View(String fxmlPath) { this.fxmlPath = fxmlPath; }

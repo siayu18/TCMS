@@ -46,7 +46,7 @@
                                            </children>
                                        </HBox>
 
-                                       <Label fx:id="emptyFieldError" styleClass="error-label" visible = "false" text="Message Cannot be Empty!">
+                                       <Label fx:id="emptyFieldError" styleClass="error-label" visible = "false">
                                           <VBox.margin>
                                              <Insets left="27.0" />
                                           </VBox.margin>
@@ -59,7 +59,7 @@
                            <children>
                                <HBox alignment="CENTER">
                                    <children>
-                                       <Label styleClass="label-text-regular" text="Select a student:    " />
+                                       <Label styleClass="label-text-regular" text="Select A User:    " />
 
                                        <JFXComboBox fx:id="chooseStudentBox" prefHeight="15.0" prefWidth="140.0" />
                                    </children>

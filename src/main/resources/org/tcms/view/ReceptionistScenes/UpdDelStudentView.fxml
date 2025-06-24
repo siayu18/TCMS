@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.UpdDelStudentController">
+    <children>
+        <BorderPane prefHeight="460.0" prefWidth="700.0" stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <AnchorPane prefHeight="460.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                    <children>
+                    <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                            <HBox alignment="CENTER">
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                                <children>
+                                    <Label styleClass="label-text-regular" text="New Username:  " />
+                                    <TextField styleClass="text-field" />
+                                </children>
+                            </HBox>
+                            <Label>
+                                <VBox.margin>
+                                    <Insets left="90.0" />
+                                </VBox.margin>
+                            </Label>
+                            <HBox alignment="CENTER">
+                                <children>
+                                    <Label styleClass="label-text-regular" text="New Password:   " />
+                                    <TextField styleClass="text-field">
+                                        <HBox.margin>
+                                            <Insets />
+                                        </HBox.margin>
+                                    </TextField>
+                                </children>
+                                <VBox.margin>
+                                    <Insets top="10.0" />
+                                </VBox.margin>
+                            </HBox>
+                            <Label>
+                                <VBox.margin>
+                                    <Insets left="90.0" />
+                                </VBox.margin>
+                            </Label>
+                            <HBox alignment="CENTER">
+                                <children>
+                                    <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="64.0" styleClass="button-small" text="Delete">
+                                        <HBox.margin>
+                                            <Insets right="150.0" />
+                                        </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" styleClass="button-small" text="Update" />
+                                </children>
+                                <VBox.margin>
+                                    <Insets bottom="15.0" top="15.0" />
+                                </VBox.margin>
+                            </HBox>
+                            <JFXTreeTableView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="600.0" />
+                        </children>
+                    </VBox>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

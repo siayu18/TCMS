@@ -3,6 +3,7 @@ package org.tcms.controller;
 import org.tcms.navigation.Role;
 import org.tcms.navigation.View;
 import org.tcms.utils.AlertUtils;
+import org.tcms.utils.Helper;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
 import org.tcms.service.UserService;
@@ -62,9 +63,11 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
+        boolean isUsernameEmpty = Helper.validateNotEmpty(usernameField, incorrectLabel, "Username or Password cannot be empty");
+        boolean isPasswordEmpty = Helper.validateNotEmpty(passwordField, incorrectLabel, "Password or Password cannot be empty");
+
         // Check for empty fields
-        if (username.isEmpty() || password.isEmpty()) {
-            incorrectLabel.setText("Username or password cannot be empty.");
+        if (isUsernameEmpty || isPasswordEmpty) {
             incorrectLabel.setVisible(true);
             return;
         }
