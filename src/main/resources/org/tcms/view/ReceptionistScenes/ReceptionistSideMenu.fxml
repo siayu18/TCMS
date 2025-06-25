@@ -21,8 +21,9 @@
 
         <VBox fx:id="paymentSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
             <children>
-                <JFXButton fx:id="acceptPaymentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Pay" />
-                <JFXButton fx:id="generateRcptBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Retrieve" />
+                <JFXButton fx:id="acceptPaymentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Accept Payment" />
+                <JFXButton fx:id="generateRcptBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Generate Receipts" />
+                <JFXButton fx:id="viewHistoryBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Payment History" />
             </children>
         </VBox>
 

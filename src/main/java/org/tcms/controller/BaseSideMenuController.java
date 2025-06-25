@@ -31,8 +31,8 @@ public abstract class BaseSideMenuController {
         System.exit(0);
     }
 
-    protected void setupToggle(JFXButton button, VBox submenu) {
-        button.setOnAction(e -> {
+    protected void setupToggle(JFXButton triggerButton, VBox submenu) {
+        triggerButton.setOnAction(e -> {
             boolean isOpen = submenu.isVisible();
             submenu.setVisible(!isOpen);
             submenu.setManaged(!isOpen);

@@ -39,10 +39,6 @@
                                         <ColumnConstraints halignment="RIGHT" />
                                         <ColumnConstraints hgrow="ALWAYS" />
                                     </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints />
-                                        <RowConstraints />
-                                    </rowConstraints>
             
                                     <children>
                                         <Label styleClass="label-text-regular" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
