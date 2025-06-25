@@ -54,7 +54,7 @@
                                 </GridPane>
                             </HBox>
             
-                            <CheckBox fx:id="showPasswordCheckBox" onAction="#handleShowPassword" text="Show Password" />
+                            <CheckBox fx:id="showPasswordCheckBox" text="Show Password" />
                             <StackPane>
                                 <children>
                                     <Label fx:id="incorrectLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
@@ -62,7 +62,7 @@
                                 </children>
                             </StackPane>
             
-                            <Button fx:id="loginButton" onAction="#handleLogin" prefWidth="100.0" styleClass="button-standard" text="Login" />
+                            <Button fx:id="loginButton" prefWidth="100.0" styleClass="button-standard" text="Login" />
                         </children>
                     </VBox>
                </children>

@@ -38,7 +38,7 @@ public class UserService {
         String role = row.get("Role");
 
         return switch (role) {
-            case "Admin" -> new Admin(id, name, pwd);
+            case "Admin" -> new Admin(id, name, pwd, role);
             case "Student" -> new Student(id, name, pwd, role);
             case "Tutor" -> new Tutor(id, name, pwd, role);
             case "Receptionist" -> new Receptionist(id, name, pwd, role);

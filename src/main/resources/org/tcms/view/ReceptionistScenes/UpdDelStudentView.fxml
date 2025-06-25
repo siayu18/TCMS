@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -24,10 +25,10 @@
                                 </VBox.margin>
                                 <children>
                                     <Label styleClass="label-text-regular" text="New Username:  " />
-                                    <TextField styleClass="text-field" />
+                                    <TextField fx:id="usernameField" styleClass="text-field" />
                                 </children>
                             </HBox>
-                            <Label>
+                            <Label fx:id="usernameErrorLabel">
                                 <VBox.margin>
                                     <Insets left="90.0" />
                                 </VBox.margin>
@@ -35,7 +36,7 @@
                             <HBox alignment="CENTER">
                                 <children>
                                     <Label styleClass="label-text-regular" text="New Password:   " />
-                                    <TextField styleClass="text-field">
+                                    <TextField fx:id="passwordField" styleClass="text-field">
                                         <HBox.margin>
                                             <Insets />
                                         </HBox.margin>
@@ -45,25 +46,36 @@
                                     <Insets top="10.0" />
                                 </VBox.margin>
                             </HBox>
-                            <Label>
+                            <Label fx:id="passwordErrorLabel">
                                 <VBox.margin>
                                     <Insets left="90.0" />
                                 </VBox.margin>
                             </Label>
                             <HBox alignment="CENTER">
                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="64.0" styleClass="button-small" text="Delete">
+                                    <Button fx:id="delBtn" mnemonicParsing="false" prefHeight="29.0" prefWidth="64.0" styleClass="button-small" text="Delete">
                                         <HBox.margin>
                                             <Insets right="150.0" />
                                         </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" styleClass="button-small" text="Update" />
+                              <Button fx:id="saveBtn" mnemonicParsing="false" prefHeight="29.0" prefWidth="64.0" styleClass="button-small" text="Save">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                                    <Button fx:id="updateBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="64.0" styleClass="button-small" text="Update" />
                                 </children>
                                 <VBox.margin>
                                     <Insets bottom="15.0" top="15.0" />
                                 </VBox.margin>
                             </HBox>
-                            <JFXTreeTableView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="600.0" />
+                            <TableView fx:id="studentTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="230.0" prefWidth="600.0">
+                                <columns>
+                                    <TableColumn fx:id="accountIDColumn" text="AccountID" />
+                                    <TableColumn fx:id="nameColumn" text="Name" />
+                                    <TableColumn fx:id="passwordColumn" text="Password" />
+                                </columns>
+                            </TableView>
                         </children>
                     </VBox>
                     </children>

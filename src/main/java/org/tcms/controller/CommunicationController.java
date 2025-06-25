@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -13,12 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+import org.tcms.model.Communication;
+import org.tcms.model.User;
 import org.tcms.service.CommunicationService;
 import org.tcms.utils.Helper;
 import org.tcms.utils.Session;
 
 import java.util.List;
-import java.util.Map;
 
 public class CommunicationController {
     public Label emptyFieldError;
@@ -28,7 +30,7 @@ public class CommunicationController {
     @FXML private VBox chatBox;
     @FXML private TextField msgField;
     @FXML private JFXButton sendBtn;
-    @FXML private JFXComboBox<Map<String,String>> chooseStudentBox;
+    @FXML private JFXComboBox<User> chooseStudentBox;
 
     private CommunicationService comService;
     private String currentUserId;
@@ -37,41 +39,31 @@ public class CommunicationController {
     public void initialize() {
         sendBtn.setDefaultButton(true);
 
-        // grab the logged-in user
         currentUserId = Session.getCurrentUserId();
         comService = new CommunicationService();
 
-        // 1) populate combo with all users
-        List<Map<String,String>> users = comService.getAllUsers();
+        List<User> users = comService.getAllUsers();
         chooseStudentBox.getItems().setAll(users);
 
         // display "ID, name" in the dropdown
         chooseStudentBox.setCellFactory(cb ->
-                new javafx.scene.control.ListCell<>() {
+                new ListCell<User>() {
                     @Override
-                    protected void updateItem(Map<String,String> u, boolean empty) {
+                    protected void updateItem(User u, boolean empty) {
                         super.updateItem(u, empty);
-                        setText(empty || u == null
-                                ? null
-                                : u.get("AccountID") + ", " + u.get("Name"));
+                        setText(empty || u == null ? null : u.getAccountId() + ", " + u.getUsername());
                     }
                 }
         );
         chooseStudentBox.setButtonCell(chooseStudentBox.getCellFactory().call(null));
 
-        // 2) when they pick someone, load the pane
-        chooseStudentBox.setOnAction(e -> {
-            Map<String,String> other = chooseStudentBox.getValue();
-            if (other != null) {
-                loadConversation(other);
-                chatPane.setVisible(true);
-            }
-        });
+        configureActions();
+    }
 
-        // 3) send‐button handler
+    private void configureActions() {
         sendBtn.setOnAction(e -> {
             String text = msgField.getText().trim();
-            Map<String,String> other = chooseStudentBox.getValue();
+            User selectedUser = chooseStudentBox.getValue();
 
             boolean isEmpty = Helper.validateNotEmpty(msgField, emptyFieldError, "Message Cannot be Empty!");
             if (isEmpty) {
@@ -82,33 +74,42 @@ public class CommunicationController {
             emptyFieldError.setVisible(false);
 
             // note: service expects senderId, receiverId, text
-            comService.sendMessage(currentUserId, other.get("AccountID"), text);
+            comService.sendMessage(currentUserId, selectedUser.getAccountId(), text);
             msgField.clear();
-            loadConversation(other);
+            loadConversation(selectedUser);
+        });
+
+        chooseStudentBox.setOnAction(e -> {
+            User selectedUser = chooseStudentBox.getValue();
+            if (selectedUser != null) {
+                loadConversation(selectedUser);
+                chatPane.setVisible(true);
+            }
         });
     }
 
-    /** loads history between currentUserId and otherUser */
-    private void loadConversation(Map<String,String> other) {
+    // loads history between currentUserId and otherUser //
+    private void loadConversation(User selectedUser) {
         chatBox.getChildren().clear();
-        title.setText("Chat with " + other.get("Name"));
+        title.setText("Chat with " + selectedUser.getUsername());
 
-        comService.getConversationWith(other.get("AccountID"), currentUserId)
-                .forEach(row -> {
-                    boolean isSender = row.get("SenderID").equals(currentUserId);
-                    String text = row.get("Message");
-                    String who = isSender ? Session.getCurrentUserName() : other.get("Name");
+        List<Communication> conversation = comService.getConversationWith(selectedUser.getAccountId(), currentUserId);
 
-                    Label bubble = new Label(who + ": " + text);
-                    bubble.setWrapText(true);
-                    bubble.setMaxWidth(300);
-                    bubble.getStyleClass().add(isSender ? "sender-message" : "receiver-message");
+        for (Communication line : conversation) {
+            boolean isSender = line.getSenderID().equals(currentUserId);
+            String message = line.getMessage();
+            String senderName = isSender ? Session.getCurrentUserName() : selectedUser.getUsername();
 
-                    HBox container = new HBox(bubble);
-                    container.setPadding(new Insets(5));
-                    container.setAlignment(isSender ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
-                    chatBox.getChildren().add(container);
-                });
+            Label bubble = new Label(senderName + ": " + message);
+            bubble.setWrapText(true);
+            bubble.setMaxWidth(300);
+            bubble.getStyleClass().add(isSender ? "sender-message" : "receiver-message");
+
+            HBox container = new HBox(bubble);
+            container.setPadding(new Insets(5));
+            container.setAlignment(isSender ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+            chatBox.getChildren().add(container);
+        }
 
         // scroll to bottom
         Platform.runLater(() -> scrollBar.setVvalue(1.0));

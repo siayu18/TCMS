@@ -37,6 +37,8 @@ public class LoginController {
     @FXML
     public void initialize() {
         visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
+        loginButton.setOnAction(e -> handleLogin());
+        showPasswordCheckBox.setOnAction(e -> handleShowPassword());
 
         try {
             userService = new UserService();
@@ -64,7 +66,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         boolean isUsernameEmpty = Helper.validateNotEmpty(usernameField, incorrectLabel, "Username or Password cannot be empty");
-        boolean isPasswordEmpty = Helper.validateNotEmpty(passwordField, incorrectLabel, "Password or Password cannot be empty");
+        boolean isPasswordEmpty = Helper.validateNotEmpty(passwordField, incorrectLabel, "Username or Password cannot be empty");
 
         // Check for empty fields
         if (isUsernameEmpty || isPasswordEmpty) {
