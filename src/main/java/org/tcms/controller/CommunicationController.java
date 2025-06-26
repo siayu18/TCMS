@@ -56,7 +56,7 @@ public class CommunicationController {
                 }
         );
 
-        chooseStudentBox.setButtonCell(new ListCell<>() {
+        chooseStudentBox.setButtonCell(new ListCell<User>() {
             @Override
             protected void updateItem(User u, boolean empty) {
                 super.updateItem(u, empty);

@@ -1,5 +1,6 @@
 package org.tcms.controller;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.tcms.model.Student;
 import org.tcms.service.StudentService;
@@ -25,6 +26,7 @@ public class UpdDelStudentController {
     private StudentService studentService;
     private String selectedAccountID;
 
+    @FXML
     public void initialize() {
         studentService = new StudentService();
 

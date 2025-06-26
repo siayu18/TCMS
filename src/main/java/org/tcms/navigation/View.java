@@ -13,9 +13,11 @@ public enum View {
     RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml"),
     COMMUNICATION("/org/tcms/view/ReceptionistScenes/CommunicationView.fxml"),
     UPD_DEL_STUDENT("/org/tcms/view/ReceptionistScenes/UpdDelStudentView.fxml"),
-    REGISTER_ENROLL_STUDENT("/org/tcms/view/ReceptionistScenes/RegEnrolStudentView.fxml");
+    REGISTER_ENROLL_STUDENT("/org/tcms/view/ReceptionistScenes/RegEnrolStudentView.fxml"),
+    UPD_ENROLMENT("/org/tcms/view/ReceptionistScenes/UpdEnrollmentView.fxml");
 
     private final String fxmlPath;
+
     View(String fxmlPath) { this.fxmlPath = fxmlPath; }
     public String getPath() { return fxmlPath; }
 }

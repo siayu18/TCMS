@@ -35,4 +35,16 @@ public class ClassRecordService {
                 "ClassID", record.getClassId()
         ));
     }
+
+    public List<ClassRecord> getByStudent(String studentId) {
+        return getAllClasses().stream()
+                .filter(record -> record.getStudentId().equals(studentId))
+                .collect(Collectors.toList());
+    }
+
+    public void deleteClassRecord(String classRecId) {
+        var rows = classRecordFile.readAll();
+        rows.removeIf(r -> r.get("ClassRecID").equals(classRecId));
+        classRecordFile.overwriteAll(rows);
+    }
 }

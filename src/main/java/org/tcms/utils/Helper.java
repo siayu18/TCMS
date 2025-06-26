@@ -44,21 +44,6 @@ public class Helper {
         }
     }
 
-    // get the accountID
-    public static String generateAccountID() {
-        FileHandler accountFile = new FileHandler("account.csv", List.of("AccountID","Name","Password","Role"));
-        List<Map<String, String>> rows = accountFile.readAll();
-
-        int currentLastID = rows.stream()
-                .map(row -> row.get("AccountID").replace("TP", ""))
-                .mapToInt(Integer::parseInt)
-                .max()
-                .orElse(0);
-        int newID =  currentLastID + 1;
-
-        return String.format("TP%03d", currentLastID + 1);
-    }
-
     public static boolean validatePassword(String password) {
         if (password.length() < 8) {
             return false;
@@ -100,5 +85,22 @@ public class Helper {
         }
         return true;
     }
+
+    // get the accountID
+    public static String generateAccountID() {
+        FileHandler accountFile = new FileHandler("account.csv", List.of("AccountID","Name","Password","Role"));
+        List<Map<String, String>> rows = accountFile.readAll();
+
+        int currentLastID = rows.stream()
+                .map(row -> row.get("AccountID").replace("TP", ""))
+                .mapToInt(Integer::parseInt)
+                .max()
+                .orElse(0);
+        int newID =  currentLastID + 1;
+
+        return String.format("TP%03d", currentLastID + 1);
+    }
+
+
 
 }
