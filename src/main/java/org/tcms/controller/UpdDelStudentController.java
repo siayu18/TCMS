@@ -55,8 +55,8 @@ public class UpdDelStudentController {
             String newUsername = usernameField.getText().trim();
             String newPassword = passwordField.getText().trim();
 
-            boolean isUsernameEmpty = Helper.validateNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!");
-            boolean isPasswordEmpty = Helper.validateNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
+            boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!");
+            boolean isPasswordEmpty = Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
 
             if (isUsernameEmpty) {
                 usernameErrorLabel.setVisible(true);

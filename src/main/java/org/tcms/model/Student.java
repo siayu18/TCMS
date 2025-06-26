@@ -1,8 +1,27 @@
 package org.tcms.model;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student extends User {
-    public Student(String id, String name, String pwd, String role) {
+    private String icNumber;
+    private String email;
+    private String contactNumber;
+    private String address;
+    private String level;
+
+    public Student(String id, String name, String pwd, String role) { super(id, name, pwd, role); }
+
+    public Student(String id,String name, String pwd, String role, String icNumber, String email, String contactNumber, String address, String level) {
         super(id, name, pwd, role);
+        this.icNumber = icNumber;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.address = address;
+        this.level = level;
     }
 
     @Override public String getDashboardFxml() { return "StudentDashboardView.fxml"; }

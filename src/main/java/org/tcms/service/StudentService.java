@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public class StudentService {
-    private FileHandler accountFile;
+    private final FileHandler accountFile;
+    private final FileHandler studentFile;
 
     public StudentService() {
         accountFile = new FileHandler("account.csv", Arrays.asList("AccountID", "Name", "Password", "Role"));
+        studentFile = new FileHandler("student.csv", Arrays.asList("StudentID","ICNumber","Email","ContactNumber","Address","Level"));
     }
 
     public List<Student> getAllStudents() {
@@ -29,6 +31,23 @@ public class StudentService {
             }
         }
         return students;
+    }
+
+    public void addStudent(Student student) {
+        accountFile.append(Map.of(
+                "AccountID", student.getAccountId(),
+                "Name", student.getUsername(),
+                "Password", student.getPassword(),
+                "Role", student.getRole()
+        ));
+        studentFile.append(Map.of(
+                "StudentID", student.getAccountId(),
+                "ICNumber", student.getIcNumber(),
+                "Email", student.getEmail(),
+                "ContactNumber", student.getContactNumber(),
+                "Address", student.getAddress(),
+                "Level", student.getLevel()
+        ));
     }
 
     public void updateStudent (String accountID, String newUsername, String newPassword) {

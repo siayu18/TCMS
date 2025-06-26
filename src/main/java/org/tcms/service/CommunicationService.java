@@ -15,41 +15,16 @@ public class CommunicationService {
     }
 
     public List<User> getAllUsers() {
-        List<Map<String, String>> rows = accountFile.readAll();
-        List<User> users = new ArrayList<>();
-
-        for (Map<String, String> row : rows) {
-            if ("Student".equalsIgnoreCase(row.get("Role"))) {
-                users.add(new Student(
-                        row.get("AccountID"),
-                        row.get("Name"),
-                        row.get("Password"),
-                        row.get("Role")
-                ));
-            } else if ("Admin".equalsIgnoreCase(row.get("Role"))) {
-                users.add(new Admin(
-                        row.get("AccountID"),
-                        row.get("Name"),
-                        row.get("Password"),
-                        row.get("Role")
-                ));
-            } else if ("Tutor".equalsIgnoreCase(row.get("Role"))) {
-                users.add(new Tutor(
-                        row.get("AccountID"),
-                        row.get("Name"),
-                        row.get("Password"),
-                        row.get("Role")
-                ));
-            } else if ("Receptionist".equalsIgnoreCase(row.get("Role"))) {
-                users.add(new Receptionist(
-                        row.get("AccountID"),
-                        row.get("Name"),
-                        row.get("Password"),
-                        row.get("Role")
-                ));
-            }
-        }
-        return users;
+        return accountFile.readAll().stream()
+                .map(row -> switch (row.get("Role")) {
+                    case "Admin" -> new Admin(row.get("AccountID"), row.get("Name"), row.get("Password"), "Admin");
+                    case "Student" -> new Student(row.get("AccountID"), row.get("Name"), row.get("Password"), "Student");
+                    case "Tutor" -> new Tutor(row.get("AccountID"), row.get("Name"), row.get("Password"), "Tutor");
+                    case "Receptionist" -> new Receptionist(row.get("AccountID"), row.get("Name"), row.get("Password"), "Receptionist");
+                    default -> null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public void sendMessage(String senderID, String receiverID, String text) {

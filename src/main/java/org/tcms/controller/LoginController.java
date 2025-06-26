@@ -65,8 +65,8 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
-        boolean isUsernameEmpty = Helper.validateNotEmpty(usernameField, incorrectLabel, "Username or Password cannot be empty");
-        boolean isPasswordEmpty = Helper.validateNotEmpty(passwordField, incorrectLabel, "Username or Password cannot be empty");
+        boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, incorrectLabel, "Username or Password cannot be empty");
+        boolean isPasswordEmpty = Helper.validateFieldNotEmpty(passwordField, incorrectLabel, "Username or Password cannot be empty");
 
         // Check for empty fields
         if (isUsernameEmpty || isPasswordEmpty) {

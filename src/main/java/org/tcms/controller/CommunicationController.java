@@ -51,11 +51,18 @@ public class CommunicationController {
                     @Override
                     protected void updateItem(User u, boolean empty) {
                         super.updateItem(u, empty);
-                        setText(empty || u == null ? null : u.getAccountId() + ", " + u.getUsername());
+                        setText(empty || u == null ? null : u.getAccountId() + "- " + u.getUsername());
                     }
                 }
         );
-        chooseStudentBox.setButtonCell(chooseStudentBox.getCellFactory().call(null));
+
+        chooseStudentBox.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(User u, boolean empty) {
+                super.updateItem(u, empty);
+                setText(empty || u == null ? null : u.getAccountId() + "- " + u.getUsername());
+            }
+        });
 
         configureActions();
     }
@@ -65,7 +72,7 @@ public class CommunicationController {
             String text = msgField.getText().trim();
             User selectedUser = chooseStudentBox.getValue();
 
-            boolean isEmpty = Helper.validateNotEmpty(msgField, emptyFieldError, "Message Cannot be Empty!");
+            boolean isEmpty = Helper.validateFieldNotEmpty(msgField, emptyFieldError, "Message Cannot be Empty!");
             if (isEmpty) {
                 emptyFieldError.setVisible(true);
                 return;
