@@ -119,3 +119,10 @@
 .background1 {
     -fx-background-color: #EAEFEF;
 }
+
+.time-label {
+    -fx-font-size: 80px;
+    -fx-font-family:'Digital-7';
+    -fx-font-weight: bold;
+    -fx-text-fill: #333446;
+}
