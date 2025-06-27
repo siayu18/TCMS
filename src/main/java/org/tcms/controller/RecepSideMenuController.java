@@ -6,9 +6,6 @@ import javafx.scene.layout.VBox;
 import org.tcms.navigation.View;
 
 public class RecepSideMenuController extends BaseSideMenuController {
-    @FXML private JFXButton homeBtn;
-    @FXML private JFXButton logoutBtn;
-    @FXML private JFXButton exitBtn;
     @FXML private JFXButton viewHistoryBtn;
     @FXML private JFXButton stuMangementBtn;
     @FXML private VBox stuManagementSubMenu;
