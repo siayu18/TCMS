@@ -14,6 +14,7 @@ import org.tcms.service.ClassRecordService;
 import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
+import org.tcms.utils.ComponentUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +32,7 @@ public class UpdEnrollmentController {
     public Label orgSubjectLabel3;
     public Button saveBtn;
 
+    private Student selectedStudent;
     private TuitionClassService tuitionClassService;
     private ClassRecordService classRecordService;
     private StudentService studentService;
@@ -43,26 +45,7 @@ public class UpdEnrollmentController {
         studentService = new StudentService();
 
         List<Student> students = studentService.getAllStudents();
-        chooseStudentBox.getItems().setAll(students);
-
-        // display "ID, name" in the dropdown
-        chooseStudentBox.setCellFactory(cb ->
-                new ListCell<Student>() {
-                    @Override
-                    protected void updateItem(Student student, boolean empty) {
-                        super.updateItem(student, empty);
-                        setText(empty || student == null ? null : student.getAccountId() + "- " + student.getUsername());
-                    }
-                }
-        );
-
-        chooseStudentBox.setButtonCell(new ListCell<Student>() {
-            @Override
-            protected void updateItem(Student student, boolean empty) {
-                super.updateItem(student, empty);
-                setText(empty || student == null ? null : student.getAccountId() + "- " + student.getUsername());
-            }
-        });
+        ComponentUtils.configureStudentBox(chooseStudentBox, students);
 
         setSubjectBox(subjectBox1);
         setSubjectBox(subjectBox2);
@@ -72,18 +55,19 @@ public class UpdEnrollmentController {
 
     public void configureActions() {
         saveBtn.setOnAction(e -> {
-            Student student = ((Student) chooseStudentBox.getValue());
+            if (selectedStudent == null)
+                return;
 
-            handleSlot(ori1, subjectBox1.getValue(), student.getAccountId());
-            handleSlot(ori2, subjectBox2.getValue(), student.getAccountId());
-            handleSlot(ori3, subjectBox3.getValue(), student.getAccountId());
+            handleSlot(ori1, subjectBox1.getValue(), selectedStudent.getAccountId());
+            handleSlot(ori2, subjectBox2.getValue(), selectedStudent.getAccountId());
+            handleSlot(ori3, subjectBox3.getValue(), selectedStudent.getAccountId());
 
             AlertUtils.showSuccessMessage("Updated!", "Enrollment updated.");
         });
 
         chooseStudentBox.setOnAction(e -> {
-            Student selectedUser = ((Student) chooseStudentBox.getValue());
-            if (selectedUser != null) {
+            selectedStudent = ((Student) chooseStudentBox.getValue());
+            if (selectedStudent != null) {
                 updatePane.setVisible(true);
                 loadOriginalEnrollments();
             }

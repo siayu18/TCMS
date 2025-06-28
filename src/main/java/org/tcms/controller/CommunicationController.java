@@ -32,15 +32,15 @@ public class CommunicationController {
     @FXML private JFXButton sendBtn;
     @FXML private JFXComboBox<User> chooseStudentBox;
 
+    private User selectedUser;
     private CommunicationService comService;
     private String currentUserId;
 
     @FXML
     public void initialize() {
-        sendBtn.setDefaultButton(true);
-
-        currentUserId = Session.getCurrentUserId();
         comService = new CommunicationService();
+        currentUserId = Session.getCurrentUserId();
+        sendBtn.setDefaultButton(true);
 
         List<User> users = comService.getAllUsers();
         chooseStudentBox.getItems().setAll(users);
@@ -70,7 +70,8 @@ public class CommunicationController {
     private void configureActions() {
         sendBtn.setOnAction(e -> {
             String text = msgField.getText().trim();
-            User selectedUser = chooseStudentBox.getValue();
+            if (selectedUser == null)
+                return;
 
             boolean isEmpty = Helper.validateFieldNotEmpty(msgField, emptyFieldError, "Message Cannot be Empty!");
             if (isEmpty) {
@@ -87,7 +88,7 @@ public class CommunicationController {
         });
 
         chooseStudentBox.setOnAction(e -> {
-            User selectedUser = chooseStudentBox.getValue();
+            selectedUser = chooseStudentBox.getValue();
             if (selectedUser != null) {
                 loadConversation(selectedUser);
                 chatPane.setVisible(true);

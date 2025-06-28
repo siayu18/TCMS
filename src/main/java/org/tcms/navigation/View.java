@@ -14,7 +14,8 @@ public enum View {
     COMMUNICATION("/org/tcms/view/ReceptionistScenes/CommunicationView.fxml"),
     UPD_DEL_STUDENT("/org/tcms/view/ReceptionistScenes/UpdDelStudentView.fxml"),
     REGISTER_ENROLL_STUDENT("/org/tcms/view/ReceptionistScenes/RegEnrolStudentView.fxml"),
-    UPD_ENROLMENT("/org/tcms/view/ReceptionistScenes/UpdEnrollmentView.fxml");
+    UPD_ENROLMENT("/org/tcms/view/ReceptionistScenes/UpdEnrollmentView.fxml"),
+    ACCEPT_PAYMENT("/org/tcms/view/ReceptionistScenes/AcceptPaymentView.fxml");
 
     private final String fxmlPath;
 

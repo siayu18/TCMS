@@ -34,12 +34,6 @@
                         <Label styleClass="label-text-regular" text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                         <TextField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="passwordErrorLabel" styleClass="error-label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <rowConstraints>
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                  </rowConstraints>
                   <padding>
                      <Insets left="100.0" right="100.0" top="15.0" />
                   </padding>

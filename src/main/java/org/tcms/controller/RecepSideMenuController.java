@@ -31,6 +31,7 @@ public class RecepSideMenuController extends BaseSideMenuController {
         updDelStudentBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_DEL_STUDENT, "Update & Delete Student"));
         registerBtn.setOnAction(e -> toolbarController.loadContent(View.REGISTER_ENROLL_STUDENT, "Register & Enroll Student"));
         updateEnrolmentBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_ENROLMENT, "Update Student Enrollment"));
+        acceptPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.ACCEPT_PAYMENT, "Accept Student's Payment"));
     }
 
     @Override

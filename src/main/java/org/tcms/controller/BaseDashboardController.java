@@ -23,7 +23,7 @@ public abstract class BaseDashboardController {
     protected Label dateLabel;
 
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public void initialize() {
         String fontPath = getClass().getResource("/org/tcms/font/digital-7.ttf").toExternalForm();

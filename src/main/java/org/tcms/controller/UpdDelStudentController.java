@@ -30,13 +30,7 @@ public class UpdDelStudentController {
     public void initialize() {
         studentService = new StudentService();
 
-        accountIDColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getAccountId()));
-        nameColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getUsername()));
-        passwordColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getPassword()));
-
+        configureTable();
         loadStudentData();
 
         delBtn.setDisable(true);
@@ -44,7 +38,6 @@ public class UpdDelStudentController {
         saveBtn.setDisable(true);
 
         configureActions();
-        configureListener();
     }
 
     private void configureActions() {
@@ -84,9 +77,7 @@ public class UpdDelStudentController {
                 clearFields();
             }
         });
-    }
 
-    private void configureListener() {
         studentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, sel) -> {
             if (sel != null) {
                 Student student = sel;
@@ -98,6 +89,15 @@ public class UpdDelStudentController {
                 saveBtn.setDisable(true);
             }
         });
+    }
+
+    private void configureTable() {
+        accountIDColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getAccountId()));
+        nameColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getUsername()));
+        passwordColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getPassword()));
     }
 
     private void loadStudentData() {

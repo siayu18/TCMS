@@ -23,8 +23,6 @@
                 <ScrollPane fitToWidth="true" stylesheets="@../../css/GlobalStyle.css">
                     <content>
                         <VBox alignment="CENTER" spacing="20" styleClass="background1">
-
-                            <!-- TitledPane: Student Information -->
                             <TitledPane text="Student Information">
                                 <content>
                                     <GridPane hgap="15" vgap="10">
@@ -53,20 +51,10 @@
 
                                         <Label styleClass="label-text-regular" text="Level* :" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                                         <ComboBox fx:id="levelBox" promptText="Select level" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <rowConstraints>
-                                 <RowConstraints />
-                                 <RowConstraints />
-                                 <RowConstraints />
-                                 <RowConstraints />
-                                 <RowConstraints />
-                                 <RowConstraints />
-                                 <RowConstraints />
-                              </rowConstraints>
                                     </GridPane>
                                 </content>
                             </TitledPane>
 
-                            <!-- TitledPane: Subject Enrollment -->
                             <TitledPane expanded="false" text="Subject Enrollment">
                                 <content>
                                     <VBox spacing="10">
@@ -80,7 +68,6 @@
                                 </content>
                             </TitledPane>
 
-                            <!-- TitledPane: Enrollment Details -->
                             <TitledPane expanded="false" text="Enrollment Details">
                                 <content>
                                     <HBox alignment="CENTER_LEFT" spacing="10">
@@ -90,7 +77,6 @@
                                 </content>
                             </TitledPane>
 
-                            <!-- Buttons -->
                             <VBox alignment="CENTER_RIGHT" spacing="5">
                                 <HBox alignment="CENTER_RIGHT" spacing="15">
                                     <Button fx:id="clearButton" prefHeight="37.0" prefWidth="68.0" styleClass="button-standard" text="Clear" />

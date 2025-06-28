@@ -51,17 +51,18 @@
                     </VBox>
                 </AnchorPane>
             </center>
-         <bottom>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="79.0" styleClass="button-standard" text="Save">
-                     <HBox.margin>
-                        <Insets right="30.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-         </bottom>
+
+            <bottom>
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                   <children>
+                      <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="79.0" styleClass="button-standard" text="Save">
+                         <HBox.margin>
+                            <Insets right="30.0" />
+                         </HBox.margin>
+                      </Button>
+                   </children>
+                </HBox>
+            </bottom>
 
         </BorderPane>
     </children>
