@@ -10,4 +10,12 @@ public class AlertUtils {
         a.setTitle(title);
         a.showAndWait();
     }
+
+    public static void showSuccessMessage(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

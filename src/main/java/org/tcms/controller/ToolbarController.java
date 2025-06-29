@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.tcms.utils.Helper;
 import org.tcms.utils.SceneUtils;
 import org.tcms.navigation.Role;
 import org.tcms.navigation.View;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 public class ToolbarController implements Initializable {
     @FXML private JFXHamburger hamburger;
     @FXML private JFXDrawer drawer;
+    @FXML public AnchorPane mainPane;
     @FXML private Label txtCurrentWindow;
     @FXML private AnchorPane holderPane;
 
@@ -32,7 +34,7 @@ public class ToolbarController implements Initializable {
 
         setupDrawer();
         SceneUtils.setContent(holderPane, role.getDashboard());
-        txtCurrentWindow.setText(role.name() + " Dashboard");
+        txtCurrentWindow.setText(Helper.capitalize(role.name()) + " Dashboard");
     }
 
     @Override
@@ -45,7 +47,8 @@ public class ToolbarController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(role.getSideMenu().getPath()));
             Node sideMenuNode = loader.load();
-            // now attach it to the drawer
+            BaseSideMenuController sideController = loader.getController();
+            sideController.setToolbarController(this);
             drawer.setSidePane(sideMenuNode);
         } catch (IOException e) {
             throw new RuntimeException("Could not load side menu: " + role.getSideMenu(), e);
@@ -72,5 +75,10 @@ public class ToolbarController implements Initializable {
     public void loadContent(View view, String title) {
         SceneUtils.setContent(holderPane, view);
         txtCurrentWindow.setText(title);
+    }
+
+    // to swap content for the mainPane
+    public void loadWholeScene(View view) {
+        SceneUtils.setContent(mainPane, view);
     }
 }

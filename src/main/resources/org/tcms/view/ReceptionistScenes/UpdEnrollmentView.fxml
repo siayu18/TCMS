@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.UpdEnrollmentController">
+    <children>
+        <BorderPane stylesheets="@../../css/GlobalStyle.css, @../../css/Communication.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <!-- Choosing Section -->
+            <top>
+                <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="TOP_CENTER">
+                    <children>
+                        <Label styleClass="label-text-regular" text="Select A User:" />
+                        <JFXComboBox fx:id="chooseStudentBox" prefWidth="160.0" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets top="10.0" />
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+
+            <center>
+                <AnchorPane fx:id="updatePane" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" BorderPane.alignment="CENTER">
+                    <VBox alignment="CENTER" spacing="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+                        <children>
+                            <Label styleClass="label-heading-small" text="Update Student's Subject: " />
+                            <HBox alignment="CENTER" spacing="10">
+                                <VBox spacing="5">
+                                    <Label fx:id="orgSubjectLabel1" styleClass="label-text-small" />
+                                    <ComboBox fx:id="subjectBox1" promptText="Subject 1" styleClass="text-field" />
+                                </VBox>
+                                <VBox spacing="5">
+                                    <Label fx:id="orgSubjectLabel2" styleClass="label-text-small" />
+                                    <ComboBox fx:id="subjectBox2" promptText="Subject 2" styleClass="text-field" />
+                                </VBox>
+                                <VBox spacing="5">
+                                    <Label fx:id="orgSubjectLabel3" styleClass="label-text-small" />
+                                    <ComboBox fx:id="subjectBox3" promptText="Subject 3" styleClass="text-field" />
+                                </VBox>
+                            </HBox>
+
+                        </children>
+                    </VBox>
+                </AnchorPane>
+            </center>
+
+            <bottom>
+                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                   <children>
+                      <Button fx:id="saveBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="79.0" styleClass="button-standard" text="Save">
+                         <HBox.margin>
+                            <Insets right="30.0" />
+                         </HBox.margin>
+                      </Button>
+                   </children>
+                </HBox>
+            </bottom>
+
+        </BorderPane>
+    </children>
+</AnchorPane>

@@ -10,9 +10,15 @@ public enum View {
     ADMIN_SIDE_MENU("/org/tcms/view/AdminSideMenu.fxml"),
     TUTOR_SIDE_MENU("/org/tcms/view/TutorSideMenu.fxml"),
     STUDENT_SIDE_MENU("/org/tcms/view/StudentSideMenu.fxml"),
-    RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml");
+    RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml"),
+    COMMUNICATION("/org/tcms/view/ReceptionistScenes/CommunicationView.fxml"),
+    UPD_DEL_STUDENT("/org/tcms/view/ReceptionistScenes/UpdDelStudentView.fxml"),
+    REGISTER_ENROLL_STUDENT("/org/tcms/view/ReceptionistScenes/RegEnrolStudentView.fxml"),
+    UPD_ENROLMENT("/org/tcms/view/ReceptionistScenes/UpdEnrollmentView.fxml"),
+    ACCEPT_PAYMENT("/org/tcms/view/ReceptionistScenes/AcceptPaymentView.fxml");
 
     private final String fxmlPath;
+
     View(String fxmlPath) { this.fxmlPath = fxmlPath; }
     public String getPath() { return fxmlPath; }
 }

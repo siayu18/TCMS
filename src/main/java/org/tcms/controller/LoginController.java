@@ -3,6 +3,7 @@ package org.tcms.controller;
 import org.tcms.navigation.Role;
 import org.tcms.navigation.View;
 import org.tcms.utils.AlertUtils;
+import org.tcms.utils.Helper;
 import org.tcms.utils.SceneUtils;
 import org.tcms.model.User;
 import org.tcms.service.UserService;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import org.tcms.utils.Session;
 // Java Libraries
 import java.io.IOException;
 
@@ -35,6 +37,8 @@ public class LoginController {
     @FXML
     public void initialize() {
         visiblePasswordField.textProperty().bindBidirectional(passwordField.textProperty());
+        loginButton.setOnAction(e -> handleLogin());
+        showPasswordCheckBox.setOnAction(e -> handleShowPassword());
 
         try {
             userService = new UserService();
@@ -61,9 +65,11 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
 
+        boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, incorrectLabel, "Username or Password cannot be empty");
+        boolean isPasswordEmpty = Helper.validateFieldNotEmpty(passwordField, incorrectLabel, "Username or Password cannot be empty");
+
         // Check for empty fields
-        if (username.isEmpty() || password.isEmpty()) {
-            incorrectLabel.setText("Username or password cannot be empty.");
+        if (isUsernameEmpty || isPasswordEmpty) {
             incorrectLabel.setVisible(true);
             return;
         }
@@ -71,6 +77,9 @@ public class LoginController {
         User user = userService.authenticate(username, password);
 
         if (user != null) {
+            // Set current user
+            Session.setCurrentUser(user);
+
             // Convert the user role to your enum
             Role role = Role.fromString(user.getRole());
 
