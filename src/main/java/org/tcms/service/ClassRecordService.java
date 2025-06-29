@@ -3,6 +3,7 @@ package org.tcms.service;
 import org.tcms.model.ClassRecord;
 import org.tcms.utils.FileHandler;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class ClassRecordService {
     private final FileHandler classRecordFile;
 
-    public ClassRecordService() {
+    public ClassRecordService() throws IOException {
         classRecordFile = new FileHandler("classrecord.csv", Arrays.asList("ClassRecID","StudentID","EnrolmentDate","ClassID"));
     }
 

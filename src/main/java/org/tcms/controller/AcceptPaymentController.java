@@ -5,6 +5,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,7 @@ import org.tcms.service.TuitionClassService;
 import org.tcms.utils.ComponentUtils;
 import org.tcms.utils.MappingUtils;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ public class AcceptPaymentController {
     public TableColumn<StudentPayment, String> amountColumn;
     public JFXComboBox<Student> chooseStudentBox;
     public Button acceptBtn;
+    public Label errorLabel;
 
     private List<Student> students;
     private List<Payment> payments;
@@ -44,9 +47,15 @@ public class AcceptPaymentController {
     private PaymentService paymentService;
 
     public void initialize() {
-        studentService = new StudentService();
-        tuitionClassService = new TuitionClassService();
-        paymentService = new PaymentService();
+        try {
+            studentService = new StudentService();
+            tuitionClassService = new TuitionClassService();
+            paymentService = new PaymentService();
+        } catch (IOException e) {
+            errorLabel.setText("Failed to load data.");
+            errorLabel.setVisible(true);
+            return;
+        }
 
         students = studentService.getAllStudents();
         payments = paymentService.getUnacceptedPayments();

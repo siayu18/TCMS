@@ -16,6 +16,7 @@ import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.ComponentUtils;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +32,7 @@ public class UpdEnrollmentController {
     public Label orgSubjectLabel2;
     public Label orgSubjectLabel3;
     public Button saveBtn;
+    public Label errorLabel;
 
     private Student selectedStudent;
     private TuitionClassService tuitionClassService;
@@ -40,9 +42,15 @@ public class UpdEnrollmentController {
 
     @FXML
     public void initialize() {
-        tuitionClassService = new TuitionClassService();
-        classRecordService = new ClassRecordService();
-        studentService = new StudentService();
+        try {
+            tuitionClassService = new TuitionClassService();
+            classRecordService = new ClassRecordService();
+            studentService = new StudentService();
+        } catch (IOException e) {
+            errorLabel.setText("Failed to load data.");
+            errorLabel.setVisible(true);
+            return;
+        }
 
         List<Student> students = studentService.getAllStudents();
         ComponentUtils.configureStudentBox(chooseStudentBox, students);

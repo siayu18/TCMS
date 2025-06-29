@@ -18,7 +18,7 @@
     <children>
         <BorderPane stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <VBox alignment="CENTER" spacing="15" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
 
                     <!-- Form Section -->
                     <GridPane vgap="10">
@@ -45,6 +45,8 @@
                         <Button fx:id="saveBtn" prefWidth="80" styleClass="button-small" text="Save" />
                         <Button fx:id="updateBtn" prefWidth="80" styleClass="button-small" text="Update" />
                     </HBox>
+
+                    <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
 
                     <!-- Table Section -->
                     <TableView fx:id="studentTable" prefHeight="230.0" prefWidth="600.0">

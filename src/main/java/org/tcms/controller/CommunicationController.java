@@ -17,9 +17,11 @@ import javafx.geometry.Pos;
 import org.tcms.model.Communication;
 import org.tcms.model.User;
 import org.tcms.service.CommunicationService;
+import org.tcms.service.UserService;
 import org.tcms.utils.Helper;
 import org.tcms.utils.Session;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CommunicationController {
@@ -32,17 +34,26 @@ public class CommunicationController {
     @FXML private JFXButton sendBtn;
     @FXML private JFXComboBox<User> chooseStudentBox;
 
-    private User selectedUser;
+    private UserService userService;
     private CommunicationService comService;
+    private User selectedUser;
     private String currentUserId;
 
     @FXML
     public void initialize() {
-        comService = new CommunicationService();
+        try {
+            userService = new UserService();
+            comService = new CommunicationService();
+        } catch (IOException e) {
+            emptyFieldError.setText("Failed to load data.");
+            emptyFieldError.setVisible(true);
+            return;
+        }
+
         currentUserId = Session.getCurrentUserId();
         sendBtn.setDefaultButton(true);
 
-        List<User> users = comService.getAllUsers();
+        List<User> users = userService.getAllUsers();
         chooseStudentBox.getItems().setAll(users);
 
         // display "ID, name" in the dropdown

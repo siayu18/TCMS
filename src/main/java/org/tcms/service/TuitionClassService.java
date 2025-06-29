@@ -2,6 +2,8 @@ package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
 import org.tcms.utils.FileHandler;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +11,7 @@ import java.util.stream.Collectors;
 public class TuitionClassService {
     private final FileHandler classFile;
 
-    public TuitionClassService() {
+    public TuitionClassService() throws IOException {
         classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","SubjectName","Information","Charges","Schedule"));
     }
 

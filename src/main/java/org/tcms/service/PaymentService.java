@@ -4,6 +4,7 @@ import org.tcms.entity.StudentPayment;
 import org.tcms.model.Payment;
 import org.tcms.utils.FileHandler;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class PaymentService {
     private final FileHandler paymentFile;
 
-    public PaymentService() {
+    public PaymentService() throws IOException {
         paymentFile = new FileHandler("payment.csv", Arrays.asList("PaymentID","StudentID","ClassID","Amount","Date","Time","Status")
         );
     }

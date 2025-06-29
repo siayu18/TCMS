@@ -11,10 +11,9 @@ import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
 
 public class RegEnrolStudentController {
     public TextField usernameField;
@@ -33,11 +32,22 @@ public class RegEnrolStudentController {
     public Label emptyLabel;
     public Label errorLabel;
 
+    private StudentService studentService;
     private TuitionClassService tuitionClassService;
+    private ClassRecordService classRecordService;
 
     @FXML
     public void initialize() {
-        tuitionClassService = new TuitionClassService();
+        try {
+            studentService = new StudentService();
+            tuitionClassService = new TuitionClassService();
+            classRecordService = new ClassRecordService();
+        } catch (IOException e) {
+            errorLabel.setText("Failed to load data.");
+            errorLabel.setVisible(true);
+            return;
+        }
+
         levelBox.getItems().addAll("Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6");
         setSubjectBox(subjectBox1);
         setSubjectBox(subjectBox2);
@@ -152,17 +162,16 @@ public class RegEnrolStudentController {
                 addressField.getText(),
                 levelBox.getValue().toString()
         );
-        new StudentService().addStudent(student);
+
+        studentService.addStudent(student);
 
         TuitionClass selectedClass1 = (TuitionClass) subjectBox1.getValue();
         TuitionClass selectedClass2 = (TuitionClass) subjectBox2.getValue();
         TuitionClass selectedClass3 = (TuitionClass) subjectBox3.getValue();
 
-        ClassRecordService classRecordService = new ClassRecordService();
         checkAndAddSelection(selectedClass1, classRecordService, student.getAccountId());
         checkAndAddSelection(selectedClass2, classRecordService, student.getAccountId());
         checkAndAddSelection(selectedClass3, classRecordService, student.getAccountId());
-
     }
 
     public void checkAndAddSelection(TuitionClass selection, ClassRecordService classRecordService, String accountID) {
