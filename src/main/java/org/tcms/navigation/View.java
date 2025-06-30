@@ -3,6 +3,7 @@ package org.tcms.navigation;
 public enum View {
     TOOLBAR("/org/tcms/view/SystemScenes/ToolbarView.fxml"),
     LOGIN("/org/tcms/view/SystemScenes/LoginView.fxml"),
+    EDIT_PROFILE("/org/tcms/view/AdminScenes/EditProfile.fxml"),
     ADMIN_DASHBOARD("/org/tcms/view/AdminScenes/AdminDashboardView.fxml"),
     TUTOR_DASHBOARD("/org/tcms/view/TutorScenes/TutorDashboardView.fxml"),
     STUDENT_DASHBOARD("/org/tcms/view/StudentScenes/StudentDashboardView.fxml"),
