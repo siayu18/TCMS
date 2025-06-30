@@ -51,6 +51,15 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #333446; /* Dark blue-gray for strong emphasis */
+    -fx-line-spacing: -15px;
+}
+
+/* Large Heading Label */
+.label-heading-large-LightColor {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAEFEF; /* Dark blue-gray for strong emphasis */
+    -fx-line-spacing: -15px;
 }
 
 /* Small Heading Label */
@@ -116,9 +125,14 @@
     -fx-background-color: #7F8CAA;
 }
 
-.background1 {
+.background-LightColor {
     -fx-background-color: #EAEFEF;
 }
+
+.background-DarkColor {
+    -fx-background-color: #7F8CAA;
+}
+
 
 .time-label {
     -fx-font-size: 80px;
