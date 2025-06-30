@@ -86,7 +86,7 @@ public class Helper {
         return true;
     }
 
-    // get the accountID
+    // get a new accountID
     public static String generateAccountID() {
         FileHandler accountFile = new FileHandler("account.csv", List.of("AccountID","Name","Password","Role"));
         List<Map<String, String>> rows = accountFile.readAll();
@@ -96,11 +96,7 @@ public class Helper {
                 .mapToInt(Integer::parseInt)
                 .max()
                 .orElse(0);
-        int newID =  currentLastID + 1;
 
         return String.format("TP%03d", currentLastID + 1);
     }
-
-
-
 }

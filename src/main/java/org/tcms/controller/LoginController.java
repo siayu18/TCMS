@@ -27,7 +27,7 @@ public class LoginController {
     private int loginCount = 0;
 
     // FXML Variables/Constants
-    @FXML public AnchorPane holderPane;
+    @FXML public AnchorPane mainPane;
     @FXML public Label incorrectLabel, cooldownLabel;
     @FXML public Button loginButton;
     @FXML private TextField usernameField, visiblePasswordField;
@@ -83,15 +83,15 @@ public class LoginController {
             // Convert the user role to your enum
             Role role = Role.fromString(user.getRole());
 
-            // Load toolbarView.fxml into the login's holderPane (AnchorPane)
+            // Load toolbarView.fxml into the login's mainPane (AnchorPane)
             // return the controller to the object created, so we can control and initialize the scene
-            ToolbarController tbController = SceneUtils.setContent(holderPane, View.TOOLBAR);
+            ToolbarController tbController = SceneUtils.setContent(mainPane, View.TOOLBAR);
 
             // initialize side menu and dashboard
             tbController.initializeWith(role);
 
             // clear background colour
-            SceneUtils.clearScreenColor(holderPane);
+            SceneUtils.clearScreenColor(mainPane);
         } else {
             incorrectLabel.setVisible(true);
             loginCount ++;

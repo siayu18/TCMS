@@ -1,4 +1,4 @@
-package org.tcms.entity;
+package org.tcms.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

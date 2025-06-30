@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import org.tcms.entity.StudentPayment;
+import org.tcms.model.StudentPayment;
 import org.tcms.model.Payment;
 import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;

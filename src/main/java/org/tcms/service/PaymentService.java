@@ -1,6 +1,5 @@
 package org.tcms.service;
 
-import org.tcms.entity.StudentPayment;
 import org.tcms.model.Payment;
 import org.tcms.utils.FileHandler;
 

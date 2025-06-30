@@ -33,7 +33,7 @@
             </right>
         </JFXToolbar>
 
-        <!-- Main content holder pane -->
+        <!-- Main content -->
         <AnchorPane fx:id="holderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
             <children>
             </children>
