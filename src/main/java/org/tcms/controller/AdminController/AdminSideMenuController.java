@@ -7,13 +7,12 @@ import org.tcms.controller.BaseSideMenuController;
 import org.tcms.navigation.View;
 
 public class AdminSideMenuController extends BaseSideMenuController {
+    @FXML private JFXButton registerProfileBtn;
     @FXML private JFXButton monthlyReportBtn;
     @FXML private JFXButton staffManagementBtn;
     @FXML private VBox staffManagementSubMenu;
-    @FXML private JFXButton registerBtn;
-    @FXML private JFXButton updateProfileBtn;
-    @FXML private JFXButton deleteProfileBtn;
     @FXML private JFXButton communicationBtn;
+    @FXML private JFXButton updateProfileBtn;
     @FXML private VBox sideMenu;
 
     @Override
@@ -23,8 +22,10 @@ public class AdminSideMenuController extends BaseSideMenuController {
 
         // go-to page
         communicationBtn.setOnAction(e -> toolbarController.loadContent(View.COMMUNICATION, "Communication Hub"));
-        registerBtn.setOnAction(e -> toolbarController.loadContent(View.REG_STAFF, "Register Staff & Assign Tutor"));
+        registerProfileBtn.setOnAction(e -> toolbarController.loadContent(View.REG_STAFF, "Register Staff & Assign Tutor"));
         monthlyReportBtn.setOnAction(e -> toolbarController.loadContent(View.MONTHLY_STATS, "Monthly Report"));
+        updateProfileBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_STAFF, "Update Staff Details"));
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
@@ -21,26 +22,31 @@
             <graphic>
                 <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../img/StudentManagement.png" />
+                        <Image url="@../../img/StaffIcon.png" />
                     </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
                 </ImageView>
             </graphic>
         </JFXButton>
 
         <VBox fx:id="staffManagementSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
             <children>
-                <JFXButton fx:id="registerBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Register New Staff" />
-                <JFXButton fx:id="deleteProfileBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Delete Staff Account" />
+                <JFXButton fx:id="registerProfileBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Register New Staff" />
                 <JFXButton fx:id="updateProfileBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update Profile Details" />
             </children>
         </VBox>
 
         <JFXButton fx:id="monthlyReportBtn" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="button-standard" text="Monthly Report">
             <graphic>
-                <ImageView blendMode="ADD" fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../img/ReportIcon.png" />
                     </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
                 </ImageView>
             </graphic>
         </JFXButton>
