@@ -1,30 +1,28 @@
 package org.tcms.utils;
 
-import org.tcms.model.StudentPayment;
-import org.tcms.model.Payment;
-import org.tcms.model.Student;
-import org.tcms.model.TuitionClass;
+import org.tcms.model.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MappingUtils {
-    public static List<StudentPayment> mapPaymentsForStudent(Student student, List<Payment> payments, Map<String, TuitionClass> classMap) {
-        String studentID = student.getAccountId();
-
+    public static List<StudentPayment> mapPaymentsForStudent(Student student, List<Payment> payments, Map<String, Enrollment> enrollmentMap, Map<String, TuitionClass> classMap) {
+        String sid = student.getAccountId();
         return payments.stream()
-                .filter(payment -> studentID.equals(payment.getStudentID()))
-                .map(payment -> {
-                    TuitionClass tuitionClass = classMap.get(payment.getClassID());
-                    String subjectName = (tuitionClass != null ? tuitionClass.getSubjectName() : "Unknown");
+                .filter(p -> sid.equals(p.getStudentID()))
+                .map(p -> {
+                    Enrollment rec = enrollmentMap.get(p.getEnrollmentID());
+                    String classID = rec != null ? rec.getClassID() : null;
+                    TuitionClass tc = classID != null ? classMap.get(classID) : null;
+                    String subject = tc != null ? tc.getSubjectName() : "Unknown";
                     return new StudentPayment(
-                            payment.getPaymentID(),
-                            payment.getStudentID(),
+                            p.getPaymentID(),
+                            p.getStudentID(),
                             student.getUsername(),
-                            payment.getClassID(),
-                            subjectName,
-                            payment.getAmount()
+                            classID,
+                            subject,
+                            p.getAmount()
                     );
                 })
                 .collect(Collectors.toList());

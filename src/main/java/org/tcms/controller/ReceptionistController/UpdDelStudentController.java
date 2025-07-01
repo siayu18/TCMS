@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,6 +8,7 @@ import org.tcms.service.StudentService;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class UpdDelStudentController {
 
     private void configureActions() {
         updateBtn.setOnAction(e -> {
+            AlertUtils.showInformation("Update Student", "Please select a 'Save' button to update.");
             saveBtn.setDisable(false);
             updateBtn.setDisable(true);
         });

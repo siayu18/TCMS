@@ -11,7 +11,7 @@ public class AlertUtils {
         a.showAndWait();
     }
 
-    public static void showSuccessMessage(String title, String content) {
+    public static void showInformation(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);

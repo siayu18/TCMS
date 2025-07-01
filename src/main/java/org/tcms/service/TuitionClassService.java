@@ -22,7 +22,22 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule")
+                        row.get("Schedule"),
+                        row.get("Level")
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public List<TuitionClass> getClassesFromLevel(String level) {
+        return classFile.readAll().stream()
+                .filter(row -> level.equalsIgnoreCase(row.get("Level")))
+                .map(row -> new TuitionClass(
+                        row.get("ClassID"),
+                        row.get("SubjectName"),
+                        row.get("Information"),
+                        row.get("Charges"),
+                        row.get("Schedule"),
+                        row.get("Level")
                 ))
                 .collect(Collectors.toList());
     }

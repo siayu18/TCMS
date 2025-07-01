@@ -13,7 +13,7 @@ public class PaymentService {
     private final FileHandler paymentFile;
 
     public PaymentService() throws IOException {
-        paymentFile = new FileHandler("payment.csv", Arrays.asList("PaymentID","StudentID","ClassID","Amount","Date","Time","Status")
+        paymentFile = new FileHandler("payment.csv", Arrays.asList("PaymentID","StudentID","EnrollmentID","Amount","Date","Time","Status")
         );
     }
 
@@ -22,7 +22,7 @@ public class PaymentService {
                 .map(row -> new Payment(
                         row.get("PaymentID"),
                         row.get("StudentID"),
-                        row.get("ClassID"),
+                        row.get("EnrollmentID"),
                         row.get("Amount"),
                         row.get("Date"),
                         row.get("Time"),

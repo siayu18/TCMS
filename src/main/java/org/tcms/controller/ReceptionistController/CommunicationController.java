@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -50,7 +50,7 @@ public class CommunicationController {
             return;
         }
 
-        currentUserId = Session.getCurrentUserId();
+        currentUserId = Session.getCurrentUserID();
         sendBtn.setDefaultButton(true);
 
         List<User> users = userService.getAllUsers();

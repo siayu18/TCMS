@@ -10,4 +10,5 @@ public class TuitionClass {
     private final String information;
     private final String charges;
     private final String schedule;
+    private final String level;
 }

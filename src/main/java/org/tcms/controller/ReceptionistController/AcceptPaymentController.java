@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -9,10 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import org.tcms.model.StudentPayment;
-import org.tcms.model.Payment;
-import org.tcms.model.Student;
-import org.tcms.model.TuitionClass;
+import org.tcms.model.*;
+import org.tcms.service.EnrollmentService;
 import org.tcms.service.PaymentService;
 import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
@@ -40,16 +38,20 @@ public class AcceptPaymentController {
     private List<Student> students;
     private List<Payment> payments;
     private Map<String, TuitionClass> classMap;
+    private Map<String, Enrollment> enrollmentMap;
     private Student selectedStudent;
     private String selectedPaymentID;
+
     private StudentService studentService;
     private TuitionClassService tuitionClassService;
+    private EnrollmentService enrollmentService;
     private PaymentService paymentService;
 
     public void initialize() {
         try {
             studentService = new StudentService();
             tuitionClassService = new TuitionClassService();
+            enrollmentService = new EnrollmentService();
             paymentService = new PaymentService();
         } catch (IOException e) {
             errorLabel.setText("Failed to load data.");
@@ -64,6 +66,11 @@ public class AcceptPaymentController {
                         TuitionClass::getClassID,
                         tuitionClass -> tuitionClass
                 ));
+        enrollmentMap = enrollmentService.getAllEnrollment().stream()
+                        .collect(Collectors.toMap(
+                                Enrollment::getEnrollmentID,
+                                enrollment -> enrollment
+                        ));
 
         acceptBtn.setDisable(true);
         configureTable();
@@ -114,7 +121,7 @@ public class AcceptPaymentController {
     }
 
     private void loadPaymentTable(Student student) {
-        ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(MappingUtils.mapPaymentsForStudent(student, payments, classMap));
+        ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
         paymentTable.setItems(viewList);
     }
 

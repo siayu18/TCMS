@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class StudentService extends UserService {
@@ -18,9 +19,33 @@ public class StudentService extends UserService {
     }
 
     public List<Student> getAllStudents() {
-        return getAllUsers().stream()
-                .filter(u -> u instanceof Student)
-                .map(u -> (Student)u)
+        Map<String, Map<String,String>> acctById = accountFile.readAll().stream()
+                .collect(Collectors.toMap(
+                        row -> row.get("AccountID"),
+                        row -> row
+                ));
+
+        // for each student-detail row, look up its account and build a Student
+        return studentFile.readAll().stream()
+                .map(detail -> {
+                    String id = detail.get("StudentID");
+                    Map<String,String> acct = acctById.get(id);
+
+                    if (acct == null) return null;
+
+                    return new Student(
+                            id,
+                            acct.get("Name"),
+                            acct.get("Password"),
+                            acct.get("Role"),
+                            detail.get("ICNumber"),
+                            detail.get("Email"),
+                            detail.get("ContactNumber"),
+                            detail.get("Address"),
+                            detail.get("Level")
+                    );
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

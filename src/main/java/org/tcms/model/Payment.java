@@ -8,7 +8,7 @@ import lombok.Data;
 public class Payment {
     private String paymentID;
     private String studentID;
-    private String classID;
+    private String enrollmentID;
     private String amount;
     private String date;
     private String time;

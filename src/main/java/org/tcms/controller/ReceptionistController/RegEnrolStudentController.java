@@ -1,11 +1,13 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.tcms.model.ClassRecord;
+import org.tcms.model.Enrollment;
 import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;
-import org.tcms.service.ClassRecordService;
+import org.tcms.service.EnrollmentService;
 import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
@@ -34,14 +36,14 @@ public class RegEnrolStudentController {
 
     private StudentService studentService;
     private TuitionClassService tuitionClassService;
-    private ClassRecordService classRecordService;
+    private EnrollmentService enrollmentService;
 
     @FXML
     public void initialize() {
         try {
             studentService = new StudentService();
             tuitionClassService = new TuitionClassService();
-            classRecordService = new ClassRecordService();
+            enrollmentService = new EnrollmentService();
         } catch (IOException e) {
             errorLabel.setText("Failed to load data.");
             errorLabel.setVisible(true);
@@ -49,14 +51,26 @@ public class RegEnrolStudentController {
         }
 
         levelBox.getItems().addAll("Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6");
-        setSubjectBox(subjectBox1);
-        setSubjectBox(subjectBox2);
-        setSubjectBox(subjectBox3);
+        preventSubjectWithoutLevel(subjectBox1);
+        preventSubjectWithoutLevel(subjectBox2);
+        preventSubjectWithoutLevel(subjectBox3);
         configureActions();
     }
 
-    public void setSubjectBox(ComboBox box) {
-        List<TuitionClass> tuitionClasses = tuitionClassService.getAllClasses();
+    private void preventSubjectWithoutLevel(ComboBox<TuitionClass> subjectBox) {
+        subjectBox.setOnShowing(new EventHandler<Event>()  {
+            @Override
+            public void handle(Event event) {
+                if (levelBox.getValue() == null) {
+                    event.consume(); // cancel pop up
+                    AlertUtils.showAlert("Select Level First", "Please select a Level before choosing subjects.");
+                }
+            }
+        });
+    }
+
+    private void setSubjectBox(ComboBox box, String level) {
+        List<TuitionClass> tuitionClasses = tuitionClassService.getClassesFromLevel(level);
         box.getItems().setAll(tuitionClasses);
 
         box.setCellFactory(cb ->
@@ -64,7 +78,7 @@ public class RegEnrolStudentController {
                     @Override
                     protected void updateItem(TuitionClass tuitionclass, boolean empty) {
                         super.updateItem(tuitionclass, empty);
-                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + "- " + tuitionclass.getSubjectName());
+                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + " - " + tuitionclass.getSubjectName());
                     }
                 }
         );
@@ -76,10 +90,9 @@ public class RegEnrolStudentController {
                 setText(empty || item == null ? null : item.getClassID() + " - " + item.getSubjectName());
             }
         });
-
     }
 
-    public void configureActions() {
+    private void configureActions() {
         submitButton.setOnAction(e -> {
             boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, emptyLabel, "Required field(s) with indication (*) is empty!");
             boolean isICEmpty = Helper.validateFieldNotEmpty(icField, emptyLabel, "Required field(s) with indication (*) is empty!");
@@ -127,14 +140,20 @@ public class RegEnrolStudentController {
 
             emptyLabel.setVisible(false);
             errorLabel.setVisible(false);
-            addStudentAndClassRecord();
-            AlertUtils.showSuccessMessage("Successfully Added New Student!", usernameField.getText() + "'s account has been created!");
+            addStudentAndEnrollment();
+            AlertUtils.showInformation("Successfully Added New Student!", usernameField.getText() + "'s account has been created!");
+        });
+
+        levelBox.setOnAction(e -> {
+            setSubjectBox(subjectBox1, (String) levelBox.getValue());
+            setSubjectBox(subjectBox2, (String) levelBox.getValue());
+            setSubjectBox(subjectBox3, (String) levelBox.getValue());
         });
 
         clearButton.setOnAction(e -> clearAll());
     }
 
-    public void clearAll () {
+    private void clearAll () {
         usernameField.clear();
         icField.clear();
         emailField.clear();
@@ -150,7 +169,7 @@ public class RegEnrolStudentController {
         emptyLabel.setVisible(false);
     }
 
-    public void addStudentAndClassRecord() {
+    private void addStudentAndEnrollment() {
         Student student = new Student(
                 Helper.generateAccountID(),
                 usernameField.getText(),
@@ -169,14 +188,14 @@ public class RegEnrolStudentController {
         TuitionClass selectedClass2 = (TuitionClass) subjectBox2.getValue();
         TuitionClass selectedClass3 = (TuitionClass) subjectBox3.getValue();
 
-        checkAndAddSelection(selectedClass1, classRecordService, student.getAccountId());
-        checkAndAddSelection(selectedClass2, classRecordService, student.getAccountId());
-        checkAndAddSelection(selectedClass3, classRecordService, student.getAccountId());
+        checkAndAddSelection(selectedClass1, enrollmentService, student.getAccountId());
+        checkAndAddSelection(selectedClass2, enrollmentService, student.getAccountId());
+        checkAndAddSelection(selectedClass3, enrollmentService, student.getAccountId());
     }
 
-    public void checkAndAddSelection(TuitionClass selection, ClassRecordService classRecordService, String accountID) {
+    private void checkAndAddSelection(TuitionClass selection, EnrollmentService enrollmentService, String accountID) {
         if (selection != null) {
-            classRecordService.addClassRecord(new ClassRecord(
+            enrollmentService.addEnrollment(new Enrollment(
                     UUID.randomUUID().toString(),
                     accountID,
                     enrolDatePicker.getValue(),
