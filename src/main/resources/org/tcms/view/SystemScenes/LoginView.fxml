@@ -45,6 +45,7 @@
                                         <TextField fx:id="usernameField" maxWidth="160.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <Label styleClass="label-text-regular" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                         <PasswordField fx:id="passwordField" maxWidth="160.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="visiblePasswordField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
                               <rowConstraints>
                                  <RowConstraints />
