@@ -59,7 +59,7 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #EAEFEF; /* Dark blue-gray for strong emphasis */
-    -fx-line-spacing: -15px;
+    -fx-line-spacing: -10px;
 }
 
 /* Small Heading Label */

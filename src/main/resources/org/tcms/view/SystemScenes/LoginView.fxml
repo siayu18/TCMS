@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -41,11 +42,14 @@
             
                                     <children>
                                         <Label styleClass="label-text-regular" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <TextField fx:id="usernameField" maxWidth="160.0" styleClass="text-field2" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <TextField fx:id="usernameField" maxWidth="160.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <Label styleClass="label-text-regular" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                        <PasswordField fx:id="passwordField" maxWidth="160.0" styleClass="text-field2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <TextField fx:id="visiblePasswordField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <PasswordField fx:id="passwordField" maxWidth="160.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
+                              <rowConstraints>
+                                 <RowConstraints />
+                                 <RowConstraints />
+                              </rowConstraints>
                                 </GridPane>
                             </HBox>
             
