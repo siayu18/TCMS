@@ -3,7 +3,7 @@ package org.tcms.navigation;
 public enum View {
     TOOLBAR("/org/tcms/view/SystemScenes/ToolbarView.fxml"),
     LOGIN("/org/tcms/view/SystemScenes/LoginView.fxml"),
-    EDIT_PROFILE("/org/tcms/view/AdminScenes/EditProfile.fxml"),
+    EDIT_PROFILE("/org/tcms/view/SystemScenes/EditProfile.fxml"),
     ADMIN_DASHBOARD("/org/tcms/view/AdminScenes/AdminDashboardView.fxml"),
     TUTOR_DASHBOARD("/org/tcms/view/TutorScenes/TutorDashboardView.fxml"),
     STUDENT_DASHBOARD("/org/tcms/view/StudentScenes/StudentDashboardView.fxml"),
@@ -18,7 +18,8 @@ public enum View {
     UPD_ENROLMENT("/org/tcms/view/ReceptionistScenes/UpdEnrollmentView.fxml"),
     ACCEPT_PAYMENT("/org/tcms/view/ReceptionistScenes/AcceptPaymentView.fxml"),
     MONTHLY_STATS("/org/tcms/view/AdminScenes/MonthlyStats.fxml"),
-    REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml");
+    REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
+    UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml");
 
 
     private final String fxmlPath;

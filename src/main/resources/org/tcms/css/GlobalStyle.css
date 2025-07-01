@@ -22,6 +22,29 @@
     -fx-effect: none;
 }
 
+.button-Delete {
+    -fx-background-radius: 8;
+    -fx-background-color: #EF5350;
+    -fx-font-size: 18;
+    -fx-text-fill: #EAEFEF;
+    -fx-font-weight: bold;
+    -fx-padding: 5 5 5 5;
+}
+
+/* Hover state */
+.button-Delete:hover {
+    -fx-background-color: #780706;
+    -fx-font-size: 19;
+}
+
+/* Disabled state */
+.button-Delete:disabled {
+    -fx-background-color: #E57373;
+    -fx-text-fill: #EAEFEF;
+    -fx-cursor: default;
+    -fx-effect: none;
+}
+
 /* Small button style for the program */
 .button-small {
     -fx-background-radius: 8;
