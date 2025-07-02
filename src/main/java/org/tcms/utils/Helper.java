@@ -4,9 +4,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputControl;
+import org.tcms.model.TuitionClass;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Helper {
     // Make string capitalize
@@ -85,6 +85,20 @@ public class Helper {
         }
         return true;
     }
+
+    public static boolean hasDuplicateClassSelections(TuitionClass... classes) {
+        List<String> selectedIDs = new ArrayList<>();
+
+        for (TuitionClass tuitionClass : classes) {
+            if (tuitionClass != null) {
+                selectedIDs.add(tuitionClass.getClassID());
+            }
+        }
+
+        Set<String> uniqueIDs = new HashSet<>(selectedIDs); // set auto remove duplication
+        return uniqueIDs.size() < selectedIDs.size();
+    }
+
 
     // get a new accountID
     public static String generateAccountID() {

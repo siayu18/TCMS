@@ -62,7 +62,6 @@ public class RegEnrolStudentController {
             @Override
             public void handle(Event event) {
                 if (levelBox.getValue() == null) {
-                    event.consume(); // cancel pop up
                     AlertUtils.showAlert("Select Level First", "Please select a Level before choosing subjects.");
                 }
             }
@@ -135,6 +134,17 @@ public class RegEnrolStudentController {
                 errorLabel.setText("Contact is invalid!");
                 errorLabel.setVisible(true);
                 emptyLabel.setVisible(false);
+                return;
+            }
+
+            // check if there is any duplicated selection
+            TuitionClass subject1 = (TuitionClass) subjectBox1.getValue();
+            TuitionClass subject2 = (TuitionClass) subjectBox2.getValue();
+            TuitionClass subject3 = (TuitionClass) subjectBox3.getValue();
+
+            if (Helper.hasDuplicateClassSelections(subject1, subject2, subject3)) {
+                errorLabel.setText("Duplicated class selection, please pick different classes.");
+                errorLabel.setVisible(true);
                 return;
             }
 

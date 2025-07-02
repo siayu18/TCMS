@@ -40,6 +40,6 @@
         </AnchorPane>
 
         <!-- Side Drawer -->
-        <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="48.0" />
     </children>
 </AnchorPane>

@@ -15,6 +15,7 @@ import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.ComponentUtils;
+import org.tcms.utils.Helper;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class UpdEnrollmentController {
     public Label orgSubjectLabel3;
     public Button saveBtn;
     public Label errorLabel;
+    public Label title;
 
     private Student selectedStudent;
     private TuitionClassService tuitionClassService;
@@ -67,18 +69,11 @@ public class UpdEnrollmentController {
             TuitionClass selection2 = (TuitionClass) subjectBox2.getValue();
             TuitionClass selection3 = (TuitionClass) subjectBox3.getValue();
 
-            List<String> selectedIDs = new ArrayList<>();
-            if (selection1 != null) selectedIDs.add(selection1.getClassID());
-            if (selection2 != null) selectedIDs.add(selection2.getClassID());
-            if (selection3 != null) selectedIDs.add(selection3.getClassID());
-
-            Set<String> uniqueIDs = new HashSet<>(selectedIDs); // set auto remove duplication
-
-            // means that duplicate occurs since set removes duplicated id
-            if (uniqueIDs.size() < selectedIDs.size()) {
+            if (Helper.hasDuplicateClassSelections(selection1, selection2, selection3)) {
                 errorLabel.setText("Duplicated class selection, please pick different classes.");
                 errorLabel.setVisible(true);
                 return;
+
             }
 
             // handle adding enrollment logic
@@ -93,6 +88,7 @@ public class UpdEnrollmentController {
         chooseStudentBox.setOnAction(e -> {
             selectedStudent = ((Student) chooseStudentBox.getValue());
             if (selectedStudent != null) {
+                title.setText("Update " + selectedStudent.getUsername() + "'s Enrollment:");
                 setSubjectBox(subjectBox1);
                 setSubjectBox(subjectBox2);
                 setSubjectBox(subjectBox3);
@@ -135,6 +131,7 @@ public class UpdEnrollmentController {
         ori2 = enrollments.size() > 1 ? enrollments.get(1) : null;
         ori3 = enrollments.size() > 2 ? enrollments.get(2) : null;
 
+        // stores original's subject names in (classID:subjectName) form
         Map<String,String> subjectNames = tuitionClassService.getAllClasses().stream()
                 .filter(tc -> (ori1 != null && tc.getClassID().equals(ori1.getClassID()))
                         || (ori2  != null && tc.getClassID().equals(ori2.getClassID()))

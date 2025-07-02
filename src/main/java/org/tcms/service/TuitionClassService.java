@@ -12,13 +12,14 @@ public class TuitionClassService {
     private final FileHandler classFile;
 
     public TuitionClassService() throws IOException {
-        classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","SubjectName","Information","Charges","Schedule"));
+        classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","TutorID","SubjectName","Information","Charges","Schedule"));
     }
 
     public List<TuitionClass> getAllClasses() {
         return classFile.readAll().stream()
                 .map(row -> new TuitionClass(
                         row.get("ClassID"),
+                        row.get("TutorID"),
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
@@ -33,6 +34,7 @@ public class TuitionClassService {
                 .filter(row -> level.equalsIgnoreCase(row.get("Level")))
                 .map(row -> new TuitionClass(
                         row.get("ClassID"),
+                        row.get("TutorID"),
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
