@@ -1,8 +1,10 @@
 package org.tcms.service;
 
-import org.tcms.model.Student;
+import org.tcms.utils.FileHandler;
 
-public class AdminService {
+import java.util.Arrays;
+
+public class RegStaffService {
     // Make sure password is strong
     public boolean isValidPassword(String password){
         return password != null && password.length() >= 8

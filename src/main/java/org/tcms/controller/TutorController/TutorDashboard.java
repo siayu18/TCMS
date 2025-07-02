@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.TutorController;
 
 import org.tcms.component.ToggleButtonHelper;
 import javafx.fxml.FXML;

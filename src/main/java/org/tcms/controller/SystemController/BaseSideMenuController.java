@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.SystemController;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;

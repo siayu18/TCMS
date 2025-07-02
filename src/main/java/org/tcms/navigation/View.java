@@ -27,3 +27,4 @@ public enum View {
     View(String fxmlPath) { this.fxmlPath = fxmlPath; }
     public String getPath() { return fxmlPath; }
 }
+

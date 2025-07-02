@@ -45,28 +45,12 @@ public class Helper {
     }
 
     public static boolean validatePassword(String password) {
-        if (password.length() < 8) {
-            return false;
-        }
-
-        boolean hasUpper = false;
-        boolean hasLower = false;
-        boolean hasDigit = false;
-        boolean hasSpecial = false;
-
-        for (char c : password.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                hasUpper = true;
-            } else if (Character.isLowerCase(c)) {
-                hasLower = true;
-            } else if (Character.isDigit(c)) {
-                hasDigit = true;
-            } else if (!Character.isLetterOrDigit(c)) {
-                hasSpecial = true;
-            }
-        }
-
-        return hasUpper && hasLower && hasDigit && hasSpecial;
+        return password != null
+                && password.length() >= 8
+                && password.matches(".*[A-Z.*]")
+                && password.matches(".*\\d.*")
+                && password.matches(".*[!@#$%^&*].*")
+                && password.matches(".*[a-z.*]");
     }
 
     public static boolean validateIC(String ic) {
