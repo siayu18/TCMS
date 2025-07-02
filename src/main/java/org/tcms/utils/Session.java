@@ -10,18 +10,13 @@ public class Session {
     @Setter
     private static User currentUser;
 
-    public static String getCurrentUserId() {
+    public static String getCurrentUserID() {
         return (currentUser == null) ? null : currentUser.getAccountId();
     }
-
-    public static String getCurrentUserName() {
-        return (currentUser == null) ? null : currentUser.getUsername();
-    }
-
+    public static String getCurrentUserName() { return (currentUser == null) ? null : currentUser.getUsername(); }
     public static String getCurrentUserPassword() {
         return (currentUser == null) ? null : currentUser.getPassword();
     }
-
     public static String getCurrentUserRole() {
         return (currentUser == null) ? null : currentUser.getRole();
     }

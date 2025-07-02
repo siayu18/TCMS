@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
 <AnchorPane fx:id="mainPane" prefHeight="500.0" prefWidth="700.0" stylesheets="@../../css/Toolbar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.ToolbarController">
     <children>
@@ -21,7 +21,7 @@
                 <Label fx:id="txtCurrentWindow" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="650.0" styleClass="toolbar-title" text="TCMS" BorderPane.alignment="CENTER" />
             </center>
             <right>
-                <JFXButton fx:id="editProfileBtn" prefHeight="40.0" prefWidth="58.0" styleClass="jfx-button" BorderPane.alignment="CENTER" >
+                <JFXButton fx:id="editProfileBtn" prefHeight="40.0" prefWidth="58.0" styleClass="jfx-button" BorderPane.alignment="CENTER">
                     <graphic>
                         <ImageView fitHeight="40.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -33,13 +33,13 @@
             </right>
         </JFXToolbar>
 
-        <!-- Main content holder pane -->
-        <AnchorPane fx:id="holderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+        <!-- Main content -->
+        <AnchorPane fx:id="holderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
             <children>
             </children>
         </AnchorPane>
 
         <!-- Side Drawer -->
-        <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="48.0" />
     </children>
 </AnchorPane>

@@ -1,20 +1,21 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.tcms.model.ClassRecord;
+import org.tcms.model.Enrollment;
 import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;
-import org.tcms.service.ClassRecordService;
+import org.tcms.service.EnrollmentService;
 import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
 
 public class RegEnrolStudentController {
     public TextField usernameField;
@@ -33,20 +34,42 @@ public class RegEnrolStudentController {
     public Label emptyLabel;
     public Label errorLabel;
 
+    private StudentService studentService;
     private TuitionClassService tuitionClassService;
+    private EnrollmentService enrollmentService;
 
     @FXML
     public void initialize() {
-        tuitionClassService = new TuitionClassService();
+        try {
+            studentService = new StudentService();
+            tuitionClassService = new TuitionClassService();
+            enrollmentService = new EnrollmentService();
+        } catch (IOException e) {
+            errorLabel.setText("Failed to load data.");
+            errorLabel.setVisible(true);
+            return;
+        }
+
         levelBox.getItems().addAll("Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6");
-        setSubjectBox(subjectBox1);
-        setSubjectBox(subjectBox2);
-        setSubjectBox(subjectBox3);
+        preventSubjectWithoutLevel(subjectBox1);
+        preventSubjectWithoutLevel(subjectBox2);
+        preventSubjectWithoutLevel(subjectBox3);
         configureActions();
     }
 
-    public void setSubjectBox(ComboBox box) {
-        List<TuitionClass> tuitionClasses = tuitionClassService.getAllClasses();
+    private void preventSubjectWithoutLevel(ComboBox<TuitionClass> subjectBox) {
+        subjectBox.setOnShowing(new EventHandler<Event>()  {
+            @Override
+            public void handle(Event event) {
+                if (levelBox.getValue() == null) {
+                    AlertUtils.showAlert("Select Level First", "Please select a Level before choosing subjects.");
+                }
+            }
+        });
+    }
+
+    private void setSubjectBox(ComboBox box, String level) {
+        List<TuitionClass> tuitionClasses = tuitionClassService.getClassesFromLevel(level);
         box.getItems().setAll(tuitionClasses);
 
         box.setCellFactory(cb ->
@@ -54,7 +77,7 @@ public class RegEnrolStudentController {
                     @Override
                     protected void updateItem(TuitionClass tuitionclass, boolean empty) {
                         super.updateItem(tuitionclass, empty);
-                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + "- " + tuitionclass.getSubjectName());
+                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + " - " + tuitionclass.getSubjectName());
                     }
                 }
         );
@@ -66,10 +89,9 @@ public class RegEnrolStudentController {
                 setText(empty || item == null ? null : item.getClassID() + " - " + item.getSubjectName());
             }
         });
-
     }
 
-    public void configureActions() {
+    private void configureActions() {
         submitButton.setOnAction(e -> {
             boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, emptyLabel, "Required field(s) with indication (*) is empty!");
             boolean isICEmpty = Helper.validateFieldNotEmpty(icField, emptyLabel, "Required field(s) with indication (*) is empty!");
@@ -115,16 +137,33 @@ public class RegEnrolStudentController {
                 return;
             }
 
+            // check if there is any duplicated selection
+            TuitionClass subject1 = (TuitionClass) subjectBox1.getValue();
+            TuitionClass subject2 = (TuitionClass) subjectBox2.getValue();
+            TuitionClass subject3 = (TuitionClass) subjectBox3.getValue();
+
+            if (Helper.hasDuplicateClassSelections(subject1, subject2, subject3)) {
+                errorLabel.setText("Duplicated class selection, please pick different classes.");
+                errorLabel.setVisible(true);
+                return;
+            }
+
             emptyLabel.setVisible(false);
             errorLabel.setVisible(false);
-            addStudentAndClassRecord();
-            AlertUtils.showSuccessMessage("Successfully Added New Student!", usernameField.getText() + "'s account has been created!");
+            addStudentAndEnrollment();
+            AlertUtils.showInformation("Successfully Added New Student!", usernameField.getText() + "'s account has been created!");
+        });
+
+        levelBox.setOnAction(e -> {
+            setSubjectBox(subjectBox1, (String) levelBox.getValue());
+            setSubjectBox(subjectBox2, (String) levelBox.getValue());
+            setSubjectBox(subjectBox3, (String) levelBox.getValue());
         });
 
         clearButton.setOnAction(e -> clearAll());
     }
 
-    public void clearAll () {
+    private void clearAll () {
         usernameField.clear();
         icField.clear();
         emailField.clear();
@@ -140,7 +179,7 @@ public class RegEnrolStudentController {
         emptyLabel.setVisible(false);
     }
 
-    public void addStudentAndClassRecord() {
+    private void addStudentAndEnrollment() {
         Student student = new Student(
                 Helper.generateAccountID(),
                 usernameField.getText(),
@@ -152,22 +191,21 @@ public class RegEnrolStudentController {
                 addressField.getText(),
                 levelBox.getValue().toString()
         );
-        new StudentService().addStudent(student);
+
+        studentService.addStudent(student);
 
         TuitionClass selectedClass1 = (TuitionClass) subjectBox1.getValue();
         TuitionClass selectedClass2 = (TuitionClass) subjectBox2.getValue();
         TuitionClass selectedClass3 = (TuitionClass) subjectBox3.getValue();
 
-        ClassRecordService classRecordService = new ClassRecordService();
-        checkAndAddSelection(selectedClass1, classRecordService, student.getAccountId());
-        checkAndAddSelection(selectedClass2, classRecordService, student.getAccountId());
-        checkAndAddSelection(selectedClass3, classRecordService, student.getAccountId());
-
+        checkAndAddSelection(selectedClass1, enrollmentService, student.getAccountId());
+        checkAndAddSelection(selectedClass2, enrollmentService, student.getAccountId());
+        checkAndAddSelection(selectedClass3, enrollmentService, student.getAccountId());
     }
 
-    public void checkAndAddSelection(TuitionClass selection, ClassRecordService classRecordService, String accountID) {
+    private void checkAndAddSelection(TuitionClass selection, EnrollmentService enrollmentService, String accountID) {
         if (selection != null) {
-            classRecordService.addClassRecord(new ClassRecord(
+            enrollmentService.addEnrollment(new Enrollment(
                     UUID.randomUUID().toString(),
                     accountID,
                     enrolDatePicker.getValue(),

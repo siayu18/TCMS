@@ -2,29 +2,16 @@ package org.tcms.service;
 
 import org.tcms.model.*;
 import org.tcms.utils.FileHandler;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CommunicationService {
     private final FileHandler comFile;
-    private final FileHandler accountFile;
 
-    public CommunicationService() {
+    public CommunicationService() throws IOException {
         comFile = new FileHandler("communication.csv", Arrays.asList("CommunicationID","Message","SenderID","ReceiverID"));
-        accountFile = new FileHandler("account.csv", Arrays.asList("AccountID","Name", "Password", "Role"));
-    }
-
-    public List<User> getAllUsers() {
-        return accountFile.readAll().stream()
-                .map(row -> switch (row.get("Role")) {
-                    case "Admin" -> new Admin(row.get("AccountID"), row.get("Name"), row.get("Password"), "Admin");
-                    case "Student" -> new Student(row.get("AccountID"), row.get("Name"), row.get("Password"), "Student");
-                    case "Tutor" -> new Tutor(row.get("AccountID"), row.get("Name"), row.get("Password"), "Tutor");
-                    case "Receptionist" -> new Receptionist(row.get("AccountID"), row.get("Name"), row.get("Password"), "Receptionist");
-                    default -> null;
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
     }
 
     public void sendMessage(String senderID, String receiverID, String text) {

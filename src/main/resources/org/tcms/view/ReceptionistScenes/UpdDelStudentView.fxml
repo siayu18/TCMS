@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.UpdDelStudentController">
+<AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.ReceptionistController.UpdDelStudentController">
     <children>
         <BorderPane stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <VBox alignment="CENTER" spacing="15" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
 
                     <!-- Form Section -->
                     <GridPane vgap="10">
@@ -41,10 +41,12 @@
 
                     <!-- Button Section -->
                     <HBox alignment="CENTER" spacing="15.0">
-                        <Button fx:id="delBtn" prefWidth="80" styleClass="button-small" text="Delete" />
-                        <Button fx:id="saveBtn" prefWidth="80" styleClass="button-small" text="Save" />
-                        <Button fx:id="updateBtn" prefWidth="80" styleClass="button-small" text="Update" />
+                        <Button fx:id="delBtn" prefWidth="80" styleClass="button-Delete" text="Delete" />
+                        <Button fx:id="saveBtn" prefWidth="80" styleClass="button-standard" text="Save" />
+                        <Button fx:id="updateBtn" prefWidth="80" styleClass="button-standard" text="Update" />
                     </HBox>
+
+                    <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
 
                     <!-- Table Section -->
                     <TableView fx:id="studentTable" prefHeight="230.0" prefWidth="600.0">

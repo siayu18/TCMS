@@ -1,5 +1,6 @@
 package org.tcms.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ToolbarController implements Initializable {
+    @FXML private JFXButton editProfileBtn;
     @FXML private JFXHamburger hamburger;
     @FXML private JFXDrawer drawer;
     @FXML public AnchorPane mainPane;
@@ -35,6 +37,7 @@ public class ToolbarController implements Initializable {
         setupDrawer();
         SceneUtils.setContent(holderPane, role.getDashboard());
         txtCurrentWindow.setText(Helper.capitalize(role.name()) + " Dashboard");
+        editProfileBtn.setOnAction(e -> SceneUtils.setContent(holderPane, View.EDIT_PROFILE));
     }
 
     @Override

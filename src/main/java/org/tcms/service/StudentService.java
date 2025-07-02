@@ -3,34 +3,50 @@ package org.tcms.service;
 import org.tcms.model.Student;
 import org.tcms.utils.FileHandler;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class StudentService {
-    private final FileHandler accountFile;
+public class StudentService extends UserService {
     private final FileHandler studentFile;
 
-    public StudentService() {
-        accountFile = new FileHandler("account.csv", Arrays.asList("AccountID", "Name", "Password", "Role"));
+    public StudentService() throws IOException {
+        super();
         studentFile = new FileHandler("student.csv", Arrays.asList("StudentID","ICNumber","Email","ContactNumber","Address","Level"));
     }
 
     public List<Student> getAllStudents() {
-        List<Map<String, String>> rows = accountFile.readAll();
-        List<Student> students = new ArrayList<>();
-        for (Map<String, String> row : rows) {
-            if ("Student".equalsIgnoreCase(row.get("Role"))) {
-                students.add(new Student(
-                        row.get("AccountID"),
-                        row.get("Name"),
-                        row.get("Password"),
-                        row.get("Role")
+        Map<String, Map<String,String>> acctById = accountFile.readAll().stream()
+                .collect(Collectors.toMap(
+                        row -> row.get("AccountID"),
+                        row -> row
                 ));
-            }
-        }
-        return students;
+
+        // for each student-detail row, look up its account and build a Student
+        return studentFile.readAll().stream()
+                .map(detail -> {
+                    String id = detail.get("StudentID");
+                    Map<String,String> acct = acctById.get(id);
+
+                    if (acct == null) return null;
+
+                    return new Student(
+                            id,
+                            acct.get("Name"),
+                            acct.get("Password"),
+                            acct.get("Role"),
+                            detail.get("ICNumber"),
+                            detail.get("Email"),
+                            detail.get("ContactNumber"),
+                            detail.get("Address"),
+                            detail.get("Level")
+                    );
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public void addStudent(Student student) {
@@ -49,24 +65,4 @@ public class StudentService {
                 "Level", student.getLevel()
         ));
     }
-
-    public void updateStudent (String accountID, String newUsername, String newPassword) {
-        List<Map<String, String>> rows = accountFile.readAll();
-
-        for (Map<String, String> row : rows) {
-            if (accountID.equals(row.get("AccountID"))) {
-                row.put("Name", newUsername);
-                row.put("Password", newPassword);
-                break;
-            }
-        }
-        accountFile.overwriteAll(rows);
-    }
-
-    public void deleteStudent (String accountID) {
-        List<Map<String, String>> rows = accountFile.readAll();
-        rows.removeIf(row -> accountID.equals(row.get("AccountID")));
-        accountFile.overwriteAll(rows);
-    }
-
 }

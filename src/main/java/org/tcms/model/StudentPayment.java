@@ -1,6 +1,5 @@
-package org.tcms.entity;
+package org.tcms.model;
 
-import javafx.beans.property.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

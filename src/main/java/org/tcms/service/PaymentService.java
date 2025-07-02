@@ -1,9 +1,9 @@
 package org.tcms.service;
 
-import org.tcms.entity.StudentPayment;
 import org.tcms.model.Payment;
 import org.tcms.utils.FileHandler;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class PaymentService {
     private final FileHandler paymentFile;
 
-    public PaymentService() {
-        paymentFile = new FileHandler("payment.csv", Arrays.asList("PaymentID","StudentID","ClassID","Amount","Date","Time","Status")
+    public PaymentService() throws IOException {
+        paymentFile = new FileHandler("payment.csv", Arrays.asList("PaymentID","StudentID","EnrollmentID","Amount","Date","Time","Status")
         );
     }
 
@@ -22,7 +22,7 @@ public class PaymentService {
                 .map(row -> new Payment(
                         row.get("PaymentID"),
                         row.get("StudentID"),
-                        row.get("ClassID"),
+                        row.get("EnrollmentID"),
                         row.get("Amount"),
                         row.get("Date"),
                         row.get("Time"),

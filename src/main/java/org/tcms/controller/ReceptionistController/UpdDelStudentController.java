@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,7 +8,10 @@ import org.tcms.service.StudentService;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
+
+import java.io.IOException;
 
 public class UpdDelStudentController {
     public TextField usernameField;
@@ -22,13 +25,20 @@ public class UpdDelStudentController {
     public TableColumn<Student, String> passwordColumn;
     public Label passwordErrorLabel;
     public Label usernameErrorLabel;
+    public Label errorLabel;
 
     private StudentService studentService;
     private String selectedAccountID;
 
     @FXML
     public void initialize() {
-        studentService = new StudentService();
+        try {
+            studentService = new StudentService();
+        } catch (IOException e) {
+            errorLabel.setText("Failed to load data.");
+            errorLabel.setVisible(true);
+            return;
+        }
 
         configureTable();
         loadStudentData();
@@ -42,6 +52,7 @@ public class UpdDelStudentController {
 
     private void configureActions() {
         updateBtn.setOnAction(e -> {
+            AlertUtils.showInformation("Update Student", "Please select a 'Save' button to update.");
             saveBtn.setDisable(false);
             updateBtn.setDisable(true);
         });
@@ -65,14 +76,14 @@ public class UpdDelStudentController {
 
             usernameErrorLabel.setVisible(false);
             passwordErrorLabel.setVisible(false);
-            studentService.updateStudent(selectedAccountID, newUsername, newPassword);
+            studentService.updateUser(selectedAccountID, newUsername, newPassword);
             loadStudentData();
             clearFields();
         });
 
         delBtn.setOnAction(e -> {
             if (selectedAccountID != null) {
-                studentService.deleteStudent(selectedAccountID);
+                studentService.deleteUser(selectedAccountID);
                 loadStudentData();
                 clearFields();
             }

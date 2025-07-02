@@ -7,6 +7,7 @@ public enum Role {
     RECEPTIONIST(View.RECEP_DASHBOARD, View.RECEP_SIDE_MENU);
 
     private final View dashboard, sideMenu;
+
     Role(View dashboard, View sideMenu) {
         this.dashboard = dashboard;
         this.sideMenu  = sideMenu;

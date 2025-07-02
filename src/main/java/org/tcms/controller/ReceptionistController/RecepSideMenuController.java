@@ -1,8 +1,9 @@
-package org.tcms.controller;
+package org.tcms.controller.ReceptionistController;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
+import org.tcms.controller.BaseSideMenuController;
 import org.tcms.navigation.View;
 
 public class RecepSideMenuController extends BaseSideMenuController {
