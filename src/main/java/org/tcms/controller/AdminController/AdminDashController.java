@@ -1,7 +1,7 @@
 package org.tcms.controller.AdminController;
 
 import javafx.fxml.FXML;
-import org.tcms.controller.BaseDashboardController;
+import org.tcms.controller.SystemController.BaseDashboardController;
 
 public class AdminDashController extends BaseDashboardController {
 

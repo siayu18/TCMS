@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.SystemController;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

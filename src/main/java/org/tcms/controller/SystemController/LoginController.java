@@ -1,4 +1,4 @@
-package org.tcms.controller;
+package org.tcms.controller.SystemController;
 
 import org.tcms.navigation.Role;
 import org.tcms.navigation.View;

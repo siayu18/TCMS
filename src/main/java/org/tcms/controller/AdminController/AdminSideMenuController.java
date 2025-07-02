@@ -3,7 +3,7 @@ package org.tcms.controller.AdminController;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
-import org.tcms.controller.BaseSideMenuController;
+import org.tcms.controller.SystemController.BaseSideMenuController;
 import org.tcms.navigation.View;
 
 public class AdminSideMenuController extends BaseSideMenuController {
