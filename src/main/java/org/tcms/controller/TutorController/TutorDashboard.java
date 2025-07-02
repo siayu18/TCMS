@@ -1,17 +1,16 @@
 package org.tcms.controller.TutorController;
 
-import org.tcms.component.ToggleButtonHelper;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import java.util.List;
+import org.tcms.controller.SystemController.BaseDashboardController;
 
 
-public class TutorDashboard {
-    @FXML public Button testbtn7, testbtn8;
+public class TutorDashboard extends BaseDashboardController {
 
     @FXML
-    public void initialize() {
-        ToggleButtonHelper.setupToggle(List.of(testbtn7, testbtn8));
-    }
+    public void initialize() {super.initialize();}
+
+    @Override
+    protected String formatGreeting(){return "Welcome Back Tutor!";}
 }
+
+

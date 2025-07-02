@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.TutorController.TutorSideMenuController">
+    <children>
+        <JFXButton fx:id="homeBtn" accessibleText="homeMenu" maxWidth="Infinity" styleClass="button-standard" text="Home">
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Home.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="updateClassDetails" accessibleText="stuManagementMenu" maxWidth="Infinity" styleClass="button-standard" text="Update Class Details">
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/update.png" />
+                    </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="viewStudentList" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="button-standard" text="View Student List">
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/StaffIcon.png" />
+                    </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="communicationBtn" accessibleText="communicationMenu" maxWidth="Infinity" styleClass="button-standard" text="Communication Hub">
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/CommunicationHub.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="logoutBtn" accessibleText="logoutMenu" maxWidth="Infinity" styleClass="button-standard" text="Log out">
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Logout.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="exitBtn" accessibleText="exitMenu" maxWidth="Infinity" styleClass="button-standard" text="Exit">
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Exit.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+    </children>
+</VBox>
