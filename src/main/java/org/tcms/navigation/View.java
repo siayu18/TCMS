@@ -21,7 +21,6 @@ public enum View {
     REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
     UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml");
 
-
     private final String fxmlPath;
 
     View(String fxmlPath) { this.fxmlPath = fxmlPath; }
