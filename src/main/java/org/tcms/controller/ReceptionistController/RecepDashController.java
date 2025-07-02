@@ -2,6 +2,7 @@ package org.tcms.controller.ReceptionistController;
 
 import javafx.fxml.FXML;
 import org.tcms.controller.BaseDashboardController;
+import org.tcms.utils.Session;
 
 
 public class RecepDashController extends BaseDashboardController {
@@ -13,6 +14,6 @@ public class RecepDashController extends BaseDashboardController {
 
     @Override
     protected String formatGreeting() {
-        return "Welcome Back Receptionist!";
+        return "Welcome Back " + "Receptionist, " + Session.getCurrentUserName() + "!";
     }
 }

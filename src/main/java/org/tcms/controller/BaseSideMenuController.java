@@ -8,7 +8,7 @@ import org.tcms.navigation.View;
 
 public abstract class BaseSideMenuController {
     @FXML
-    protected JFXButton homeBtn, logoutBtn, exitBtn;
+    protected JFXButton homeBtn, logoutBtn, exitBtn, communicationBtn;
 
     @Setter
     protected ToolbarController toolbarController;
@@ -18,6 +18,7 @@ public abstract class BaseSideMenuController {
         homeBtn.setOnAction(e -> goHome());
         logoutBtn.setOnAction(e -> logout());
         exitBtn.setOnAction(e -> exitApp());
+        communicationBtn.setOnAction(e -> communicationHub());
         onInit();
     }
 
@@ -30,6 +31,8 @@ public abstract class BaseSideMenuController {
     protected void exitApp() {
         System.exit(0);
     }
+
+    protected void communicationHub() { toolbarController.loadContent(View.COMMUNICATION, "Communication Hub");}
 
     protected void setupToggle(JFXButton triggerButton, VBox submenu) {
         triggerButton.setOnAction(e -> {

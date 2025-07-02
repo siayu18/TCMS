@@ -28,11 +28,11 @@ public class RecepSideMenuController extends BaseSideMenuController {
         setupToggle(paymentBtn, paymentSubMenu);
 
         // go-to page
-        communicationBtn.setOnAction(e -> toolbarController.loadContent(View.COMMUNICATION, "Communication Hub"));
         updDelStudentBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_DEL_STUDENT, "Update & Delete Student"));
         registerBtn.setOnAction(e -> toolbarController.loadContent(View.REGISTER_ENROLL_STUDENT, "Register & Enroll Student"));
         updateEnrolmentBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_ENROLMENT, "Update Student Enrollment"));
         acceptPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.ACCEPT_PAYMENT, "Accept Student's Payment"));
+        generateRcptBtn.setOnAction(e -> toolbarController.loadContent(View.GENERATE_RECEIPT, "Generate Receipt"));
     }
 
     @Override

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.ReceptionistController.GenerateReceiptController">
     <BorderPane stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <!-- Choosing Section -->
         <top>
@@ -26,7 +26,7 @@
         </top>
 
         <center>
-            <AnchorPane fx:id="receiptPane" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="receiptPane" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" BorderPane.alignment="CENTER">
                 <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20.0">
                     <children>
                         <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" styleClass="label-heading-small" text="View Generated Receipt" />
@@ -44,7 +44,7 @@
         <bottom>
             <VBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
                 <children>
-                    <Button fx:id="generateBtn" mnemonicParsing="false" styleClass="button-standard" text="Generate Receipt" />
+                    <Button fx:id="generateBtn" visible="false" mnemonicParsing="false" styleClass="button-standard" text="Generate Receipt" />
                     <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
                 </children>
                 <padding>

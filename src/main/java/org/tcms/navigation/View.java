@@ -17,6 +17,7 @@ public enum View {
     REGISTER_ENROLL_STUDENT("/org/tcms/view/ReceptionistScenes/RegEnrolStudentView.fxml"),
     UPD_ENROLMENT("/org/tcms/view/ReceptionistScenes/UpdEnrollmentView.fxml"),
     ACCEPT_PAYMENT("/org/tcms/view/ReceptionistScenes/AcceptPaymentView.fxml"),
+    GENERATE_RECEIPT("/org/tcms/view/ReceptionistScenes/GenerateReceiptView.fxml"),
     MONTHLY_STATS("/org/tcms/view/AdminScenes/MonthlyStats.fxml"),
     REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
     UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml");
