@@ -31,6 +31,12 @@ public class PaymentService {
                 .collect(Collectors.toList());
     }
 
+    public List<Payment> getAcceptedPayments() {
+        return getAllPayments().stream()
+                .filter(row -> "accepted".equalsIgnoreCase(row.getStatus()))
+                .collect(Collectors.toList());
+    }
+
     public List<Payment> getUnacceptedPayments() {
         return getAllPayments().stream()
                 .filter(row -> "unaccepted".equalsIgnoreCase(row.getStatus()))
