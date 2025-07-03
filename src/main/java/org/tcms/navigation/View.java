@@ -11,6 +11,7 @@ public enum View {
     ADMIN_SIDE_MENU("/org/tcms/view/AdminScenes/AdminSideMenu.fxml"),
     TUTOR_SIDE_MENU("/org/tcms/view/TutorScenes/TutorSideMenu.fxml"),
     TUTOR_UPDATE_CLASS("/org/tcms/view/TutorScenes/UpdateClassDetails.fxml"),
+    TUTOR_VIEW_STD_LIST("/org/tcms/view/TutorScenes/ViewStudentList.fxml"),
     STUDENT_SIDE_MENU("/org/tcms/view/StudentSideMenu.fxml"),
     RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml"),
     COMMUNICATION("/org/tcms/view/ReceptionistScenes/CommunicationView.fxml"),
