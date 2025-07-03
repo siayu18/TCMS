@@ -14,7 +14,7 @@ public class TutorSideMenuController extends BaseSideMenuController {
     protected void onInit() {
         // go-to page
         updateClassDetails.setOnAction(e -> toolbarController.loadContent(View.TUTOR_UPDATE_CLASS, "Update Class Details"));
-        viewStudentList.setOnAction(e -> toolbarController.loadContent(View.MONTHLY_STATS, "Monthly Report"));
+        viewStudentList.setOnAction(e -> toolbarController.loadContent(View.TUTOR_VIEW_STD_LIST, "Student List"));
 
     }
 
