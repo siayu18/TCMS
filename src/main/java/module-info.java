@@ -7,6 +7,7 @@ module org.tcms {
     requires java.logging;
     requires com.jfoenix;
     requires java.compiler;
+    requires java.sql;
 
     opens org.tcms to javafx.fxml;
     exports org.tcms;
