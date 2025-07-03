@@ -18,6 +18,7 @@ import org.tcms.model.Communication;
 import org.tcms.model.User;
 import org.tcms.service.CommunicationService;
 import org.tcms.service.UserService;
+import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 import org.tcms.utils.Session;
 
@@ -32,7 +33,7 @@ public class CommunicationController {
     @FXML private VBox chatBox;
     @FXML private TextField msgField;
     @FXML private JFXButton sendBtn;
-    @FXML private JFXComboBox<User> chooseStudentBox;
+    @FXML private JFXComboBox<User> chooseUserBox;
 
     private UserService userService;
     private CommunicationService comService;
@@ -45,8 +46,7 @@ public class CommunicationController {
             userService = new UserService();
             comService = new CommunicationService();
         } catch (IOException e) {
-            emptyFieldError.setText("Failed to load data.");
-            emptyFieldError.setVisible(true);
+            AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
         }
 
@@ -54,10 +54,10 @@ public class CommunicationController {
         sendBtn.setDefaultButton(true);
 
         List<User> users = userService.getAllUsers();
-        chooseStudentBox.getItems().setAll(users);
+        chooseUserBox.getItems().setAll(users);
 
         // display "ID, name" in the dropdown
-        chooseStudentBox.setCellFactory(cb ->
+        chooseUserBox.setCellFactory(cb ->
                 new ListCell<User>() {
                     @Override
                     protected void updateItem(User u, boolean empty) {
@@ -67,7 +67,7 @@ public class CommunicationController {
                 }
         );
 
-        chooseStudentBox.setButtonCell(new ListCell<User>() {
+        chooseUserBox.setButtonCell(new ListCell<User>() {
             @Override
             protected void updateItem(User u, boolean empty) {
                 super.updateItem(u, empty);
@@ -98,8 +98,8 @@ public class CommunicationController {
             loadConversation(selectedUser);
         });
 
-        chooseStudentBox.setOnAction(e -> {
-            selectedUser = chooseStudentBox.getValue();
+        chooseUserBox.setOnAction(e -> {
+            selectedUser = chooseUserBox.getValue();
             if (selectedUser != null) {
                 loadConversation(selectedUser);
                 chatPane.setVisible(true);

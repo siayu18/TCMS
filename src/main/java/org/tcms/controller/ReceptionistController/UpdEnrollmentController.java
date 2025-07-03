@@ -49,8 +49,7 @@ public class UpdEnrollmentController {
             enrollmentService = new EnrollmentService();
             studentService = new StudentService();
         } catch (IOException e) {
-            errorLabel.setText("Failed to load data.");
-            errorLabel.setVisible(true);
+            AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
         }
 
@@ -73,7 +72,6 @@ public class UpdEnrollmentController {
                 errorLabel.setText("Duplicated class selection, please pick different classes.");
                 errorLabel.setVisible(true);
                 return;
-
             }
 
             // handle adding enrollment logic
@@ -108,7 +106,7 @@ public class UpdEnrollmentController {
                     @Override
                     protected void updateItem(TuitionClass tuitionclass, boolean empty) {
                         super.updateItem(tuitionclass, empty);
-                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + "- " + tuitionclass.getSubjectName());
+                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + " - " + tuitionclass.getSubjectName());
                     }
                 }
         );

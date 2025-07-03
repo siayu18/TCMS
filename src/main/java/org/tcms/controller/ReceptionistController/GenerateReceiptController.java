@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.tcms.model.*;
 import org.tcms.service.*;
+import org.tcms.utils.AlertUtils;
 import org.tcms.utils.ComponentUtils;
 import org.tcms.utils.MappingUtils;
 
@@ -57,8 +58,7 @@ public class GenerateReceiptController {
             paymentService = new PaymentService();
             receiptService = new ReceiptService();
         } catch (IOException e) {
-            errorLabel.setText("Failed to load data.");
-            errorLabel.setVisible(true);
+            AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
         }
 

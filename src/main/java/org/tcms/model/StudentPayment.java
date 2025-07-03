@@ -12,4 +12,6 @@ public class StudentPayment {
     private final String classID;
     private final String subjectName;
     private final String amount;
+    private final String date;
+    private final String time;
 }

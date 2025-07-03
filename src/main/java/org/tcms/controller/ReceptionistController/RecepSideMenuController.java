@@ -13,12 +13,10 @@ public class RecepSideMenuController extends BaseSideMenuController {
     @FXML private JFXButton registerBtn;
     @FXML private JFXButton updDelStudentBtn;
     @FXML private JFXButton updateEnrolmentBtn;
-    @FXML private JFXButton deleteBtn;
     @FXML private JFXButton paymentBtn;
     @FXML private VBox paymentSubMenu;
     @FXML private JFXButton acceptPaymentBtn;
     @FXML private JFXButton generateRcptBtn;
-    @FXML private JFXButton communicationBtn;
     @FXML private VBox sideMenu;
 
     @Override
@@ -33,6 +31,7 @@ public class RecepSideMenuController extends BaseSideMenuController {
         updateEnrolmentBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_ENROLMENT, "Update Student Enrollment"));
         acceptPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.ACCEPT_PAYMENT, "Accept Student's Payment"));
         generateRcptBtn.setOnAction(e -> toolbarController.loadContent(View.GENERATE_RECEIPT, "Generate Receipt"));
+        viewHistoryBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_PAYMENT_HISTORY, "View Payment History"));
     }
 
     @Override

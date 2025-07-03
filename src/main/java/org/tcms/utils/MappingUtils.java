@@ -22,7 +22,9 @@ public class MappingUtils {
                             student.getUsername(),
                             classID,
                             subject,
-                            p.getAmount()
+                            p.getAmount(),
+                            p.getDate(),
+                            p.getTime()
                     );
                 })
                 .collect(Collectors.toList());

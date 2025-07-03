@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,25 +22,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AcceptPaymentController {
-    public AnchorPane paymentPane;
+public class ViewPaymentController {
+    public JFXComboBox chooseStudentBox;
+    public AnchorPane viewPane;
+    public Label title;
     public TableView<StudentPayment> paymentTable;
-    public TableColumn<StudentPayment, String> paymentIDColumn;
     public TableColumn<StudentPayment, String> accountIDColumn;
     public TableColumn<StudentPayment, String> nameColumn;
     public TableColumn<StudentPayment, String> classIDColumn;
-    public TableColumn<StudentPayment, String> subjectNameColumn;
     public TableColumn<StudentPayment, String> amountColumn;
-    public JFXComboBox<Student> chooseStudentBox;
-    public Button acceptBtn;
-    public Label errorLabel;
+    public TableColumn<StudentPayment, String> subjectNameColumn;
+    public TableColumn<StudentPayment, String> timeColumn;
+    public TableColumn<StudentPayment, String> dateColumn;
 
     private List<Student> students;
     private List<Payment> payments;
     private Map<String, TuitionClass> classMap;
     private Map<String, Enrollment> enrollmentMap;
     private Student selectedStudent;
-    private String selectedPaymentID;
 
     private StudentService studentService;
     private TuitionClassService tuitionClassService;
@@ -60,19 +58,18 @@ public class AcceptPaymentController {
         }
 
         students = studentService.getAllStudents();
-        payments = paymentService.getUnacceptedPayments();
+        payments = paymentService.getAcceptedPayments();
         classMap = tuitionClassService.getAllClasses().stream()
                 .collect(Collectors.toMap(
                         TuitionClass::getClassID,
                         tuitionClass -> tuitionClass
                 ));
         enrollmentMap = enrollmentService.getAllEnrollment().stream()
-                        .collect(Collectors.toMap(
-                                Enrollment::getEnrollmentID,
-                                enrollment -> enrollment
-                        ));
+                .collect(Collectors.toMap(
+                        Enrollment::getEnrollmentID,
+                        enrollment -> enrollment
+                ));
 
-        acceptBtn.setDisable(true);
         configureTable();
         ComponentUtils.configureStudentBox(chooseStudentBox, students);
         configureActions();
@@ -82,32 +79,13 @@ public class AcceptPaymentController {
         chooseStudentBox.setOnAction(e -> {
             selectedStudent = ((Student) chooseStudentBox.getValue());
             if (selectedStudent != null) {
-                paymentPane.setVisible(true);
-                acceptBtn.setVisible(true);
+                viewPane.setVisible(true);
                 loadPaymentTable(selectedStudent);
-            }
-        });
-
-        acceptBtn.setOnAction(e -> {
-            paymentService.updatePaymentStatus(selectedPaymentID);
-            payments = paymentService.getUnacceptedPayments();
-            loadPaymentTable(selectedStudent);
-            paymentTable.getSelectionModel().clearSelection();
-            acceptBtn.setDisable(true);
-        });
-
-        paymentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, sel) -> {
-            if (sel != null) {
-                StudentPayment studentPayment = sel;
-                acceptBtn.setDisable(false);
-                selectedPaymentID = studentPayment.getPaymentID();
             }
         });
     }
 
     private void configureTable() {
-        paymentIDColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getPaymentID()));
         accountIDColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getStudentID()));
         nameColumn.setCellValueFactory(cell ->
@@ -118,11 +96,14 @@ public class AcceptPaymentController {
                 new ReadOnlyStringWrapper(cell.getValue().getSubjectName()));
         amountColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getAmount()));
+        dateColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getDate()));
+        timeColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getTime()));
     }
 
     private void loadPaymentTable(Student student) {
         ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
         paymentTable.setItems(viewList);
     }
-
 }

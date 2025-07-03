@@ -35,8 +35,7 @@ public class UpdDelStudentController {
         try {
             studentService = new StudentService();
         } catch (IOException e) {
-            errorLabel.setText("Failed to load data.");
-            errorLabel.setVisible(true);
+            AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
         }
 
