@@ -61,18 +61,8 @@ public class UpdDelStudentController {
             String newUsername = usernameField.getText().trim();
             String newPassword = passwordField.getText().trim();
 
-            boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!");
-            boolean isPasswordEmpty = Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
-
-            if (isUsernameEmpty) {
-                usernameErrorLabel.setVisible(true);
+            if (isEmpty())
                 return;
-            }
-
-            if (isPasswordEmpty) {
-                passwordErrorLabel.setVisible(true);
-                return;
-            }
 
             usernameErrorLabel.setVisible(false);
             passwordErrorLabel.setVisible(false);
@@ -125,6 +115,17 @@ public class UpdDelStudentController {
         updateBtn.setDisable(true);
         saveBtn.setDisable(true);
         selectedAccountID = null;
+    }
+
+    private boolean isEmpty() {
+        boolean hasEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!") ||
+                Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
+
+        if (hasEmpty) {
+            usernameErrorLabel.setVisible(true);
+            return true;
+        }
+        return false;
     }
 
 }

@@ -93,49 +93,11 @@ public class RegEnrolStudentController {
 
     private void configureActions() {
         submitButton.setOnAction(e -> {
-            boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isICEmpty = Helper.validateFieldNotEmpty(icField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isEmailEmpty = Helper.validateFieldNotEmpty(emailField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isContactEmpty = Helper.validateFieldNotEmpty(contactField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isAddressEmpty = Helper.validateFieldNotEmpty(addressField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isLevelEmpty = Helper.validateComboBoxNotEmpty(levelBox, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isEnrollDateEmpty = Helper.validateDatePickerNotEmpty(enrolDatePicker, emptyLabel, "Required field(s) with indication (*) is empty!");
-            if (isUsernameEmpty || isICEmpty || isEmailEmpty || isContactEmpty || isAddressEmpty || isLevelEmpty || isEnrollDateEmpty) {
-                emptyLabel.setVisible(true);
+            if (isEmpty())
                 return;
-            }
 
-            boolean isPasswordValid = Helper.validatePassword(passwordField.getText());
-            if (!isPasswordValid) {
-                errorLabel.setText("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
+            if (!isValid())
                 return;
-            }
-
-            boolean isICValid = Helper.validateIC(icField.getText());
-            if (!isICValid) {
-                errorLabel.setText("IC Format is invalid!");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
-            }
-
-            boolean isEmailValid = Helper.validateEmail(emailField.getText());
-            if (!isEmailValid) {
-                errorLabel.setText("Email is invalid!");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
-            }
-
-            boolean isContactValid = Helper.validateContact(contactField.getText());
-            if(!isContactValid) {
-                errorLabel.setText("Contact is invalid!");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
-            }
 
             // check if there is any duplicated selection
             TuitionClass subject1 = (TuitionClass) subjectBox1.getValue();
@@ -161,6 +123,53 @@ public class RegEnrolStudentController {
         });
 
         clearButton.setOnAction(e -> clearAll());
+    }
+
+    private boolean isEmpty() {
+        boolean hasEmpty = Helper.validateFieldNotEmpty(usernameField, emptyLabel, "Required field(s) with indication (*) is empty!") ||
+                Helper.validateFieldNotEmpty(icField, emptyLabel, "Required field(s) with indication (*) is empty!") ||
+                Helper.validateFieldNotEmpty(emailField, emptyLabel, "Required field(s) with indication (*) is empty!") ||
+                Helper.validateFieldNotEmpty(contactField, emptyLabel, "Required field(s) with indication (*) is empty!") ||
+                Helper.validateFieldNotEmpty(addressField, emptyLabel, "Required field(s) with indication (*) is empty!") ||
+                Helper.validateComboBoxNotEmpty(levelBox, emptyLabel, "Required field(s) with indication (*) is empty!") ||
+                Helper.validateDatePickerNotEmpty(enrolDatePicker, emptyLabel, "Required field(s) with indication (*) is empty!");
+
+        if (hasEmpty) {
+            emptyLabel.setVisible(true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValid() {
+        if (Helper.validatePassword(passwordField.getText())) {
+            errorLabel.setText("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
+            errorLabel.setVisible(true);
+            emptyLabel.setVisible(false);
+            return false;
+        }
+
+        if (!Helper.validateIC(icField.getText())) {
+            errorLabel.setText("IC Format is invalid!");
+            errorLabel.setVisible(true);
+            emptyLabel.setVisible(false);
+            return false;
+        }
+
+        if (!Helper.validateEmail(emailField.getText())) {
+            errorLabel.setText("Email is invalid!");
+            errorLabel.setVisible(true);
+            emptyLabel.setVisible(false);
+            return false;
+        }
+
+        if(!Helper.validateContact(contactField.getText())) {
+            errorLabel.setText("Contact is invalid!");
+            errorLabel.setVisible(true);
+            emptyLabel.setVisible(false);
+            return false;
+        }
+        return true;
     }
 
     private void clearAll () {

@@ -31,6 +31,10 @@ public class GenerateReceiptController {
     public ScrollPane scrollBar;
     public VBox receiptBox;
     public JFXComboBox chooseStudentBox;
+    public GridPane paymentGrid;
+    public Label studentLabel;
+    public Label dateLabel;
+    public Label totalLabel;
 
     private List<Student> students;
     private List<Payment> payments;
@@ -85,6 +89,7 @@ public class GenerateReceiptController {
         });
 
         generateBtn.setOnAction(e -> {
+            receiptBox.setVisible(true);
             if (receiptService.isReceiptGenerated(selectedStudent)) {
                 errorLabel.setText("Receipt is generated before, loading the receipt...");
                 errorLabel.setVisible(true);
@@ -98,67 +103,45 @@ public class GenerateReceiptController {
     }
 
     private void renderReceipt() {
-        // Clear old receipt and set padding and insects
-        receiptBox.getChildren().clear();
         receiptBox.setPadding(new Insets(20));
         receiptBox.setSpacing(15);
 
-        // Header
-        VBox header = new VBox(5);
-        header.setAlignment(Pos.CENTER);
-        Label centerName = new Label("Tuition Centre");
-        centerName.getStyleClass().add("label-heading-large");
-        Label address = new Label("123 Bukit Jalil, APU, 53000 Kuala Lumpur");
-        address.getStyleClass().add("label-text-regular");
-        Label dateLabel = new Label("Date: " +
-                java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy"))
-        );
-        Label studentLabel = new Label("Student: " + selectedStudent.getUsername());
-        header.getChildren().addAll(centerName, address, dateLabel, studentLabel);
-
-        // Print each payment
-        GridPane paymentGrid = new GridPane();
-        paymentGrid.setHgap(20);
-        paymentGrid.setVgap(8);
-        paymentGrid.setPadding(new Insets(10, 0, 10, 0));
-
-        // Header row
-        Label c1 = new Label("Class ID"), c2 = new Label("Subject"), c3 = new Label("Amount");
-        c1.getStyleClass().add("label-heading-small");
-        c2.getStyleClass().add("label-heading-small");
-        c3.getStyleClass().add("label-heading-small");
-        paymentGrid.add(c1, 0, 0);
-        paymentGrid.add(c2, 1, 0);
-        paymentGrid.add(c3, 2, 0);
+        // Set Header
+        String currentDate = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        dateLabel.setText("Date: " + currentDate);
+        studentLabel.setText("Student: " + selectedStudent.getUsername());
 
         // Data rows
+        clearGridRows(paymentGrid, 1);
         List<StudentPayment> studentPayments = MappingUtils.mapPaymentsForStudent(selectedStudent, payments, enrollmentMap, classMap);
         for (int i = 0; i < studentPayments.size(); i++) {
             StudentPayment studentPayment = studentPayments.get(i);
-            paymentGrid.add(new Label(studentPayment.getClassID()), 0, i+1);
-            paymentGrid.add(new Label(studentPayment.getSubjectName()), 1, i+1);
-            paymentGrid.add(new Label(String.format("%.2f", Double.parseDouble(studentPayment.getAmount()))), 2, i+1);
+            Label classLabel = new Label(studentPayment.getClassID());
+            classLabel.setStyle("-fx-padding: 0 0 0 5;");
+
+            Label subjectLabel = new Label(studentPayment.getSubjectName());
+            subjectLabel.setStyle("-fx-padding: 0 0 0 5;");
+
+            Label amountLabel = new Label(String.format("%.2f", Double.parseDouble(studentPayment.getAmount())));
+            amountLabel.setStyle("-fx-padding: 0 0 0 5;");
+
+            paymentGrid.add(classLabel, 0, i + 1);
+            paymentGrid.add(subjectLabel, 1, i + 1);
+            paymentGrid.add(amountLabel, 2, i + 1);
         }
 
-        // Print total
-        HBox totalRow = new HBox(10);
+        // Set total
         double total = getTotalPayment(studentPayments);
-        Label totalLabel = new Label("Total Paid: " + String.format("%.2f", total));
-        totalLabel.getStyleClass().add("label-heading-small");
-        totalRow.getChildren().add(totalLabel);
-
-        receiptBox.getChildren().addAll(
-                header,
-                new Separator(),
-                paymentGrid,
-                new Separator(),
-                totalRow
-        );
+        totalLabel.setText(String.format("%.2f", total));
     }
 
     private double getTotalPayment(List<StudentPayment> studentPayments) {
         return studentPayments.stream()
                 .mapToDouble(StudentPayment -> Double.parseDouble(StudentPayment.getAmount()))
                 .sum();
+    }
+
+    private void clearGridRows(GridPane grid, int startRow) {
+        grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) >= startRow);
     }
 }

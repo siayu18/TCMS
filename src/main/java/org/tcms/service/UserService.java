@@ -44,6 +44,15 @@ public class UserService {
                 .orElse(null);
     }
 
+    public void addUser(User user) {
+        accountFile.append(Map.of(
+                "AccountID", user.getAccountId(),
+                "Name", user.getUsername(),
+                "Password", user.getPassword(),
+                "Role", user.getRole()
+        ));
+    }
+
     public void updateUser (String accountID, String newUsername, String newPassword) {
         List<Map<String, String>> rows = accountFile.readAll();
 

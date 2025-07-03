@@ -50,12 +50,7 @@ public class StudentService extends UserService {
     }
 
     public void addStudent(Student student) {
-        accountFile.append(Map.of(
-                "AccountID", student.getAccountId(),
-                "Name", student.getUsername(),
-                "Password", student.getPassword(),
-                "Role", student.getRole()
-        ));
+        addUser(student);
         studentFile.append(Map.of(
                 "StudentID", student.getAccountId(),
                 "ICNumber", student.getIcNumber(),
