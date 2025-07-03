@@ -117,11 +117,16 @@ public class UpdDelStudentController {
     }
 
     private boolean isEmpty() {
-        boolean hasEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!") ||
-                Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
+        boolean usernameEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!");
+        boolean passwordEmpty = Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
 
-        if (hasEmpty) {
+        if (usernameEmpty) {
             usernameErrorLabel.setVisible(true);
+            return true;
+        }
+
+        if (passwordEmpty) {
+            passwordErrorLabel.setVisible(true);
             return true;
         }
         return false;

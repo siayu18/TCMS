@@ -50,6 +50,8 @@ public class RegEnrolStudentController {
         }
 
         levelBox.getItems().addAll("Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6");
+
+        // Prevent selecting subject when there is no level selected
         preventSubjectWithoutLevel(subjectBox1);
         preventSubjectWithoutLevel(subjectBox2);
         preventSubjectWithoutLevel(subjectBox3);
@@ -109,6 +111,7 @@ public class RegEnrolStudentController {
                 return;
             }
 
+            // if no duplicated class selection in subjectbox then register new student and enrollment
             emptyLabel.setVisible(false);
             errorLabel.setVisible(false);
             addStudentAndEnrollment();
@@ -188,6 +191,7 @@ public class RegEnrolStudentController {
     }
 
     private void addStudentAndEnrollment() {
+        // Add a new student
         Student student = new Student(
                 Helper.generateAccountID(),
                 usernameField.getText(),
@@ -202,6 +206,7 @@ public class RegEnrolStudentController {
 
         studentService.addStudent(student);
 
+        // Check selection and add new enrollment
         TuitionClass selectedClass1 = (TuitionClass) subjectBox1.getValue();
         TuitionClass selectedClass2 = (TuitionClass) subjectBox2.getValue();
         TuitionClass selectedClass3 = (TuitionClass) subjectBox3.getValue();

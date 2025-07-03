@@ -89,8 +89,8 @@ public class AcceptPaymentController {
         });
 
         acceptBtn.setOnAction(e -> {
-            paymentService.updatePaymentStatus(selectedPaymentID);
-            payments = paymentService.getUnacceptedPayments();
+            paymentService.updatePaymentStatus(selectedPaymentID); // update student's payment status
+            payments = paymentService.getUnacceptedPayments(); // refresh the data before loading to table
             loadPaymentTable(selectedStudent);
             paymentTable.getSelectionModel().clearSelection();
             acceptBtn.setDisable(true);

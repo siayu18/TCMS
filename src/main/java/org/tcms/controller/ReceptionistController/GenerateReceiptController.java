@@ -111,8 +111,8 @@ public class GenerateReceiptController {
         dateLabel.setText("Date: " + currentDate);
         studentLabel.setText("Student: " + selectedStudent.getUsername());
 
-        // Data rows
-        clearGridRows(paymentGrid, 1);
+        // Add Data Rows
+        clearGridRows(paymentGrid, 1); // Clear rows every render to avoid old data leaving there when a new student is selected
         List<StudentPayment> studentPayments = MappingUtils.mapPaymentsForStudent(selectedStudent, payments, enrollmentMap, classMap);
         for (int i = 0; i < studentPayments.size(); i++) {
             StudentPayment studentPayment = studentPayments.get(i);
@@ -130,7 +130,7 @@ public class GenerateReceiptController {
             paymentGrid.add(amountLabel, 2, i + 1);
         }
 
-        // Set total
+        // Set total amount
         double total = getTotalPayment(studentPayments);
         totalLabel.setText(String.format("%.2f", total));
     }
