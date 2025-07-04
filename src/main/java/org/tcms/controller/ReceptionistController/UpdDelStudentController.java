@@ -2,6 +2,8 @@ package org.tcms.controller.ReceptionistController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.tcms.exception.EmptyFieldException;
+import org.tcms.exception.ValidationException;
 import org.tcms.model.Student;
 import org.tcms.service.StudentService;
 
@@ -23,8 +25,6 @@ public class UpdDelStudentController {
     public TableColumn<Student, String> accountIDColumn;
     public TableColumn<Student, String> nameColumn;
     public TableColumn<Student, String> passwordColumn;
-    public Label passwordErrorLabel;
-    public Label usernameErrorLabel;
     public Label errorLabel;
 
     private StudentService studentService;
@@ -57,17 +57,26 @@ public class UpdDelStudentController {
         });
 
         saveBtn.setOnAction(e -> {
-            String newUsername = usernameField.getText().trim();
-            String newPassword = passwordField.getText().trim();
+            try {
+                String newUsername = usernameField.getText().trim();
+                String newPassword = passwordField.getText().trim();
 
-            if (isEmpty())
-                return;
+                Helper.isUsernamePasswordEmpty(usernameField, passwordField, errorLabel);
+                if (Helper.validatePassword(passwordField.getText())) {
+                    throw new ValidationException("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
+                }
 
-            usernameErrorLabel.setVisible(false);
-            passwordErrorLabel.setVisible(false);
-            studentService.updateUser(selectedAccountID, newUsername, newPassword);
-            loadStudentData();
-            clearFields();
+                // everything ok, then proceed
+                errorLabel.setVisible(false);
+                studentService.updateUser(selectedAccountID, newUsername, newPassword);
+                loadStudentData();
+                clearFields();
+                AlertUtils.showInformation("Successfully Updated Student!", usernameField.getText() + "'s account has been updated!");
+
+            } catch (EmptyFieldException | ValidationException ex) {
+                errorLabel.setText(ex.getMessage());
+                errorLabel.setVisible(true);
+            }
         });
 
         delBtn.setOnAction(e -> {
@@ -114,22 +123,6 @@ public class UpdDelStudentController {
         updateBtn.setDisable(true);
         saveBtn.setDisable(true);
         selectedAccountID = null;
-    }
-
-    private boolean isEmpty() {
-        boolean usernameEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!");
-        boolean passwordEmpty = Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
-
-        if (usernameEmpty) {
-            usernameErrorLabel.setVisible(true);
-            return true;
-        }
-
-        if (passwordEmpty) {
-            passwordErrorLabel.setVisible(true);
-            return true;
-        }
-        return false;
     }
 
 }

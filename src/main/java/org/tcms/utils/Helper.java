@@ -1,9 +1,7 @@
 package org.tcms.utils;
 
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
+import org.tcms.exception.EmptyFieldException;
 import org.tcms.model.TuitionClass;
 
 import java.util.*;
@@ -15,33 +13,21 @@ public class Helper {
     }
 
     // validate textfield empty or not
-    public static boolean validateFieldNotEmpty(TextInputControl input, Label label, String message) {
-        if (input.getText().trim().isEmpty()) {
-            label.setText(message);
-            return true;
-        } else {
-            return false;
-        }
+    public static boolean validateFieldNotEmpty(TextInputControl input) {
+        return input.getText().trim().isEmpty();
     }
 
     // validate combobox empty or not
-    public static boolean validateComboBoxNotEmpty(ComboBox<?> comboBox, Label label, String message) {
-        if (comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty()) {
-            label.setText(message);
-            return true;
-        } else {
-            return false;
-        }
+    public static boolean validateComboBoxNotEmpty(ComboBox<?> comboBox) {
+        return comboBox.getValue() == null || comboBox.getValue().toString().trim().isEmpty();
     }
 
     // validate datepicker empty or not
-    public static boolean validateDatePickerNotEmpty(DatePicker datePicker, Label label, String message) {
-        if (datePicker.getValue() == null) {
-            label.setText(message);
+    public static boolean validateDatePickerNotEmpty(DatePicker datePicker) {
+        if (datePicker.getValue() == null)
             return true;
-        } else {
+        else
             return false;
-        }
     }
 
     public static boolean validatePassword(String password) {
@@ -68,6 +54,16 @@ public class Helper {
             }
         }
         return true;
+    }
+
+    public static void isUsernamePasswordEmpty(TextField usernameField, TextField passwordField, Label errorLabel) throws EmptyFieldException {
+        if (validateFieldNotEmpty(usernameField)) {
+            throw new EmptyFieldException("Username Cannot be Empty!");
+        }
+
+        if (validateFieldNotEmpty(passwordField)) {
+            throw new EmptyFieldException("Password Cannot be Empty!");
+        }
     }
 
     public static boolean hasDuplicateClassSelections(TuitionClass... classes) {

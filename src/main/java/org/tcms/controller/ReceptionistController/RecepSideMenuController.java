@@ -17,7 +17,6 @@ public class RecepSideMenuController extends BaseSideMenuController {
     @FXML private VBox paymentSubMenu;
     @FXML private JFXButton acceptPaymentBtn;
     @FXML private JFXButton generateRcptBtn;
-    @FXML private VBox sideMenu;
 
     @Override
     protected void onInit() {

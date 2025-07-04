@@ -16,13 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.SystemController.EditProfileController">
    <children>
       <BorderPane stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-   </top>
-         <left>
-   </left>
          <left>
             <VBox alignment="CENTER" styleClass="background-DarkColor" BorderPane.alignment="CENTER">
                <children>
@@ -60,23 +56,25 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label styleClass="label-text-regular" text="Username: " />
-                        <Label prefHeight="20.0" prefWidth="97.0" styleClass="label-text-regular" text="New password:" GridPane.rowIndex="1" />
-                        <TextField prefWidth="0.0" styleClass="text-field" GridPane.columnIndex="1" />
-                        <Label prefHeight="20.0" prefWidth="156.0" styleClass="label-text-regular" text="Confirm new password:" GridPane.rowIndex="2" />
-                        <PasswordField styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <PasswordField styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                         <Label styleClass="label-text-regular" text="Username: " />
+                         <Label prefHeight="20.0" prefWidth="97.0" styleClass="label-text-regular" text="New password:" GridPane.rowIndex="1" />
+                         <TextField fx:id="usernameField" prefWidth="0.0" styleClass="text-field" GridPane.columnIndex="1" />
+                         <Label prefHeight="20.0" prefWidth="156.0" styleClass="label-text-regular" text="Confirm new password:" GridPane.rowIndex="2" />
+                         <PasswordField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                         <PasswordField fx:id="confirmPasswordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                         <TextField fx:id="visiblePasswordField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                         <TextField fx:id="visibleConfirmPasswordField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <CheckBox fx:id="showPasswordCheckBox" prefWidth="106.0" text="Show Password">
+                  <CheckBox fx:id="showPasswordCheckBox" prefWidth="110.0" text="Show Password">
                      <padding>
                         <Insets top="10.0" />
                      </padding>
                   </CheckBox>
-                  <Label alignment="CENTER" prefWidth="140.0" styleClass="error-label" text="*Incorrect account details*" textAlignment="CENTER" />
+                  <Label fx:id="errorLabel" visible="false" alignment="CENTER" styleClass="error-label" textAlignment="CENTER" />
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
                      <children>
-                        <Button fx:id="loginButton" prefWidth="100.0" styleClass="button-standard" text="Enter" />
+                        <Button fx:id="enterButton" prefWidth="100.0" styleClass="button-standard" text="Enter" />
                      </children>
                      <VBox.margin>
                         <Insets left="300.0" />

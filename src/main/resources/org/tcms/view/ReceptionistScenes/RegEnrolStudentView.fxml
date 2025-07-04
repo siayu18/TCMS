@@ -51,6 +51,15 @@
 
                                         <Label styleClass="label-text-regular" text="Level* :" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                                         <ComboBox fx:id="levelBox" promptText="Select level" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <rowConstraints>
+                                 <RowConstraints />
+                                 <RowConstraints />
+                                 <RowConstraints />
+                                 <RowConstraints />
+                                 <RowConstraints />
+                                 <RowConstraints />
+                                 <RowConstraints />
+                              </rowConstraints>
                                     </GridPane>
                                 </content>
                             </TitledPane>
@@ -59,10 +68,11 @@
                                 <content>
                                     <VBox spacing="10">
                                         <Label styleClass="label-heading-small" text="Select up to 3 Subjects:" />
+                                        <Label fx:id="subjectErrorLabel" styleClass="error-label" text="Please select a level for student to proceed with enrollment." />
                                         <HBox spacing="10">
-                                            <ComboBox fx:id="subjectBox1" promptText="Subject 1" styleClass="text-field" />
-                                            <ComboBox fx:id="subjectBox2" promptText="Subject 2" styleClass="text-field" />
-                                            <ComboBox fx:id="subjectBox3" promptText="Subject 3" styleClass="text-field" />
+                                            <ComboBox fx:id="subjectBox1" disable="true" prefWidth="150" promptText="Subject 1" styleClass="text-field" />
+                                            <ComboBox fx:id="subjectBox2" disable="true" prefWidth="150" promptText="Subject 2" styleClass="text-field" />
+                                            <ComboBox fx:id="subjectBox3" disable="true" prefWidth="150" promptText="Subject 3" styleClass="text-field" />
                                         </HBox>
                                     </VBox>
                                 </content>
@@ -82,7 +92,6 @@
                                     <Button fx:id="clearButton" prefHeight="37.0" prefWidth="68.0" styleClass="button-standard" text="Clear" />
                                     <Button fx:id="submitButton" prefHeight="37.0" prefWidth="142.0" styleClass="button-standard" text="Register Enroll" />
                                 </HBox>
-                                <Label fx:id="emptyLabel" styleClass="error-label" />
                                 <Label fx:id="errorLabel" styleClass="error-label" />
                                 <VBox.margin>
                                     <Insets bottom="20.0" right="20.0" />

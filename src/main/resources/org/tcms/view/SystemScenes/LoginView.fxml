@@ -57,7 +57,7 @@
                             <CheckBox fx:id="showPasswordCheckBox" text="Show Password" />
                             <StackPane>
                                 <children>
-                                    <Label fx:id="incorrectLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
+                                    <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
                                     <Label fx:id="cooldownLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
                                 </children>
                             </StackPane>

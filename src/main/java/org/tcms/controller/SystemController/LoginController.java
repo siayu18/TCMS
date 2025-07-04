@@ -1,5 +1,6 @@
 package org.tcms.controller.SystemController;
 
+import org.tcms.exception.EmptyFieldException;
 import org.tcms.navigation.Role;
 import org.tcms.navigation.View;
 import org.tcms.utils.AlertUtils;
@@ -28,7 +29,7 @@ public class LoginController {
 
     // FXML Variables/Constants
     @FXML public AnchorPane mainPane;
-    @FXML public Label incorrectLabel, cooldownLabel;
+    @FXML public Label errorLabel, cooldownLabel;
     @FXML public Button loginButton;
     @FXML private TextField usernameField, visiblePasswordField;
     @FXML private PasswordField passwordField;
@@ -49,7 +50,6 @@ public class LoginController {
         }
     }
 
-    @FXML
     private void handleShowPassword() {
         boolean show = showPasswordCheckBox.isSelected();
 
@@ -60,54 +60,52 @@ public class LoginController {
         passwordField.setManaged(!show);
     }
 
-    @FXML
     private void handleLogin() {
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText();
+        try {
+            String username = usernameField.getText().trim();
+            String password = passwordField.getText();
 
-        boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, incorrectLabel, "Username or Password cannot be empty");
-        boolean isPasswordEmpty = Helper.validateFieldNotEmpty(passwordField, incorrectLabel, "Username or Password cannot be empty");
+            Helper.isUsernamePasswordEmpty(usernameField, passwordField, errorLabel);
 
-        // Check for empty fields
-        if (isUsernameEmpty || isPasswordEmpty) {
-            incorrectLabel.setVisible(true);
-            return;
-        }
+            User user = userService.authenticate(username, password);
 
-        User user = userService.authenticate(username, password);
+            if (user != null) {
+                // Set current user
+                Session.setCurrentUser(user);
 
-        if (user != null) {
-            // Set current user
-            Session.setCurrentUser(user);
+                // Convert the user role to your enum
+                Role role = Role.fromString(user.getRole());
 
-            // Convert the user role to your enum
-            Role role = Role.fromString(user.getRole());
+                // Load toolbarView.fxml into the login's mainPane (AnchorPane)
+                // return the controller to the object created, so we can control and initialize the scene
+                ToolbarController tbController = SceneUtils.setContent(mainPane, View.TOOLBAR);
 
-            // Load toolbarView.fxml into the login's mainPane (AnchorPane)
-            // return the controller to the object created, so we can control and initialize the scene
-            ToolbarController tbController = SceneUtils.setContent(mainPane, View.TOOLBAR);
+                // initialize side menu and dashboard
+                tbController.initializeWith(role);
 
-            // initialize side menu and dashboard
-            tbController.initializeWith(role);
+                // clear background colour
+                SceneUtils.clearScreenColor(mainPane);
+            } else {
+                errorLabel.setVisible(true);
+                loginCount ++;
+                errorLabel.setText("Incorrect username or password.\n Login attempts remaining: " + (loginCountMax - loginCount));
 
-            // clear background colour
-            SceneUtils.clearScreenColor(mainPane);
-        } else {
-            incorrectLabel.setVisible(true);
-            loginCount ++;
-            incorrectLabel.setText("Incorrect username or password.\n Login attempts remaining: " + (loginCountMax - loginCount));
-
-            if (loginCount >= loginCountMax) {
-                incorrectLabel.setVisible(false);
-                loginButton.setDisable(true);
-                startCooldownTimer();
+                if (loginCount >= loginCountMax) {
+                    errorLabel.setVisible(false);
+                    loginButton.setDisable(true);
+                    startCooldownTimer();
+                }
             }
+
+        } catch (EmptyFieldException ex) {
+            errorLabel.setText(ex.getMessage());
+            errorLabel.setVisible(true);
         }
     }
 
     private void showOnly(Label labelToShow) {
         // Hide all labels first
-        incorrectLabel.setVisible(false);
+        errorLabel.setVisible(false);
         cooldownLabel.setVisible(false);
         // Show the requested label
         labelToShow.setVisible(true);

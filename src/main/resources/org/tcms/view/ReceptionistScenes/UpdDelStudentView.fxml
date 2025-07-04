@@ -21,7 +21,7 @@
                 <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
 
                     <!-- Form Section -->
-                    <GridPane>
+                    <GridPane vgap="10.0">
                         <columnConstraints>
                             <ColumnConstraints percentWidth="30" />
                             <ColumnConstraints percentWidth="70" />
@@ -29,11 +29,9 @@
 
                         <Label styleClass="label-text-regular" text="New Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <TextField fx:id="usernameField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label fx:id="usernameErrorLabel" styleClass="error-label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                         <Label styleClass="label-text-regular" text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                         <TextField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="passwordErrorLabel" styleClass="error-label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <padding>
                      <Insets left="100.0" right="100.0" top="15.0" />
                   </padding>
@@ -44,6 +42,7 @@
                      <RowConstraints />
                   </rowConstraints>
                     </GridPane>
+                     <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" />
 
                     <!-- Button Section -->
                     <HBox alignment="CENTER" spacing="30.0">
@@ -51,8 +50,6 @@
                         <Button fx:id="saveBtn" prefWidth="80" styleClass="button-standard" text="Save" />
                         <Button fx:id="updateBtn" prefWidth="80" styleClass="button-standard" text="Update" />
                     </HBox>
-
-                    <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
 
                     <!-- Table Section -->
                     <TableView fx:id="studentTable">

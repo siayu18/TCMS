@@ -47,7 +47,7 @@
                                 <JFXButton fx:id="sendBtn" prefWidth="60" styleClass="button-small" text="Send" />
                             </HBox>
 
-                            <Label fx:id="emptyFieldError" styleClass="error-label">
+                            <Label fx:id="errorLabel" styleClass="error-label">
                                 <VBox.margin>
                                    <Insets bottom="10.0" />
                                 </VBox.margin>

@@ -4,16 +4,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+import org.tcms.exception.EmptyFieldException;
 import org.tcms.model.Communication;
 import org.tcms.model.User;
 import org.tcms.service.CommunicationService;
@@ -26,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class CommunicationController {
-    public Label emptyFieldError;
+    public Label errorLabel;
     @FXML private AnchorPane chatPane;
     @FXML private Label title;
     @FXML private ScrollPane scrollBar;
@@ -51,8 +49,13 @@ public class CommunicationController {
         }
 
         currentUserId = Session.getCurrentUserID();
-        List<User> users = userService.getAllUsers();
+        setupUserBox();
+        sendBtn.setDefaultButton(true);
+        configureActions();
+    }
 
+    private void setupUserBox() {
+        List<User> users = userService.getAllUsers();
         chooseUserBox.getItems().setAll(users);
 
         // display "ID - name" in the dropdown
@@ -73,28 +76,27 @@ public class CommunicationController {
                 setText(empty || u == null ? null : u.getAccountId() + "- " + u.getUsername());
             }
         });
-
-        sendBtn.setDefaultButton(true);
-        configureActions();
     }
 
     private void configureActions() {
         sendBtn.setOnAction(e -> {
-            String text = msgField.getText().trim();
-            if (selectedUser == null)
-                return;
+            try {
+                String text = msgField.getText().trim();
+                if (selectedUser == null)
+                    return;
 
-            boolean isEmpty = Helper.validateFieldNotEmpty(msgField, emptyFieldError, "Message Cannot be Empty!");
-            if (isEmpty) {
-                emptyFieldError.setVisible(true);
-                return;
+                isMessageEmpty();
+
+                errorLabel.setVisible(false);
+                comService.sendMessage(currentUserId, selectedUser.getAccountId(), text);
+                msgField.clear();
+                // load new conversation after new message is added (to update)
+                loadConversation(selectedUser);
+
+            } catch (EmptyFieldException ex) {
+                errorLabel.setText(ex.getMessage());
+                errorLabel.setVisible(true);
             }
-
-            emptyFieldError.setVisible(false);
-            comService.sendMessage(currentUserId, selectedUser.getAccountId(), text);
-            msgField.clear();
-            // load new conversation after new message is added (to update)
-            loadConversation(selectedUser);
         });
 
         chooseUserBox.setOnAction(e -> {
@@ -136,5 +138,11 @@ public class CommunicationController {
 
         // scroll to bottom as default (to the newest message)
         Platform.runLater(() -> scrollBar.setVvalue(1.0));
+    }
+
+    private void isMessageEmpty() throws EmptyFieldException {
+        if (Helper.validateFieldNotEmpty(msgField)) {
+            throw new EmptyFieldException("Message Cannot be Empty!");
+        }
     }
 }
