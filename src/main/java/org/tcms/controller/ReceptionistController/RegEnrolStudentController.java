@@ -136,7 +136,7 @@ public class RegEnrolStudentController {
     }
 
     private void isRequiredValid() throws ValidationException {
-        if (Helper.validatePassword(passwordField.getText())) {
+        if (!Helper.validatePassword(passwordField.getText())) {
             throw new ValidationException("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
         }
 

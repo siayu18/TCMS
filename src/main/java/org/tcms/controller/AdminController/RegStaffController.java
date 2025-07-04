@@ -176,7 +176,7 @@ public class RegStaffController {
         }
 
         // Check password strength
-        if (!password.isEmpty() && !Helper.validatePassword(password)) {
+        if (!password.isEmpty() && Helper.validatePassword(password)) {
             errorLabel.setText("Password must be 8+ characters with uppercase, lowercase, digit, and special character");
             errorLabel.setVisible(true);
             isValid = false;

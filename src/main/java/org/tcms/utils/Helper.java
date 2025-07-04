@@ -24,19 +24,31 @@ public class Helper {
 
     // validate datepicker empty or not
     public static boolean validateDatePickerNotEmpty(DatePicker datePicker) {
-        if (datePicker.getValue() == null)
-            return true;
-        else
-            return false;
+        return datePicker.getValue() == null;
     }
 
     public static boolean validatePassword(String password) {
-        return password != null
-                && password.length() >= 8
-                && password.matches(".*[A-Z.*]")
-                && password.matches(".*\\d.*")
-                && password.matches(".*[!@#$%^&*].*")
-                && password.matches(".*[a-z.*]");
+        if (password.length() < 8) {
+            return true;
+        }
+
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasDigit = false;
+        boolean hasSpecial = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpper = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLower = true;
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (!Character.isLetterOrDigit(c)) {
+                hasSpecial = true;
+            }
+        }
+        return hasUpper && hasLower && hasDigit && hasSpecial;
     }
 
     public static boolean validateIC(String ic) {
