@@ -56,7 +56,7 @@ public class Helper {
         return true;
     }
 
-    public static void isUsernamePasswordEmpty(TextField usernameField, TextField passwordField, Label errorLabel) throws EmptyFieldException {
+    public static void isUsernamePasswordEmpty(TextField usernameField, TextField passwordField) throws EmptyFieldException {
         if (validateFieldNotEmpty(usernameField)) {
             throw new EmptyFieldException("Username Cannot be Empty!");
         }

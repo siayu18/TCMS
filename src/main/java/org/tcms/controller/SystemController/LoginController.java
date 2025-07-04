@@ -65,7 +65,7 @@ public class LoginController {
             String username = usernameField.getText().trim();
             String password = passwordField.getText();
 
-            Helper.isUsernamePasswordEmpty(usernameField, passwordField, errorLabel);
+            Helper.isUsernamePasswordEmpty(usernameField, passwordField);
 
             User user = userService.authenticate(username, password);
 

@@ -47,7 +47,7 @@ public class EditProfileController {
                 String newPassword = passwordField.getText();
                 String confirmPassword = confirmPasswordField.getText();
 
-                Helper.isUsernamePasswordEmpty(usernameField, passwordField, errorLabel);
+                Helper.isUsernamePasswordEmpty(usernameField, passwordField);
                 isPasswordValid(newPassword, confirmPassword);
 
                 errorLabel.setVisible(false);

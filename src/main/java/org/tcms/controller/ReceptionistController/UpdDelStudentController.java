@@ -61,7 +61,7 @@ public class UpdDelStudentController {
                 String newUsername = usernameField.getText().trim();
                 String newPassword = passwordField.getText().trim();
 
-                Helper.isUsernamePasswordEmpty(usernameField, passwordField, errorLabel);
+                Helper.isUsernamePasswordEmpty(usernameField, passwordField);
                 if (Helper.validatePassword(passwordField.getText())) {
                     throw new ValidationException("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
                 }
