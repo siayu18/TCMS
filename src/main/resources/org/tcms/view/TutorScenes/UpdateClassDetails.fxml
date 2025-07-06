@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -62,7 +62,7 @@
                               <TextField fx:id="chargesField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <TextField fx:id="schefuleField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="levelLabel" styleClass="label-text-regular" text="Level:" GridPane.rowIndex="4" />
-                              <JFXComboBox fx:id="levelBox" prefHeight="26.0" prefWidth="132.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ComboBox fx:id="levelBox" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">

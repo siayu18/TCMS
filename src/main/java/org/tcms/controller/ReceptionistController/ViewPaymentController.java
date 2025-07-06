@@ -103,7 +103,8 @@ public class ViewPaymentController {
     }
 
     private void loadPaymentTable(Student student) {
-        ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
+        ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(
+                MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
         paymentTable.setItems(viewList);
     }
 }

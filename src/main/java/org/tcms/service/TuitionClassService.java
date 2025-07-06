@@ -1,7 +1,9 @@
 package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
+import org.tcms.model.Tutor;
 import org.tcms.utils.FileHandler;
+import org.tcms.utils.Session;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,6 +19,21 @@ public class TuitionClassService {
 
     public List<TuitionClass> getAllClasses() {
         return classFile.readAll().stream()
+                .map(row -> new TuitionClass(
+                        row.get("ClassID"),
+                        row.get("TutorID"),
+                        row.get("SubjectName"),
+                        row.get("Information"),
+                        row.get("Charges"),
+                        row.get("Schedule"),
+                        row.get("Level")
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public List<TuitionClass> getClassesFromTutor() {
+        return classFile.readAll().stream()
+                .filter(row -> Session.getCurrentUserID().equalsIgnoreCase(row.get("TutorID")))
                 .map(row -> new TuitionClass(
                         row.get("ClassID"),
                         row.get("TutorID"),

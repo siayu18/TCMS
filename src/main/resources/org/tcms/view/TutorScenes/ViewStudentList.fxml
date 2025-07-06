@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,7 +17,7 @@
             <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="TOP_CENTER">
                 <children>
                     <Label styleClass="label-text-regular" text="Select Class:" />
-                    <JFXComboBox fx:id="chooseClassBox" prefWidth="160.0" />
+               <ComboBox fx:id="chooseClassBox" prefWidth="150.0" styleClass="text-field" />
                 </children>
                 <BorderPane.margin>
                     <Insets top="10.0" />
