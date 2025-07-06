@@ -2,8 +2,10 @@ package org.tcms.service;
 
 import org.tcms.model.*;
 import org.tcms.utils.FileHandler;
+import org.tcms.utils.Helper;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -70,5 +72,22 @@ public class UserService {
         List<Map<String, String>> rows = accountFile.readAll();
         rows.removeIf(row -> accountID.equals(row.get("AccountID")));
         accountFile.overwriteAll(rows);
+        // Cascade deletion to role-specific files
+        deleteFromTutorCSV(accountID);
+        deleteFromStudentCSV(accountID);
+    }
+
+    private void deleteFromTutorCSV(String accountID) {
+        FileHandler tutorHandler = new FileHandler("tutor.csv", List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
+        List<Map<String, String>> tutorRows = tutorHandler.readAll();
+        tutorRows.removeIf(row -> accountID.equals(row.get("TutorID")));
+        tutorHandler.overwriteAll(tutorRows);
+    }
+
+    private void deleteFromStudentCSV(String accountID) {
+        FileHandler studentHandler = new FileHandler("student.csv", List.of("StudentID", "ICNumber", "Email", "ContactNumber", "Address", "Level"));
+        List<Map<String, String>> studentRows = studentHandler.readAll();
+        studentRows.removeIf(row -> accountID.equals(row.get("StudentID")));
+        studentHandler.overwriteAll(studentRows);
     }
 }

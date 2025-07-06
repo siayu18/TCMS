@@ -115,6 +115,12 @@
     -fx-line-spacing: 1.1em;
 }
 
+.success-label {
+    -fx-text-fill: #00b16a;
+    -fx-font-size: 12px;
+    -fx-line-spacing: 1.1em;
+}
+
 /* Standard Text Field Style */
 .text-field {
     -fx-background-color: #EAEFEF, white, white;

@@ -11,9 +11,7 @@ public class AdminSideMenuController extends BaseSideMenuController {
     @FXML private JFXButton monthlyReportBtn;
     @FXML private JFXButton staffManagementBtn;
     @FXML private VBox staffManagementSubMenu;
-    @FXML private JFXButton communicationBtn;
     @FXML private JFXButton updateProfileBtn;
-    @FXML private VBox sideMenu;
 
     @Override
     protected void onInit() {
@@ -21,7 +19,6 @@ public class AdminSideMenuController extends BaseSideMenuController {
         setupToggle(staffManagementBtn, staffManagementSubMenu);
 
         // go-to page
-        communicationBtn.setOnAction(e -> toolbarController.loadContent(View.COMMUNICATION, "Communication Hub"));
         registerProfileBtn.setOnAction(e -> toolbarController.loadContent(View.REG_STAFF, "Register Staff & Assign Tutor"));
         monthlyReportBtn.setOnAction(e -> toolbarController.loadContent(View.MONTHLY_STATS, "Monthly Report"));
         updateProfileBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_STAFF, "Update Staff Details"));

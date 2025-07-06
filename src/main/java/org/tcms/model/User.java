@@ -12,7 +12,4 @@ public abstract class User {
     private String username;
     private String password;
     private String role;
-
-    public abstract String getDashboardFxml();
-    public abstract String getDashboardTitle();
 }

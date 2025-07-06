@@ -24,7 +24,10 @@ public class Helper {
 
     // validate datepicker empty or not
     public static boolean validateDatePickerNotEmpty(DatePicker datePicker) {
-        return datePicker.getValue() == null;
+        if (datePicker.getValue() == null)
+            return true;
+        else
+            return false;
     }
 
     public static boolean validatePassword(String password) {

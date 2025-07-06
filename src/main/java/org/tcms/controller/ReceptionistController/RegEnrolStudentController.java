@@ -1,5 +1,6 @@
 package org.tcms.controller.ReceptionistController;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.tcms.exception.EmptyFieldException;
@@ -67,10 +68,10 @@ public class RegEnrolStudentController {
                             super.updateItem(tuitionclass, empty);
                             setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + " - " + tuitionclass.getSubjectName());
                         }
-                    }
-            );
+                    });
 
             box.setButtonCell(new ListCell<TuitionClass>() {
+
                 @Override
                 protected void updateItem(TuitionClass item, boolean empty) {
                     super.updateItem(item, empty);

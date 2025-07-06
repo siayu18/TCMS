@@ -2,8 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -73,23 +73,23 @@
                               <Insets />
                            </GridPane.margin></TextField>
                         <Label prefHeight="20.0" prefWidth="156.0" styleClass="label-text-regular" text="Role:" GridPane.rowIndex="2" />
-                        <JFXComboBox fx:id="selectRole" focusColor="#7f8caa" prefHeight="25.0" prefWidth="142.0" promptText="Select Role" unFocusColor="#333446" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="visiblePasswordField" styleClass="text-field" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <PasswordField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="selectRole" prefWidth="150.0" promptText="Select Role" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <VBox fx:id="tutorSelections" disable="true" prefHeight="50.0" prefWidth="420.0" spacing="15.0">
+                  <VBox fx:id="tutorSelections" prefHeight="50.0" prefWidth="420.0" spacing="15.0">
                      <children>
                         <HBox>
                            <children>
-                              <Label prefHeight="20.0" prefWidth="80.0" styleClass="label-text-regular" text="Subject:" />
-                              <JFXComboBox fx:id="selectSubject" focusColor="#7f8caa" prefHeight="25.0" prefWidth="142.0" promptText="Select Subject" unFocusColor="#333446" />
+                              <Label prefHeight="20.0" prefWidth="81.0" styleClass="label-text-regular" text="Level:" />
+                              <ComboBox fx:id="selectLevel" prefWidth="150.0" promptText="Select Level" styleClass="text-field" />
                            </children>
                         </HBox>
                         <HBox>
                            <children>
-                              <Label prefHeight="20.0" prefWidth="81.0" styleClass="label-text-regular" text="Level:" />
-                              <JFXComboBox fx:id="selectLevel" focusColor="#7f8caa" prefHeight="25.0" prefWidth="142.0" promptText="Select Level" unFocusColor="#333446" />
+                              <Label prefHeight="20.0" prefWidth="80.0" styleClass="label-text-regular" text="Subject:" />
+                              <TextField fx:id="selectSubject" styleClass="text-field" />
                            </children>
                         </HBox>
                      </children>
@@ -100,8 +100,9 @@
                   <JFXCheckBox fx:id="showPassword" checkedColor="#7f8caa" text="Show Password" unCheckedColor="#333446" />
                   <StackPane>
                      <children>
-                        <Label fx:id="errorLabel" alignment="CENTER" styleClass="error-label" text="*Incorrect account details*" textAlignment="CENTER" visible="false" />
-                        <Label fx:id="emptyLabel" alignment="CENTER" styleClass="error-label" text="*Incorrect account details*" textAlignment="CENTER" visible="false" />
+                        <Label fx:id="errorLabel" alignment="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" />
+                        <Label fx:id="emptyLabel" alignment="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" />
+                        <Label fx:id="successLabel" alignment="CENTER" styleClass="success-label" textAlignment="CENTER" visible="false" />
                      </children>
                   </StackPane>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
