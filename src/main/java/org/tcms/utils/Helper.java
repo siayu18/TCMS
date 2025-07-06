@@ -32,7 +32,7 @@ public class Helper {
 
     public static boolean validatePassword(String password) {
         if (password.length() < 8) {
-            return true;
+            return false;
         }
 
         boolean hasUpper = false;

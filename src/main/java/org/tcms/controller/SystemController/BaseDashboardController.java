@@ -39,6 +39,7 @@ public abstract class BaseDashboardController {
         );
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
+        onInit();
     }
 
     private void updateDateTime() {
@@ -49,4 +50,6 @@ public abstract class BaseDashboardController {
     }
 
     protected abstract String formatGreeting();
+
+    protected void onInit() {};
 }

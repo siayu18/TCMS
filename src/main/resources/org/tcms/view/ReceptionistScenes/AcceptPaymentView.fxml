@@ -33,7 +33,6 @@
                     <children>
                         <TableView fx:id="paymentTable" prefHeight="230.0" prefWidth="600.0">
                             <columns>
-                                <TableColumn fx:id="paymentIDColumn" text="Payment ID" />
                                 <TableColumn fx:id="accountIDColumn" text="Account ID" />
                                 <TableColumn fx:id="nameColumn" text="Name" />
                                 <TableColumn fx:id="classIDColumn" text="Class ID" />
@@ -50,7 +49,7 @@
         <bottom>
             <VBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
                 <children>
-                    <Button fx:id="acceptBtn" mnemonicParsing="false" styleClass="button-standard" text="Accept Payment" />
+                    <Button fx:id="acceptBtn" visible="false" mnemonicParsing="false" styleClass="button-standard" text="Accept Payment" />
                     <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
                 </children>
                 <padding>

@@ -63,15 +63,15 @@ public class UpdDelStudentController {
 
                 Helper.isUsernamePasswordEmpty(usernameField, passwordField);
                 if (!Helper.validatePassword(passwordField.getText())) {
-                    throw new ValidationException("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
+                    throw new ValidationException("Password should be more than 8 characters and contain at least 1 uppercase, lowercase, digit and special character.");
                 }
 
                 // everything ok, then proceed
                 errorLabel.setVisible(false);
                 studentService.updateUser(selectedAccountID, newUsername, newPassword);
                 loadStudentData();
-                clearFields();
                 AlertUtils.showInformation("Successfully Updated Student!", usernameField.getText() + "'s account has been updated!");
+                clearFields();
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());
@@ -83,6 +83,7 @@ public class UpdDelStudentController {
             if (selectedAccountID != null) {
                 studentService.deleteUser(selectedAccountID);
                 loadStudentData();
+                AlertUtils.showInformation("Successfully Deleted Student!", usernameField.getText() + "'s account has been deleted!");
                 clearFields();
             }
         });

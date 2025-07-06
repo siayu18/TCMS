@@ -5,9 +5,6 @@ import org.tcms.controller.SystemController.BaseDashboardController;
 
 public class AdminDashController extends BaseDashboardController {
 
-    @FXML
-    public void initialize() {super.initialize();}
-
     @Override
     protected String formatGreeting(){return "Welcome Back Admin!";}
 }

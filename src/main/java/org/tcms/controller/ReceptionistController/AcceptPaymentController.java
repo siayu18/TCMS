@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class AcceptPaymentController {
     public AnchorPane paymentPane;
     public TableView<StudentPayment> paymentTable;
-    public TableColumn<StudentPayment, String> paymentIDColumn;
     public TableColumn<StudentPayment, String> accountIDColumn;
     public TableColumn<StudentPayment, String> nameColumn;
     public TableColumn<StudentPayment, String> classIDColumn;
@@ -89,6 +88,7 @@ public class AcceptPaymentController {
         });
 
         acceptBtn.setOnAction(e -> {
+            AlertUtils.showInformation("Successfully Accepted Payment!", "Payment is accepted");
             paymentService.updatePaymentStatus(selectedPaymentID); // update student's payment status
             payments = paymentService.getUnacceptedPayments(); // refresh the data before loading to table
             loadPaymentTable(selectedStudent);
@@ -106,8 +106,6 @@ public class AcceptPaymentController {
     }
 
     private void configureTable() {
-        paymentIDColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getPaymentID()));
         accountIDColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getStudentID()));
         nameColumn.setCellValueFactory(cell ->
