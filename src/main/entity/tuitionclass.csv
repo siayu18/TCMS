@@ -1,4 +1,3 @@
-"ClassID","TutorID","SubjectName","Information","Charges","Schedule","Level"
-"1","TP003","Math","This is a math class","100","9:00am-10:00am","Level 1"
-"2","TP009","Good Job Mike Hawk","Good Job Mike Hawk","200","10:00am-11:00am","Level 5"
-"3","TP008","dsdfsfsdfs","Good Job Mike Hawk","200","10:00am-11:00am","Level 2"
+ClassID,TutorID,SubjectName,Information,Charges,Schedule,Level
+1,3,Math,This is a math class,100,9:00am-10:00am,Level 1
+2,3,English,This is a english class,200,10:00am-11:00am,Level 1
