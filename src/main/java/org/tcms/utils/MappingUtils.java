@@ -29,4 +29,9 @@ public class MappingUtils {
                 })
                 .collect(Collectors.toList());
     }
+
+    public static List<Student> mapStudentForClasses(){
+
+        return List.of();
+    }
 }
