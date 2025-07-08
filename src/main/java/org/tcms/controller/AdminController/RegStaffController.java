@@ -1,20 +1,17 @@
 package org.tcms.controller.AdminController;
 
 import com.jfoenix.controls.*;
-import javafx.beans.DefaultProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
 import org.tcms.model.*;
-import org.tcms.service.TuitionClassService;
 import org.tcms.service.TutorService;
 import org.tcms.service.UserService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 import java.io.IOException;
-import java.util.List;
 
 public class RegStaffController {
     // FXML components
@@ -74,6 +71,7 @@ public class RegStaffController {
                 errorLabel.setVisible(false);
                 AlertUtils.showInformation("Successfully Registered New Staff!", usernameField.getText() + "'s account has been created!");
                 addStaff();
+                clearAll();
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());
@@ -82,9 +80,8 @@ public class RegStaffController {
         });
 
         // Shows select lvl & sub if selected tutor role
-        selectRole.valueProperty().addListener((obs, oldVal, newVal) -> {
-            tutorSelections.setVisible(String.valueOf(newVal).equals("Tutor"));
-        });
+        selectRole.valueProperty().addListener((obs, oldVal, newVal) ->
+                tutorSelections.setVisible(String.valueOf(newVal).equals("Tutor")));
 
         // Toggle visibility of password field
         showPassword.setOnAction(e -> {
@@ -125,7 +122,7 @@ public class RegStaffController {
         String password = showPassword.isSelected() ? visiblePasswordField.getText() : passwordField.getText();
         String accountID = Helper.generateAccountID();
 
-        User user = null;
+        User user;
         switch(selectedRole){
             case "Admin":
                 user = new Admin(accountID, username,password, "Admin");
@@ -155,6 +152,7 @@ public class RegStaffController {
         errorLabel.setVisible(false);
         emptyLabel.setVisible(false);
         tutorSelections.setVisible(false);
+        selectSubject.clear();
     }
 
 }

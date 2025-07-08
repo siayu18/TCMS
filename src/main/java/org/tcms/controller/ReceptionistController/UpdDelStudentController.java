@@ -10,6 +10,7 @@ import org.tcms.service.StudentService;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.tcms.service.TutorService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 
@@ -68,7 +69,7 @@ public class UpdDelStudentController {
 
                 // everything ok, then proceed
                 errorLabel.setVisible(false);
-                studentService.updateUser(selectedAccountID, newUsername, newPassword);
+                studentService.updateUser(selectedAccountID, newUsername, newPassword, "Student");
                 loadStudentData();
                 AlertUtils.showInformation("Successfully Updated Student!", usernameField.getText() + "'s account has been updated!");
                 clearFields();
@@ -81,6 +82,7 @@ public class UpdDelStudentController {
 
         delBtn.setOnAction(e -> {
             if (selectedAccountID != null) {
+                studentService.deleteStudent(selectedAccountID);
                 studentService.deleteUser(selectedAccountID);
                 loadStudentData();
                 AlertUtils.showInformation("Successfully Deleted Student!", usernameField.getText() + "'s account has been deleted!");

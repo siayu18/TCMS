@@ -1,6 +1,5 @@
 package org.tcms.controller.ReceptionistController;
 
-import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.tcms.exception.EmptyFieldException;
@@ -13,28 +12,19 @@ import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 public class RegEnrolStudentController {
-    public TextField usernameField;
-    public TextField icField;
-    public TextField emailField;
-    public TextField contactField;
-    public TextField addressField;
-    public ComboBox levelBox;
-    public ComboBox subjectBox1;
-    public ComboBox subjectBox2;
-    public ComboBox subjectBox3;
-    public Button clearButton;
-    public Button submitButton;
-    public TextField passwordField;
+    // FXML components
+    public TextField usernameField, icField, emailField, contactField, addressField, passwordField;
+    public ComboBox levelBox, subjectBox1, subjectBox2, subjectBox3;
+    public Button clearButton, submitButton;
     public DatePicker enrolDatePicker;
-    public Label errorLabel;
-    public Label subjectErrorLabel;
+    public Label errorLabel, subjectErrorLabel;
 
+    //Services
     private StudentService studentService;
     private TuitionClassService tuitionClassService;
     private EnrollmentService enrollmentService;
