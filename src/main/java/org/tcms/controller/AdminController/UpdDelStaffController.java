@@ -74,10 +74,33 @@ public class UpdDelStaffController {
 
         deleteBtn.setOnAction(e -> {
             if (selectedAccountID != null) {
-                tutorService.deleteTutor(selectedAccountID);
-                userService.deleteUser(selectedAccountID);
-                loadAccountData();
-                clearFields();
+                try {
+                    // 1. Verify the user is a tutor (safety check)
+                    User user = userService.getUserByID(selectedAccountID);
+                    if (user == null || !"Tutor".equals(user.getRole())) {
+                        AlertUtils.showAlert("Error", "Selected user is not a tutor.");
+                        return;
+                    }
+
+
+                    // 3. Replace tutor ID with "NO TUTOR" in tutor.csv
+                    tutorService.markTutorAsDeletedInTutorCSV(selectedAccountID);
+
+                    // 4. Replace tutor ID with "NO TUTOR" in tuitionclass.csv
+                    tutorService.markTutorAsDeletedInClassesCSV(selectedAccountID);
+
+                    // 2. Delete the tutor from account.csv
+                    userService.deleteUser(selectedAccountID);
+
+                    // 5. Refresh UI
+                    loadAccountData();
+                    clearFields();
+                    AlertUtils.showInformation("Success", "Tutor deleted, and records updated.");
+
+                } catch (Exception ex) {
+                    errorLabel.setText("Deletion failed: " + ex.getMessage());
+                    errorLabel.setVisible(true);
+                }
             }
         });
 

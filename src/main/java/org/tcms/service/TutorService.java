@@ -15,72 +15,53 @@ public class TutorService extends UserService {
         tutorFile = new FileHandler("tutor.csv", Arrays.asList("TutorID", "AssignedSubjects", "AssignedLevels"));
     }
 
-
+    
     public List<Tutor> getAllTutor() {
-        // Step 1: Load all tutors from account.csv (role = "Tutor")
-        Map<String, Map<String, String>> accountMap = accountFile.readAll().stream()
-                .filter(row -> "Tutor".equals(row.get("Role")))
-                .filter(row -> row.get("AccountID") != null)
-                .collect(Collectors.toMap(
-                        row -> row.get("AccountID"), // Key: TutorID
-                        row -> row,
-                        (existing, newRow) -> existing // Keep first if duplicates in account.csv
-                ));
+        try {
+            // Step 1: Load all valid tutors from account.csv (role = "Tutor")
+            Map<String, Map<String, String>> accountMap = accountFile.readAll().stream()
+                    .filter(row -> "Tutor".equals(row.get("Role")))
+                    .filter(row -> row.get("AccountID") != null)
+                    .collect(Collectors.toMap(
+                            row -> row.get("AccountID"), // Key: TutorID
+                            row -> row,
+                            (existing, newRow) -> existing // Keep first duplicate
+                    ));
 
-        // Step 2: Load ALL assignments from tutor.csv (1 row per assignment)
-        List<Map<String, String>> allAssignments = tutorFile.readAll().stream()
-                .filter(row -> row.get("TutorID") != null) // Skip invalid rows
-                .collect(Collectors.toList());
+            // Step 2: Load ALL entries from tutor.csv (including "NO TUTOR")
+            Map<String, List<Map<String, String>>> tutorAssignments = tutorFile.readAll().stream()
+                    .filter(row -> row.get("TutorID") != null) // Keep entries with TutorID (even "NO TUTOR")
+                    .collect(Collectors.groupingBy(row -> row.get("TutorID")));
 
-        // Step 3: Create 1 Tutor object per assignment (separate row per assignment)
-        List<Tutor> assignmentRows = allAssignments.stream()
-                .map(assignment -> {
-                    String tutorID = assignment.get("TutorID");
-                    Map<String, String> accountData = accountMap.get(tutorID);
+            // Step 3: Merge data, including "NO TUTOR" entries
+            return tutorAssignments.entrySet().stream()
+                    .flatMap(entry -> {
+                        String tutorID = entry.getKey();
+                        List<Map<String, String>> assignments = entry.getValue();
 
-                    // Skip if tutor doesn't exist in account.csv (invalid data)
-                    if (accountData == null) return null;
+                        // Get account data (or use "NO TUTOR" if missing)
+                        Map<String, String> accountData = accountMap.get(tutorID);
+                        String username = (accountData != null) ?
+                                accountData.getOrDefault("Name", "Unknown") :
+                                "NO TUTOR"; // For "NO TUTOR" or invalid IDs
 
-                    // Create Tutor for THIS SINGLE ASSIGNMENT
-                    return new Tutor(
-                            tutorID,
-                            accountData.getOrDefault("Name", "Unknown"),
-                            accountData.getOrDefault("Password", ""),
-                            accountData.getOrDefault("Role", "Tutor"),
-                            assignment.getOrDefault("AssignedLevels", "No level"),
-                            assignment.getOrDefault("AssignedSubjects", "No subject")
-                    );
-                })
-                .filter(Objects::nonNull) // Remove invalid entries
-                .collect(Collectors.toList());
+                        // Create a Tutor object for each assignment
+                        return assignments.stream()
+                                .map(assignment -> new Tutor(
+                                        tutorID,
+                                        username, // "NO TUTOR" if no account
+                                        "", // Password irrelevant for display
+                                        (accountData != null) ? accountData.get("Role") : "N/A",
+                                        assignment.getOrDefault("AssignedLevels", "No level"),
+                                        assignment.getOrDefault("AssignedSubjects", "No subject")
+                                ));
+                    })
+                    .collect(Collectors.toList());
 
-        // Step 4: Add tutors with NO assignments (1 row per tutor)
-        Set<String> tutorsWithAssignments = assignmentRows.stream()
-                .map(Tutor::getAccountId)
-                .collect(Collectors.toSet()); // Track tutors already in assignment rows
-
-        List<Tutor> noAssignmentRows = accountMap.keySet().stream()
-                .filter(tutorID -> !tutorsWithAssignments.contains(tutorID)) // Skip tutors with assignments
-                .map(tutorID -> {
-                    Map<String, String> accountData = accountMap.get(tutorID);
-                    return new Tutor(
-                            tutorID,
-                            accountData.getOrDefault("Name", "Unknown"),
-                            accountData.getOrDefault("Password", ""),
-                            accountData.getOrDefault("Role", "Tutor"),
-                            "No level", // No assignments
-                            "No subject" // No assignments
-                    );
-                })
-                .collect(Collectors.toList());
-
-        // Combine assignment rows + no-assignment rows (all as separate rows)
-        List<Tutor> allRows = new ArrayList<>();
-        allRows.addAll(assignmentRows);
-        allRows.addAll(noAssignmentRows);
-
-        return allRows;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load tutor data", e);
         }
+    }
 
     // Only gets Tutor data from account.csv
     public List<Tutor> getAllTutorsFromAccount() {
@@ -226,27 +207,63 @@ public class TutorService extends UserService {
         }
     }
 
-    public void deleteTutor(String accountID) {
-        FileHandler tutorHandler = new FileHandler("tutor.csv", List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
+    // Replace tutor ID with "NO TUTOR" in tutor.csv (keep assignment rows)
+    public void markTutorAsDeletedInTutorCSV(String oldTutorID) {
+        FileHandler tutorHandler = new FileHandler("tutor.csv",
+                List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
+
         List<Map<String, String>> tutorRows = tutorHandler.readAll();
-        tutorRows.removeIf(row -> accountID.equals(row.get("TutorID")));
+
+        // Update rows with the deleted tutor's ID to "NO TUTOR"
+        tutorRows.forEach(row -> {
+            if (oldTutorID.equals(row.get("TutorID"))) {
+                row.put("TutorID", "NO TUTOR"); // Replace ID
+            }
+        });
+
         tutorHandler.overwriteAll(tutorRows);
     }
 
-    public void deleteTutorAssignment(String tutorID, String subject, String level) {
-        List<Map<String, String>> tutorRows = tutorFile.readAll();
+    // Replace tutor ID with "NO TUTOR" in tuitionclass.csv
+    public void markTutorAsDeletedInClassesCSV(String oldTutorID) {
+        FileHandler classHandler = new FileHandler("tuitionclass.csv",
+                List.of("ClassID", "TutorID", "SubjectName", "Information", "Charges", "Schedule", "Level"));
 
-        boolean removed = tutorRows.removeIf(row ->
+        List<Map<String, String>> classRows = classHandler.readAll();
+
+        // Update classes taught by the deleted tutor
+        classRows.forEach(row -> {
+            if (oldTutorID.equals(row.get("TutorID"))) {
+                row.put("TutorID", "NO TUTOR"); // Replace ID
+            }
+        });
+
+        classHandler.overwriteAll(classRows);
+    }
+
+    public void deleteTutorAssignment(String tutorID, String subject, String level) {
+        // Deletes tutor assignment from tutor.csv
+        FileHandler tutorHandler = new FileHandler("tutor.csv",
+                List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
+
+        List<Map<String, String>> tutorRows = tutorHandler.readAll();
+        tutorRows.removeIf(row ->
                 tutorID.equals(row.get("TutorID")) &&
                         subject.equals(row.get("AssignedSubjects")) &&
                         level.equals(row.get("AssignedLevels"))
         );
+        tutorHandler.overwriteAll(tutorRows);
 
-        if (!removed) {
-            System.out.println("Warning: Assignment not found for deletion (TutorID: " + tutorID +
-                    ", Subject: " + subject + ", Level: " + level + ")");
-        }
+        // Deletes the class sessions in tuitionclass.csv
+        FileHandler classHandler = new FileHandler("tuitionclass.csv",
+                List.of("ClassID", "TutorID", "SubjectName", "Information", "Charges", "Schedule", "Level"));
 
-        tutorFile.overwriteAll(tutorRows);
+        List<Map<String, String>> classRows = classHandler.readAll();
+        classRows.removeIf(row ->
+                tutorID.equals(row.get("TutorID")) &&
+                        subject.equals(row.get("SubjectName")) &&
+                        level.equals(row.get("Level"))
+        );
+        classHandler.overwriteAll(classRows);
     }
 }

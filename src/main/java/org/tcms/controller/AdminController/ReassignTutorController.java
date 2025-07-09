@@ -148,6 +148,11 @@ public class ReassignTutorController {
 
         deleteBtn.setOnAction(e -> {
             if (selectedTutorID != null) {
+                if ("NO TUTOR".equals(selectedTutorID)) {
+                    AlertUtils.showAlert("Error", "Cannot delete a 'NO TUTOR' entry.");
+                    return;
+                }
+
                 tutorService.deleteTutorAssignment(selectedTutorID, selectedSubject, selectedLevel);
                 loadAccountData();
                 clearAll();
@@ -197,8 +202,11 @@ public class ReassignTutorController {
     private void configureTable() {
         tutorIdColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getAccountId()));
-        tutorNameColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getUsername()));
+        tutorNameColumn.setCellValueFactory(cell -> {
+            Tutor tutor = cell.getValue();
+            String username = tutor.getUsername();
+            return new ReadOnlyStringWrapper(username.isEmpty() ? "NO TUTOR" : username);
+        });
         assignedLevelColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getAssignedLevel()));
         assignedSubjectColumn.setCellValueFactory(cell ->
