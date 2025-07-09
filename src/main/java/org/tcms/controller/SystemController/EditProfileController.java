@@ -51,7 +51,7 @@ public class EditProfileController {
                 isPasswordValid(newPassword, confirmPassword);
 
                 errorLabel.setVisible(false);
-                userService.updateUser(Session.getCurrentUserID(), newUsername, newPassword);
+                userService.updateUser(Session.getCurrentUserID(), newUsername, newPassword, Session.getCurrentUserRole());
                 AlertUtils.showInformation("Successfully Updated User!", usernameField.getText() + "'s account has been updated!");
 
             } catch (EmptyFieldException | ValidationException ex) {

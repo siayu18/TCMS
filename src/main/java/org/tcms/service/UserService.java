@@ -28,6 +28,21 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public User getUserByID(String accountID) {
+        return accountFile.readAll().stream()
+                .filter(row -> accountID.equals(row.get("AccountID")))
+                .map(row -> switch (row.get("Role")) {
+                    case "Admin" -> new Admin(row.get("AccountID"), row.get("Name"), row.get("Password"), "Admin");
+                    case "Student" -> new Student(row.get("AccountID"), row.get("Name"), row.get("Password"), "Student");
+                    case "Tutor" -> new Tutor(row.get("AccountID"), row.get("Name"), row.get("Password"), "Tutor");
+                    case "Receptionist" -> new Receptionist(row.get("AccountID"), row.get("Name"), row.get("Password"), "Receptionist");
+                    default -> null;
+                })
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
+
     public User authenticate(String name, String password) {
         return accountFile.readAll().stream()
                 .map(row -> switch (row.get("Role")) {
@@ -52,39 +67,24 @@ public class UserService {
         ));
     }
 
-    public void updateUser (String accountID, String newUsername, String newPassword) {
+    public void updateUser (String accountID, String newUsername, String newPassword, String newRole) {
         List<Map<String, String>> rows = accountFile.readAll();
 
         for (Map<String, String> row : rows) {
             if (accountID.equals(row.get("AccountID"))) {
                 row.put("Name", newUsername);
                 row.put("Password", newPassword);
+                row.put("Role", newRole);
                 break;
             }
         }
         accountFile.overwriteAll(rows);
     }
 
+
     public void deleteUser(String accountID) {
         List<Map<String, String>> rows = accountFile.readAll();
         rows.removeIf(row -> accountID.equals(row.get("AccountID")));
         accountFile.overwriteAll(rows);
-        // Cascade deletion to role-specific files
-        deleteFromTutorCSV(accountID);
-        deleteFromStudentCSV(accountID);
-    }
-
-    private void deleteFromTutorCSV(String accountID) {
-        FileHandler tutorHandler = new FileHandler("tutor.csv", List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
-        List<Map<String, String>> tutorRows = tutorHandler.readAll();
-        tutorRows.removeIf(row -> accountID.equals(row.get("TutorID")));
-        tutorHandler.overwriteAll(tutorRows);
-    }
-
-    private void deleteFromStudentCSV(String accountID) {
-        FileHandler studentHandler = new FileHandler("student.csv", List.of("StudentID", "ICNumber", "Email", "ContactNumber", "Address", "Level"));
-        List<Map<String, String>> studentRows = studentHandler.readAll();
-        studentRows.removeIf(row -> accountID.equals(row.get("StudentID")));
-        studentHandler.overwriteAll(studentRows);
     }
 }

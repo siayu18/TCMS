@@ -23,7 +23,8 @@ public enum View {
     GENERATE_RECEIPT("/org/tcms/view/ReceptionistScenes/GenerateReceiptView.fxml"),
     MONTHLY_STATS("/org/tcms/view/AdminScenes/MonthlyStats.fxml"),
     REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
-    UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml");
+    UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml"),
+    UPD_SUB("/org/tcms/view/AdminScenes/ReassignTutor.fxml");
 
     private final String fxmlPath;
 

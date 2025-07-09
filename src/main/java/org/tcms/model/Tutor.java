@@ -21,4 +21,9 @@ public class Tutor extends User {
         this.assignedSubject = assignedSubject;
     }
 
+    // This fixes a bug with ComboBoxes (ReassignTutorController)
+    @Override
+    public String toString() {
+        return getAccountId() + " - " + getUsername();
+    }
 }

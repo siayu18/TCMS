@@ -12,6 +12,7 @@ public class AdminSideMenuController extends BaseSideMenuController {
     @FXML private JFXButton staffManagementBtn;
     @FXML private VBox staffManagementSubMenu;
     @FXML private JFXButton updateProfileBtn;
+    @FXML private JFXButton updateSubjectDetailsBtn;
 
     @Override
     protected void onInit() {
@@ -22,6 +23,8 @@ public class AdminSideMenuController extends BaseSideMenuController {
         registerProfileBtn.setOnAction(e -> toolbarController.loadContent(View.REG_STAFF, "Register Staff & Assign Tutor"));
         monthlyReportBtn.setOnAction(e -> toolbarController.loadContent(View.MONTHLY_STATS, "Monthly Report"));
         updateProfileBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_STAFF, "Update Staff Details"));
+        updateSubjectDetailsBtn.setOnAction(e -> toolbarController.loadContent(View.UPD_SUB, "Update Subject Details"));
+
 
     }
 

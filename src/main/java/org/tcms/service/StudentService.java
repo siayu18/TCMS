@@ -60,4 +60,11 @@ public class StudentService extends UserService {
                 "Level", student.getLevel()
         ));
     }
+
+    public void deleteStudent(String accountID) {
+        FileHandler studentHandler = new FileHandler("student.csv", List.of("StudentID", "ICNumber", "Email", "ContactNumber", "Address", "Level"));
+        List<Map<String, String>> studentRow = studentHandler.readAll();
+        studentRow.removeIf(row -> accountID.equals(row.get("StudentID")));
+        studentHandler.overwriteAll(studentRow);
+    }
 }
