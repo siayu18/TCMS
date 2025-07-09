@@ -80,59 +80,6 @@ public class TutorService extends UserService {
                 .collect(Collectors.toList());
     }
 
-    public List<Tutor> getTutorName(String name) {
-        Map<String, Map<String, String>> acctById = accountFile.readAll().stream()
-                .collect(Collectors.toMap(
-                        row -> row.get("AccountID"),
-                        row -> row
-                ));
-
-        return tutorFile.readAll().stream()
-                .filter(row -> name.equalsIgnoreCase(row.get("Name")))
-                .map(detail -> {
-                    String id = detail.get("TutorID");
-                    Map<String, String> acct = acctById.get(id);
-
-                    if (acct == null) return null;
-
-                    return new Tutor(
-                            id,
-                            acct.get("Name"),
-                            acct.get("Password"),
-                            acct.get("Role"),
-                            detail.get("AssignedLevels"),
-                            detail.get("AssignedSubjects")
-                    );
-                })
-                .collect(Collectors.toList());
-    }
-
-    public List<Tutor> getTutorID(String tutorID) {
-        Map<String, Map<String, String>> acctById = accountFile.readAll().stream()
-                .collect(Collectors.toMap(
-                        row -> row.get("AccountID"),
-                        row -> row
-                ));
-
-        return tutorFile.readAll().stream()
-                .filter(row -> tutorID.equalsIgnoreCase(row.get("TutorID")))
-                .map(detail -> {
-                    String id = detail.get("TutorID");
-                    Map<String, String> acct = acctById.get(id);
-
-                    if (acct == null) return null;
-
-                    return new Tutor(
-                            id,
-                            acct.get("Name"),
-                            acct.get("Password"),
-                            acct.get("Role"),
-                            detail.get("AssignedLevels"),
-                            detail.get("AssignedSubjects")
-                    );
-                })
-                .collect(Collectors.toList());
-    }
 
     // Appends data in both account.csv and tutor.csv
     public void addTutor(Tutor tutor) {
