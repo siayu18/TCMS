@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 public class ViewPaymentController {
     public JFXComboBox chooseStudentBox;
     public AnchorPane viewPane;
-    public Label title;
     public TableView<StudentPayment> paymentTable;
     public TableColumn<StudentPayment, String> accountIDColumn;
     public TableColumn<StudentPayment, String> nameColumn;
