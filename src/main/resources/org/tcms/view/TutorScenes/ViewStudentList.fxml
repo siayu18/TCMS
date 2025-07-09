@@ -28,14 +28,13 @@
             </HBox>
         </top>
       <center>
-         <VBox BorderPane.alignment="CENTER">
+         <VBox fx:id="tableBox" visible="true" BorderPane.alignment="CENTER">
             <children>
-               <TableView>
+               <TableView fx:id="studentTable">
                  <columns>
                    <TableColumn fx:id="studentIDColumn" prefWidth="-1.0" text="Student ID" />
                    <TableColumn fx:id="studentNameColumn" prefWidth="-1.0" text="Student Name" />
-                     <TableColumn fx:id="classColumn" prefWidth="-1.0" text="Class" />
-                     <TableColumn fx:id="levelColumn" minWidth="0.0" prefWidth="0.0" text="Level" />
+                     <TableColumn fx:id="levelColumn" prefWidth="-1.0" text="Level" />
                      <TableColumn fx:id="contactColumn" prefWidth="-1.0" text="Contact No." />
                      <TableColumn fx:id="emailColumn" prefWidth="-1.0" text="Email" />
                  </columns>

@@ -30,8 +30,24 @@ public class MappingUtils {
                 .collect(Collectors.toList());
     }
 
-    public static List<Student> mapStudentForClasses(){
-
-        return List.of();
+    public static List<Student> mapStudentForClasses(TuitionClass tuitionClass, Map<String, Student> student, List<Enrollment> enrollment) {
+        String cid = tuitionClass.getClassID();
+        return enrollment.stream()
+                .filter(e -> cid.equals(e.getClassID()))
+                .map(e -> {
+                    Student stu = student.get(e.getStudentID());
+                    return new Student(
+                            stu.getAccountId(),
+                            stu.getUsername(),
+                            stu.getPassword(),
+                            stu.getRole(),
+                            stu.getIcNumber(),
+                            stu.getEmail(),
+                            stu.getContactNumber(),
+                            stu.getAddress(),
+                            stu.getLevel()
+                    );
+                })
+                .collect(Collectors.toList());
     }
 }
