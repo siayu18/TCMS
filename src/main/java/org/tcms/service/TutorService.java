@@ -12,7 +12,7 @@ public class TutorService extends UserService {
 
     public TutorService() throws IOException {
         super(); // Inherit account.csv handling from UserService
-        tutorFile = new FileHandler("tutor.csv", Arrays.asList("TutorID", "AssignedSubjects", "AssignedLevels"));
+        tutorFile = new FileHandler("subject.csv", Arrays.asList("TutorID", "AssignedSubjects", "AssignedLevels"));
     }
 
     
@@ -28,7 +28,7 @@ public class TutorService extends UserService {
                             (existing, newRow) -> existing // Keep first duplicate
                     ));
 
-            // Step 2: Load ALL entries from tutor.csv (including "NO TUTOR")
+            // Step 2: Load ALL entries from subject.csv (including "NO TUTOR")
             Map<String, List<Map<String, String>>> tutorAssignments = tutorFile.readAll().stream()
                     .filter(row -> row.get("TutorID") != null) // Keep entries with TutorID (even "NO TUTOR")
                     .collect(Collectors.groupingBy(row -> row.get("TutorID")));
@@ -81,7 +81,7 @@ public class TutorService extends UserService {
     }
 
 
-    // Appends data in both account.csv and tutor.csv
+    // Appends data in both account.csv and subject.csv
     public void addTutor(Tutor tutor) {
         addUser(tutor);
         tutorFile.append(Map.of(
@@ -91,7 +91,7 @@ public class TutorService extends UserService {
         ));
     }
 
-    // Only appends new line of data in tutor.csv
+    // Only appends new line of data in subject.csv
     public void addTutorToSubject(Tutor tutor) {
         tutorFile.append(Map.of(
                 "TutorID", tutor.getAccountId(),
@@ -104,8 +104,8 @@ public class TutorService extends UserService {
     // In TutorService.java
     public void reassignTutor(String oldTutorID, String newTutorID, String subject, String level) {
         try {
-            // Step 1: Update tutor.csv (remove subject from old tutor, add to new tutor)
-            FileHandler tutorHandler = new FileHandler("tutor.csv", List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
+            // Step 1: Update subject.csv (remove subject from old tutor, add to new tutor)
+            FileHandler tutorHandler = new FileHandler("subject.csv", List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
             List<Map<String, String>> tutorRows = tutorHandler.readAll();
 
             // Remove the subject from the old tutor
@@ -154,9 +154,9 @@ public class TutorService extends UserService {
         }
     }
 
-    // Replace tutor ID with "NO TUTOR" in tutor.csv (keep assignment rows)
+    // Replace tutor ID with "NO TUTOR" in subject.csv (keep assignment rows)
     public void markTutorAsDeletedInTutorCSV(String oldTutorID) {
-        FileHandler tutorHandler = new FileHandler("tutor.csv",
+        FileHandler tutorHandler = new FileHandler("subject.csv",
                 List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
 
         List<Map<String, String>> tutorRows = tutorHandler.readAll();
@@ -189,8 +189,8 @@ public class TutorService extends UserService {
     }
 
     public void deleteTutorAssignment(String tutorID, String subject, String level) {
-        // Deletes tutor assignment from tutor.csv
-        FileHandler tutorHandler = new FileHandler("tutor.csv",
+        // Deletes tutor assignment from subject.csv
+        FileHandler tutorHandler = new FileHandler("subject.csv",
                 List.of("TutorID", "AssignedSubjects", "AssignedLevels"));
 
         List<Map<String, String>> tutorRows = tutorHandler.readAll();
