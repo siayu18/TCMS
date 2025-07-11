@@ -2,12 +2,14 @@ package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
 import org.tcms.model.Tutor;
+import org.tcms.model.User;
 import org.tcms.utils.FileHandler;
 import org.tcms.utils.Session;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TuitionClassService {
@@ -59,5 +61,16 @@ public class TuitionClassService {
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
+    }
+
+    public void addClass(TuitionClass tuitionClass) {
+        classFile.append(Map.of(
+                "ClassID", tuitionClass.getClassID(),
+                "TutorID", tuitionClass.getTutorID(),
+                "SubjectName", tuitionClass.getSubjectName(),
+                "Information", tuitionClass.getInformation(),
+                "Charges", tuitionClass.getCharges(),
+                "Schedule", tuitionClass.getSchedule()
+        ));
     }
 }

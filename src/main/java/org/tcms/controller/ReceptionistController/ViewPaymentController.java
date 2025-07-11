@@ -75,7 +75,7 @@ public class ViewPaymentController {
 
     private void configureActions() {
         chooseStudentBox.setOnAction(e -> {
-            selectedStudent = ((Student) chooseStudentBox.getValue());
+            selectedStudent = (Student) chooseStudentBox.getValue();
             if (selectedStudent != null) {
                 viewPane.setVisible(true);
                 loadPaymentTable(selectedStudent);

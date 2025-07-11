@@ -120,17 +120,20 @@ public class CommunicationController {
             // check if current user is sender or receiver
             boolean isSender = line.getSenderID().equals(currentUserId);
             String message = line.getMessage();
+
             // get the name of sender
             String senderName = isSender ? Session.getCurrentUserName() : selectedUser.getUsername();
 
             Label bubble = new Label(senderName + ": " + message);
             bubble.setWrapText(true);
             bubble.setMaxWidth(300);
+
             // set style according to sender and receiver
             bubble.getStyleClass().add(isSender ? "sender-message" : "receiver-message");
 
             HBox container = new HBox(bubble);
             container.setPadding(new Insets(5));
+
             // alignment according to sender and receiver
             container.setAlignment(isSender ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
             chatBox.getChildren().add(container);
