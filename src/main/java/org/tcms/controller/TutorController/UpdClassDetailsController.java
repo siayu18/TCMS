@@ -72,6 +72,4 @@ public class UpdClassDetailsController {
         );
         classTable.setItems(list);
     }
-
-
 }
