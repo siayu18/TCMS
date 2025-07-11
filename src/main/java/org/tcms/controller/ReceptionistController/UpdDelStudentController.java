@@ -17,16 +17,16 @@ import org.tcms.utils.Helper;
 import java.io.IOException;
 
 public class UpdDelStudentController {
-    public TextField usernameField;
-    public TextField passwordField;
-    public Button delBtn;
-    public Button saveBtn;
-    public Button updateBtn;
-    public TableView<Student> studentTable;
-    public TableColumn<Student, String> accountIDColumn;
-    public TableColumn<Student, String> nameColumn;
-    public TableColumn<Student, String> passwordColumn;
-    public Label errorLabel;
+    @FXML private TextField usernameField;
+    @FXML private TextField passwordField;
+    @FXML private Button delBtn;
+    @FXML private Button saveBtn;
+    @FXML private Button updateBtn;
+    @FXML private TableView<Student> studentTable;
+    @FXML private TableColumn<Student, String> accountIDColumn;
+    @FXML private TableColumn<Student, String> nameColumn;
+    @FXML private TableColumn<Student, String> passwordColumn;
+    @FXML private Label errorLabel;
 
     private StudentService studentService;
     private String selectedAccountID;

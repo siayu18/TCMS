@@ -24,17 +24,17 @@ import java.util.stream.Collectors;
 
 public class UpdEnrollmentController {
 
-    public ComboBox subjectBox1;
-    public ComboBox subjectBox2;
-    public ComboBox subjectBox3;
-    public AnchorPane updatePane;
-    public JFXComboBox chooseStudentBox;
-    public Label orgSubjectLabel1;
-    public Label orgSubjectLabel2;
-    public Label orgSubjectLabel3;
-    public Button saveBtn;
-    public Label errorLabel;
-    public Label title;
+    @FXML private ComboBox subjectBox1;
+    @FXML private ComboBox subjectBox2;
+    @FXML private ComboBox subjectBox3;
+    @FXML private AnchorPane updatePane;
+    @FXML private JFXComboBox chooseStudentBox;
+    @FXML private Label orgSubjectLabel1;
+    @FXML private Label orgSubjectLabel2;
+    @FXML private Label orgSubjectLabel3;
+    @FXML private Button saveBtn;
+    @FXML private Label errorLabel;
+    @FXML private Label title;
 
     private Student selectedStudent;
     private TuitionClassService tuitionClassService;

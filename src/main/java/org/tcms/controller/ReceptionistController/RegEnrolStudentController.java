@@ -18,11 +18,21 @@ import java.util.UUID;
 
 public class RegEnrolStudentController {
     // FXML components
-    public TextField usernameField, icField, emailField, contactField, addressField, passwordField;
-    public ComboBox levelBox, subjectBox1, subjectBox2, subjectBox3;
-    public Button clearButton, submitButton;
-    public DatePicker enrolDatePicker;
-    public Label errorLabel, subjectErrorLabel;
+    @FXML private TextField usernameField;
+    @FXML private TextField icField;
+    @FXML private TextField emailField;
+    @FXML private TextField contactField;
+    @FXML private TextField addressField;
+    @FXML private TextField passwordField;
+    @FXML private ComboBox levelBox;
+    @FXML private ComboBox subjectBox1;
+    @FXML private ComboBox subjectBox2;
+    @FXML private ComboBox subjectBox3;
+    @FXML private Button clearButton;
+    @FXML private Button submitButton;
+    @FXML private DatePicker enrolDatePicker;
+    @FXML private Label errorLabel;
+    @FXML private Label subjectErrorLabel;
 
     //Services
     private StudentService studentService;

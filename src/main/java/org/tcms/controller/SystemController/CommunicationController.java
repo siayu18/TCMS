@@ -1,4 +1,4 @@
-package org.tcms.controller.ReceptionistController;
+package org.tcms.controller.SystemController;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;

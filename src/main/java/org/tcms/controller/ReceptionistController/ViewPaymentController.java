@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -22,16 +23,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ViewPaymentController {
-    public JFXComboBox chooseStudentBox;
-    public AnchorPane viewPane;
-    public TableView<StudentPayment> paymentTable;
-    public TableColumn<StudentPayment, String> accountIDColumn;
-    public TableColumn<StudentPayment, String> nameColumn;
-    public TableColumn<StudentPayment, String> classIDColumn;
-    public TableColumn<StudentPayment, String> amountColumn;
-    public TableColumn<StudentPayment, String> subjectNameColumn;
-    public TableColumn<StudentPayment, String> timeColumn;
-    public TableColumn<StudentPayment, String> dateColumn;
+    @FXML private JFXComboBox chooseStudentBox;
+    @FXML private AnchorPane viewPane;
+    @FXML private TableView<StudentPayment> paymentTable;
+    @FXML private TableColumn<StudentPayment, String> accountIDColumn;
+    @FXML private TableColumn<StudentPayment, String> nameColumn;
+    @FXML private TableColumn<StudentPayment, String> classIDColumn;
+    @FXML private TableColumn<StudentPayment, String> amountColumn;
+    @FXML private TableColumn<StudentPayment, String> subjectNameColumn;
+    @FXML private TableColumn<StudentPayment, String> timeColumn;
+    @FXML private TableColumn<StudentPayment, String> dateColumn;
 
     private List<Student> students;
     private List<Payment> payments;
