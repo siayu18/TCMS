@@ -1,5 +1,4 @@
 ClassID,TutorID,SubjectName,Information,Charges,Day,StartTime,EndTime,Level
 1,TP003,Math,This is a math class,100,Monday,09:00,10:00,Level 1
-2,TP003,English,This is an English class,200,Monday,10:00,11:00,Level 1
 3,TP003,English,This is an English class,200,Tuesday,10:00,11:00,Level 1
-4,TP003,English,This is another English class,200,Tuesday,12:00,13:00,Level 1
+4,TP003,English,This is another English class,200,Tuesday,12:00,13:00,Level 2

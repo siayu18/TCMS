@@ -5,10 +5,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
@@ -28,7 +25,9 @@ public class UpdClassDetailsController {
     @FXML public TableColumn<TuitionClass, String> subjectColumn;
     @FXML public TableColumn<TuitionClass, String> informationColumn;
     @FXML public TableColumn<TuitionClass, String> chargesColumn;
-    @FXML public TableColumn<TuitionClass, String> scheduleColumn;
+    @FXML public TableColumn<TuitionClass, String> dayColumn;
+    @FXML public TableColumn<TuitionClass, String> startTimeColumn;
+    @FXML public TableColumn<TuitionClass, String> endTimeColumn;
     @FXML public TableColumn<TuitionClass, String> levelColumn;
 
     @FXML public ComboBox <TuitionClass> levelBox;
@@ -60,8 +59,12 @@ public class UpdClassDetailsController {
                 new ReadOnlyStringWrapper(cell.getValue().getInformation()));
         chargesColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getCharges()));
-        scheduleColumn.setCellValueFactory(cell ->
-                new ReadOnlyStringWrapper(cell.getValue().getSchedule()));
+        dayColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getDay()));
+        startTimeColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getStartTime()));
+        endTimeColumn.setCellValueFactory(cell ->
+                new ReadOnlyStringWrapper(cell.getValue().getEndTime()));
         levelColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getLevel()));
     }

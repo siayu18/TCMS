@@ -89,7 +89,9 @@
                   <TableColumn fx:id="subjectColumn" text="Subject" />
                   <TableColumn fx:id="informationColumn" text="Information" />
                   <TableColumn fx:id="chargesColumn" text="Charges" />
-                  <TableColumn fx:id="scheduleColumn" text="Schedule" />
+                  <TableColumn fx:id="dayColumn" text="Day" />
+                  <TableColumn fx:id="startTimeColumn" text="StartTime" />
+                  <TableColumn fx:id="endTimeColumn" text="EndTime" />
                   <TableColumn fx:id="levelColumn" text="Level" />
                </columns>
                <BorderPane.margin>
