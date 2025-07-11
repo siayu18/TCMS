@@ -16,7 +16,7 @@ public class TuitionClassService {
     private final FileHandler classFile;
 
     public TuitionClassService() throws IOException {
-        classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","TutorID","SubjectName","Information","Charges","Schedule"));
+        classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","TutorID","SubjectName","Information","Charges","Day","StartTime","EndTime","Level"));
     }
 
     public List<TuitionClass> getAllClasses() {
@@ -27,7 +27,9 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule"),
+                        row.get("Day"),
+                        row.get("StartTime"),
+                        row.get("EndTime"),
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
@@ -42,7 +44,9 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule"),
+                        row.get("Day"),
+                        row.get("StartTime"),
+                        row.get("EndTime"),
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
@@ -57,7 +61,9 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule"),
+                        row.get("Day"),
+                        row.get("StartTime"),
+                        row.get("EndTime"),
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
@@ -70,7 +76,10 @@ public class TuitionClassService {
                 "SubjectName", tuitionClass.getSubjectName(),
                 "Information", tuitionClass.getInformation(),
                 "Charges", tuitionClass.getCharges(),
-                "Schedule", tuitionClass.getSchedule()
+                "Day", tuitionClass.getDay(),
+                "StartTime", tuitionClass.getStartTime(),
+                "EndTime", tuitionClass.getEndTime(),
+                "Level", tuitionClass.getLevel()
         ));
     }
 }
