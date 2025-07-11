@@ -28,7 +28,7 @@
             </HBox>
         </top>
       <center>
-         <VBox fx:id="tableBox" visible="true" BorderPane.alignment="CENTER">
+         <VBox fx:id="tableBox" visible="false" BorderPane.alignment="CENTER">
             <children>
                <TableView fx:id="studentTable">
                  <columns>
