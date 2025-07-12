@@ -26,7 +26,9 @@ public enum View {
     REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
     UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml"),
     UPD_SUB("/org/tcms/view/AdminScenes/ReassignTutor.fxml"),
-    PAY("/org/tcms/view/StudentScenes/PayView.fxml");
+    PAY("/org/tcms/view/StudentScenes/PayView.fxml"),
+    VIEW_PAYMENT_STATUS("/org/tcms/view/StudentScenes/ViewPaymentStatus.fxml"),
+    VIEW_SCHEDULE("/org/tcms/view/StudentScenes/ViewSchedule.fxml");
 
     private final String fxmlPath;
 

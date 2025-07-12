@@ -83,7 +83,7 @@ public class TuitionClassService {
 
     public TuitionClass getClassByID(String classID) {
         return getAllClasses().stream()
-                .filter(cls -> cls.getClassID().equals(classID))
+                .filter(row -> row.getClassID().equals(classID))
                 .findFirst()
                 .orElse(null);
     }

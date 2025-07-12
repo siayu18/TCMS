@@ -60,7 +60,7 @@ public class PaymentService {
     public void addPayment(Payment payment) {
         paymentFile.append(Map.of(
                 "PaymentID", payment.getPaymentID(),
-                "StudentID", payment.getPaymentID(),
+                "StudentID", payment.getStudentID(),
                 "EnrollmentID", payment.getEnrollmentID(),
                 "Amount", payment.getAmount(),
                 "Date", payment.getDate(),

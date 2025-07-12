@@ -25,7 +25,9 @@ public class StudentSideMenuController extends BaseSideMenuController {
         setupToggle(paymentBtn, paymentSubMenu);
 
         // go-to page
+        viewScheduleBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_SCHEDULE, "View Schedule"));
         payBtn.setOnAction(e -> toolbarController.loadContent(View.PAY, "Pay Fees For Class"));
+        viewPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_PAYMENT_STATUS, "View Payment Status"));
     }
 
     @Override

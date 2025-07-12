@@ -96,6 +96,14 @@ public class PayController {
                         LocalTime.now().withNano(0).toString(),
                         "unaccepted"
                 ));
+
+                payments = paymentService.getAllPayments(); // Reload the payment data
+
+                // Recalculates the updated data and update the label
+                amountPaid = getAmountPaid();
+                remainingAmount = getRemainingAmount();
+                setLabel(); // To Update the Label (To make it real-time)
+
                 AlertUtils.showInformation("Payment Successful", "Successful: Please Kindly Wait for Receptionist to Approve Your Payment");
 
             } catch (EmptyFieldException | ValidationException ex) {
@@ -107,7 +115,7 @@ public class PayController {
         chooseClassBox.setOnAction(e -> {
             selectedClass = chooseClassBox.getValue();
             if (selectedClass != null) {
-                // get the enrollmentID for the selected class for the student
+                // get the enrollmentID for the selected class of the student
                 enrollmentID = enrollments.stream()
                         .filter(row -> Session.getCurrentUserID().equalsIgnoreCase(row.getStudentID()))
                         .filter(row -> selectedClass.getClassID().equalsIgnoreCase(row.getClassID()))
@@ -119,8 +127,7 @@ public class PayController {
                 amountPaid = getAmountPaid();
                 remainingAmount = getRemainingAmount();
                 payTitle.setText("Pay Fees For "+ selectedClass.getSubjectName() + ":");
-                previousAmountLabel.setText(String.format("You have paid RM %.2f for this class (Including Unaccepted Payments)", amountPaid));
-                amountLeftLabel.setText(String.format("RM %.2f", remainingAmount));
+                setLabel();
 
                 // set the pane and button as visible
                 payPane.setVisible(true);
@@ -133,7 +140,7 @@ public class PayController {
         if (selectedClass == null)
             return 0;
 
-        // Get and sum all payments related to the enrollmentID
+        // Get and sum all payments related to the enrollmentID of the user for the class
         return payments.stream()
                 .filter(row -> enrollmentID.equalsIgnoreCase(row.getEnrollmentID()))
                 .mapToDouble(row -> Double.parseDouble(row.getAmount()))
@@ -146,5 +153,10 @@ public class PayController {
 
         double selectedClassCharges = Double.parseDouble(selectedClass.getCharges());
         return selectedClassCharges - amountPaid;
+    }
+
+    private void setLabel() {
+        previousAmountLabel.setText(String.format("You have paid RM %.2f for this class (Including Unaccepted Payments)", amountPaid));
+        amountLeftLabel.setText(String.format("RM %.2f", remainingAmount));
     }
 }

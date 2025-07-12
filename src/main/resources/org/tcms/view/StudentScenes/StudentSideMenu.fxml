@@ -30,7 +30,6 @@
 
         <VBox fx:id="subManagementSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
             <children>
-                <JFXButton fx:id="viewSubjectBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Subjects" />
                 <JFXButton fx:id="viewScheduleBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Schedule" />
                 <JFXButton fx:id="sendRequestBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Send Change Subject Request"/>
                 <JFXButton fx:id="delRequestBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Delete Change Subject Request"/>
