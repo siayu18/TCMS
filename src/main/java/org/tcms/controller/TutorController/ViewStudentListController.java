@@ -1,5 +1,6 @@
 package org.tcms.controller.TutorController;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import org.tcms.service.EnrollmentService;
 import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
+import org.tcms.utils.ComponentUtils;
 import org.tcms.utils.MappingUtils;
 
 
@@ -27,7 +29,7 @@ import java.util.stream.Collectors;
 public class ViewStudentListController {
 
     public VBox tableBox;
-    @FXML private ComboBox<TuitionClass> chooseClassBox;
+    @FXML private JFXComboBox<TuitionClass> chooseClassBox;
     @FXML TableView<Student> studentTable;
     @FXML private TableColumn<Student, String> studentIDColumn;
     @FXML private TableColumn<Student, String> studentNameColumn;
@@ -59,31 +61,11 @@ public class ViewStudentListController {
                         student -> student
                 ));
         enrollment = enrollmentStudent.getAllEnrollment();
-        setupChooseClassBox();
+        tuitionClass = tuitionClassService.getClassesFromTutor();
+
+        ComponentUtils.configureClassBox(chooseClassBox, tuitionClass);
         configureTable();
         configureActions();
-    }
-
-    private void setupChooseClassBox() {
-        tuitionClass = tuitionClassService.getClassesFromTutor();
-        chooseClassBox.getItems().setAll(tuitionClass);
-
-        chooseClassBox.setCellFactory(cb -> new ListCell<TuitionClass>() {
-                    @Override
-                    protected void updateItem(TuitionClass u, boolean empty) {
-                        super.updateItem(u, empty);
-                        setText(empty || u == null ? null : u.getClassID() + "- " + u.getSubjectName());
-                    }
-                }
-                );
-
-        chooseClassBox.setButtonCell(new ListCell<TuitionClass>() {
-            @Override
-            protected void updateItem(TuitionClass u, boolean empty) {
-                super.updateItem(u, empty);
-                setText(empty || u == null ? null : u.getClassID() + "- " + u.getSubjectName());
-            }
-        });
     }
 
     private void configureActions() {

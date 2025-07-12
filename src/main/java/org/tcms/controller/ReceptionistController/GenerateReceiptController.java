@@ -34,13 +34,11 @@ public class GenerateReceiptController {
     @FXML private Label studentLabel;
     @FXML private Label dateLabel;
     @FXML private Label totalLabel;
-
     private List<Student> students;
     private List<Payment> payments;
     private Map<String, TuitionClass> classMap;
     private Map<String, Enrollment> enrollmentMap;
     private Student selectedStudent;
-
     private StudentService studentService;
     private TuitionClassService tuitionClassService;
     private EnrollmentService enrollmentService;

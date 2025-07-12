@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox fx:id="sideMenu" prefWidth="200.0" styleClass="side-menu" stylesheets="@../../css/Sidemenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.StudentController.StudentSideMenuController">
+    <children>
+        <JFXButton fx:id="homeBtn" accessibleText="homeMenu" maxWidth="Infinity" styleClass="button-standard" text="Home" >
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Home.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="subjectManagementBtn" accessibleText="stuManagementMenu" maxWidth="Infinity" styleClass="button-standard" text="Subject Management" >
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/SubjectIcon.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <VBox fx:id="subManagementSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
+            <children>
+                <JFXButton fx:id="viewSubjectBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Subjects" />
+                <JFXButton fx:id="viewScheduleBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Schedule" />
+                <JFXButton fx:id="sendRequestBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Send Change Subject Request"/>
+                <JFXButton fx:id="delRequestBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Delete Change Subject Request"/>
+            </children>
+        </VBox>
+
+        <JFXButton fx:id="paymentBtn" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="button-standard" text="Payments" >
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Payment.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <VBox fx:id="paymentSubMenu" managed="false" spacing="4" style="-fx-padding: 0 0 0 16;" visible="false">
+            <children>
+                <JFXButton fx:id="payBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Pay" />
+                <JFXButton fx:id="viewPaymentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Payment Status" />
+            </children>
+        </VBox>
+
+        <JFXButton fx:id="communicationBtn" accessibleText="communicationMenu" maxWidth="Infinity" styleClass="button-standard" text="Communication Hub" >
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/CommunicationHub.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="logoutBtn" accessibleText="logoutMenu" maxWidth="Infinity" styleClass="button-standard" text="Log out" >
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Logout.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+
+        <JFXButton fx:id="exitBtn" accessibleText="exitMenu" maxWidth="Infinity" styleClass="button-standard" text="Exit" >
+            <graphic>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/Exit.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+    </children>
+</VBox>
