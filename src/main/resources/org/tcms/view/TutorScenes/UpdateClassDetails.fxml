@@ -60,7 +60,7 @@
                               <Label fx:id="chargesLabel" styleClass="label-text-regular" text="Charges:" GridPane.rowIndex="2" />
                               <TextField fx:id="informationField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="chargesField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="schefuleField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="scheduleField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="levelLabel" styleClass="label-text-regular" text="Level:" GridPane.rowIndex="4" />
                               <ComboBox fx:id="levelBox" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
@@ -83,14 +83,16 @@
             </ScrollPane>
          </center>
          <bottom>
-            <TableView fx:id="accountTable" prefHeight="220.0" prefWidth="700.0" styleClass="label-text-regular" BorderPane.alignment="CENTER">
+            <TableView fx:id="classTable" prefHeight="220.0" prefWidth="700.0" styleClass="label-text-regular" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="classIDColumn" text="Class ID" />
-                  <TableColumn fx:id="nameColumn" text="Subject" />
-                  <TableColumn fx:id="passwordColumn" text="Information" />
-                  <TableColumn fx:id="roleColumn" text="Charges" />
-                  <TableColumn fx:id="roleColumn1" text="Schedule" />
-                  <TableColumn fx:id="roleColumn11" text="Level" />
+                  <TableColumn fx:id="subjectColumn" text="Subject" />
+                  <TableColumn fx:id="informationColumn" text="Information" />
+                  <TableColumn fx:id="chargesColumn" text="Charges" />
+                  <TableColumn fx:id="dayColumn" text="Day" />
+                  <TableColumn fx:id="startTimeColumn" text="StartTime" />
+                  <TableColumn fx:id="endTimeColumn" text="EndTime" />
+                  <TableColumn fx:id="levelColumn" text="Level" />
                </columns>
                <BorderPane.margin>
                   <Insets />

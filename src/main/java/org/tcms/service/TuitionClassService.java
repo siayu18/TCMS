@@ -1,19 +1,22 @@
 package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
+import org.tcms.model.Tutor;
+import org.tcms.model.User;
 import org.tcms.utils.FileHandler;
 import org.tcms.utils.Session;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TuitionClassService {
     private final FileHandler classFile;
 
     public TuitionClassService() throws IOException {
-        classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","TutorID","SubjectName","Information","Charges","Schedule"));
+        classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","TutorID","SubjectName","Information","Charges","Day","StartTime","EndTime","Level"));
     }
 
     public List<TuitionClass> getAllClasses() {
@@ -24,7 +27,9 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule"),
+                        row.get("Day"),
+                        row.get("StartTime"),
+                        row.get("EndTime"),
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
@@ -39,7 +44,9 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule"),
+                        row.get("Day"),
+                        row.get("StartTime"),
+                        row.get("EndTime"),
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
@@ -54,16 +61,25 @@ public class TuitionClassService {
                         row.get("SubjectName"),
                         row.get("Information"),
                         row.get("Charges"),
-                        row.get("Schedule"),
+                        row.get("Day"),
+                        row.get("StartTime"),
+                        row.get("EndTime"),
                         row.get("Level")
                 ))
                 .collect(Collectors.toList());
     }
 
-    public TuitionClass getClassByID(String classID) {
-        return getAllClasses().stream()
-                .filter(cls -> cls.getClassID().equals(classID))
-                .findFirst()
-                .orElse(null);
+    public void addClass(TuitionClass tuitionClass) {
+        classFile.append(Map.of(
+                "ClassID", tuitionClass.getClassID(),
+                "TutorID", tuitionClass.getTutorID(),
+                "SubjectName", tuitionClass.getSubjectName(),
+                "Information", tuitionClass.getInformation(),
+                "Charges", tuitionClass.getCharges(),
+                "Day", tuitionClass.getDay(),
+                "StartTime", tuitionClass.getStartTime(),
+                "EndTime", tuitionClass.getEndTime(),
+                "Level", tuitionClass.getLevel()
+        ));
     }
 }

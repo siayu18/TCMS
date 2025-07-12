@@ -30,6 +30,17 @@
                 </ImageView>
             </graphic>
         </JFXButton>
+      <JFXButton fx:id="createClassBtn" maxWidth="Infinity" styleClass="button-standard" text="Create Class">
+         <graphic>
+            <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/class.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+            </ImageView>
+         </graphic></JFXButton>
 
         <JFXButton fx:id="viewStudentList" accessibleText="paymentMenu" maxWidth="Infinity" styleClass="button-standard" text="View Student List">
             <graphic>

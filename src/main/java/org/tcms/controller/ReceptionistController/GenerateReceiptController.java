@@ -25,17 +25,15 @@ import java.util.stream.Collectors;
 
 public class GenerateReceiptController {
 
-    public Button generateBtn;
-    public Label errorLabel;
-    public AnchorPane receiptPane;
-    public Label title;
-    public ScrollPane scrollBar;
-    public VBox receiptBox;
-    public JFXComboBox chooseStudentBox;
-    public GridPane paymentGrid;
-    public Label studentLabel;
-    public Label dateLabel;
-    public Label totalLabel;
+    @FXML private Button generateBtn;
+    @FXML private Label errorLabel;
+    @FXML private AnchorPane receiptPane;
+    @FXML private VBox receiptBox;
+    @FXML private JFXComboBox chooseStudentBox;
+    @FXML private GridPane paymentGrid;
+    @FXML private Label studentLabel;
+    @FXML private Label dateLabel;
+    @FXML private Label totalLabel;
 
     private List<Student> students;
     private List<Payment> payments;
