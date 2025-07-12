@@ -1,7 +1,6 @@
 package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
-import org.tcms.model.Tutor;
 import org.tcms.utils.FileHandler;
 import org.tcms.utils.Session;
 

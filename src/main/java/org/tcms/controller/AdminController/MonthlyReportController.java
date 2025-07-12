@@ -21,9 +21,9 @@ import java.util.Objects;
 
 public class MonthlyReportController {
     // FXML components
-    @FXML private Label errorLabel, incomeTotal;
+    @FXML private Label incomeTotal;
     @FXML private ComboBox<String> selectMonth, selectLevel, selectSubject;
-    @FXML private TableView<MonthlyReportEntry> reportTable; // Corrected type
+    @FXML private TableView<MonthlyReportEntry> reportTable;
     @FXML private TableColumn<MonthlyReportEntry, String> subjectColumn;
     @FXML private TableColumn<MonthlyReportEntry, String> levelColumn;
     @FXML private TableColumn<MonthlyReportEntry, Double> incomeColumn;
