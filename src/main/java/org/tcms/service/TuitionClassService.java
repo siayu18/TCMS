@@ -1,8 +1,6 @@
 package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
-import org.tcms.model.Tutor;
-import org.tcms.model.User;
 import org.tcms.utils.FileHandler;
 import org.tcms.utils.Session;
 
@@ -81,5 +79,12 @@ public class TuitionClassService {
                 "EndTime", tuitionClass.getEndTime(),
                 "Level", tuitionClass.getLevel()
         ));
+    }
+
+    public TuitionClass getClassByID(String classID) {
+        return getAllClasses().stream()
+                .filter(cls -> cls.getClassID().equals(classID))
+                .findFirst()
+                .orElse(null);
     }
 }
