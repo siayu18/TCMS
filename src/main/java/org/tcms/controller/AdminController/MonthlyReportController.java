@@ -142,7 +142,7 @@ public class MonthlyReportController {
         incomeColumn.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().getTotalIncome()).asObject()
         );
-        incomeColumn.setCellFactory(column -> new TableCell<MonthlyReportEntry, Double>() {
+        incomeColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Double income, boolean empty) {
                 super.updateItem(income, empty);
