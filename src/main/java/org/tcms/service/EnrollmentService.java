@@ -1,10 +1,12 @@
 package org.tcms.service;
 
 import org.tcms.model.Enrollment;
+import org.tcms.model.TuitionClass;
 import org.tcms.utils.FileHandler;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class EnrollmentService {
     private final FileHandler enrollmentFile;
+    private TuitionClassService tuitionClassService;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public EnrollmentService() throws IOException {
         enrollmentFile = new FileHandler("enrollment.csv", Arrays.asList("EnrollmentID","StudentID","EnrollmentDate","ClassID"));
@@ -47,5 +51,12 @@ public class EnrollmentService {
         var rows = enrollmentFile.readAll();
         rows.removeIf(r -> r.get("EnrollmentID").equals(enrollmentID));
         enrollmentFile.overwriteAll(rows);
+    }
+
+    public Enrollment getEnrollmentByID(String enrollmentID) {
+        return getAllEnrollment().stream() // Assume getAllEnrollment() returns all enrollments
+                .filter(enroll -> enroll.getEnrollmentID().equals(enrollmentID))
+                .findFirst()
+                .orElse(null); // Return null if not found
     }
 }

@@ -60,4 +60,11 @@ public class TuitionClassService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public TuitionClass getClassByID(String classID) {
+        return getAllClasses().stream()
+                .filter(cls -> cls.getClassID().equals(classID))
+                .findFirst()
+                .orElse(null);
+    }
 }
