@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
@@ -70,9 +69,9 @@ public class UpdClassDetailsController {
             }
         });
 
-        updateBtn.setOnAction();
+        //updateBtn.setOnAction();
 
-        deleteBtn.setOnAction();
+        //deleteBtn.setOnAction();
 
     }
 
