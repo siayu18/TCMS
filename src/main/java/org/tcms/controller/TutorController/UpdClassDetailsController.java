@@ -77,7 +77,7 @@ public class UpdClassDetailsController {
         updateBtn.setOnAction(e -> {
             try {
                 isRequiredEmpty();
-                Helper.isRequiredValid(
+                Helper.isClassInfoValid(
                         chargesField.getText(),
                         startTimeField.getText(),
                         endTimeField.getText(),

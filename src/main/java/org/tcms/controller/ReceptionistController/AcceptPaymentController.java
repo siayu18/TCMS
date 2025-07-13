@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
 
 public class AcceptPaymentController {
     @FXML private AnchorPane paymentPane;
-    @FXML private TableView<StudentPayment> paymentTable;
-    @FXML private TableColumn<StudentPayment, String> accountIDColumn;
-    @FXML private TableColumn<StudentPayment, String> nameColumn;
-    @FXML private TableColumn<StudentPayment, String> classIDColumn;
-    @FXML private TableColumn<StudentPayment, String> subjectNameColumn;
-    @FXML private TableColumn<StudentPayment, String> amountColumn;
+    @FXML private TableView<StudentPaymentEntry> paymentTable;
+    @FXML private TableColumn<StudentPaymentEntry, String> accountIDColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> nameColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> classIDColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> subjectNameColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> amountColumn;
     @FXML private JFXComboBox<Student> chooseStudentBox;
     @FXML private Button acceptBtn;
 
@@ -59,6 +59,8 @@ public class AcceptPaymentController {
 
         students = studentService.getAllStudents();
         payments = paymentService.getUnacceptedPayments();
+
+        // Make it into {id:object of id} to make it easier for mapping
         classMap = tuitionClassService.getAllClasses().stream()
                 .collect(Collectors.toMap(
                         TuitionClass::getClassID,
@@ -87,8 +89,9 @@ public class AcceptPaymentController {
         });
 
         acceptBtn.setOnAction(e -> {
-            AlertUtils.showInformation("Successfully Accepted Payment!", "Payment is accepted");
             paymentService.updatePaymentStatus(selectedPaymentID); // update student's payment status
+            AlertUtils.showInformation("Successfully Accepted Payment!", "Payment is accepted");
+
             payments = paymentService.getUnacceptedPayments(); // refresh the data before loading to table
             loadPaymentTable(selectedStudent);
             paymentTable.getSelectionModel().clearSelection();
@@ -97,7 +100,7 @@ public class AcceptPaymentController {
 
         paymentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, sel) -> {
             if (sel != null) {
-                StudentPayment studentPayment = sel;
+                StudentPaymentEntry studentPayment = sel;
                 acceptBtn.setDisable(false);
                 selectedPaymentID = studentPayment.getPaymentID();
             }
@@ -118,7 +121,7 @@ public class AcceptPaymentController {
     }
 
     private void loadPaymentTable(Student student) {
-        ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
+        ObservableList<StudentPaymentEntry> viewList = FXCollections.observableArrayList(MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
         paymentTable.setItems(viewList);
     }
 

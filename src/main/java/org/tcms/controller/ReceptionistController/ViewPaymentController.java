@@ -25,14 +25,14 @@ import java.util.stream.Collectors;
 public class ViewPaymentController {
     @FXML private JFXComboBox chooseStudentBox;
     @FXML private AnchorPane viewPane;
-    @FXML private TableView<StudentPayment> paymentTable;
-    @FXML private TableColumn<StudentPayment, String> accountIDColumn;
-    @FXML private TableColumn<StudentPayment, String> nameColumn;
-    @FXML private TableColumn<StudentPayment, String> classIDColumn;
-    @FXML private TableColumn<StudentPayment, String> amountColumn;
-    @FXML private TableColumn<StudentPayment, String> subjectNameColumn;
-    @FXML private TableColumn<StudentPayment, String> timeColumn;
-    @FXML private TableColumn<StudentPayment, String> dateColumn;
+    @FXML private TableView<StudentPaymentEntry> paymentTable;
+    @FXML private TableColumn<StudentPaymentEntry, String> accountIDColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> nameColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> classIDColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> amountColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> subjectNameColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> timeColumn;
+    @FXML private TableColumn<StudentPaymentEntry, String> dateColumn;
 
     private List<Student> students;
     private List<Payment> payments;
@@ -58,6 +58,8 @@ public class ViewPaymentController {
 
         students = studentService.getAllStudents();
         payments = paymentService.getAcceptedPayments();
+
+        // Make it into {id:object of id} to make it easier for mapping
         classMap = tuitionClassService.getAllClasses().stream()
                 .collect(Collectors.toMap(
                         TuitionClass::getClassID,
@@ -102,7 +104,7 @@ public class ViewPaymentController {
     }
 
     private void loadPaymentTable(Student student) {
-        ObservableList<StudentPayment> viewList = FXCollections.observableArrayList(
+        ObservableList<StudentPaymentEntry> viewList = FXCollections.observableArrayList(
                 MappingUtils.mapPaymentsForStudent(student, payments, enrollmentMap, classMap));
         paymentTable.setItems(viewList);
     }

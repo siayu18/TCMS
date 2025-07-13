@@ -7,6 +7,7 @@ import org.tcms.controller.SystemController.BaseSideMenuController;
 import org.tcms.navigation.View;
 
 public class RecepSideMenuController extends BaseSideMenuController {
+    @FXML private JFXButton viewStudentRequestBtn;
     @FXML private JFXButton viewHistoryBtn;
     @FXML private JFXButton stuMangementBtn;
     @FXML private VBox stuManagementSubMenu;
@@ -31,6 +32,7 @@ public class RecepSideMenuController extends BaseSideMenuController {
         acceptPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.ACCEPT_PAYMENT, "Accept Student's Payment"));
         generateRcptBtn.setOnAction(e -> toolbarController.loadContent(View.GENERATE_RECEIPT, "Generate Receipt"));
         viewHistoryBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_PAYMENT_HISTORY, "View Payment History"));
+        viewStudentRequestBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_TRANSFER_REQUEST, "View Student Transfer Request"));
     }
 
     @Override

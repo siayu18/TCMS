@@ -35,6 +35,7 @@ public class Helper {
             return false;
     }
 
+    // validate password format
     public static boolean validatePassword(String password) {
         if (password.length() < 8) {
             return false;
@@ -68,10 +69,8 @@ public class Helper {
     }
 
     public static boolean validateContact(String contact) {
-        for (char c: contact.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
+        if (!contact.matches("\\d+")) {
+            return false;
         }
         return true;
     }
@@ -86,6 +85,7 @@ public class Helper {
         }
     }
 
+    // Check whether there is duplication on selection
     public static boolean hasDuplicateClassSelections(TuitionClass... classes) {
         List<String> selectedIDs = new ArrayList<>();
 
@@ -98,7 +98,6 @@ public class Helper {
         Set<String> uniqueIDs = new HashSet<>(selectedIDs); // set auto remove duplication
         return uniqueIDs.size() < selectedIDs.size();
     }
-
 
     // get a new accountID
     public static String generateAccountID() {
@@ -136,7 +135,7 @@ public class Helper {
         return false;
     }
 
-    public static void isRequiredValid(String charges, String startTime, String endTime, String day) throws ValidationException, IOException {
+    public static void isClassInfoValid(String charges, String startTime, String endTime, String day) throws ValidationException, IOException {
         if (!charges.matches("\\d+")) {
             throw new ValidationException("Charges must be an Integer Value!");
         }

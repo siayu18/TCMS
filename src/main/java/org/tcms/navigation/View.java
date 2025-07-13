@@ -22,6 +22,7 @@ public enum View {
     ACCEPT_PAYMENT("/org/tcms/view/ReceptionistScenes/AcceptPaymentView.fxml"),
     VIEW_PAYMENT_HISTORY("/org/tcms/view/ReceptionistScenes/ViewPaymentView.fxml"),
     GENERATE_RECEIPT("/org/tcms/view/ReceptionistScenes/GenerateReceiptView.fxml"),
+    VIEW_TRANSFER_REQUEST("/org/tcms/view/ReceptionistScenes/ViewTransferRequest.fxml"),
     MONTHLY_STATS("/org/tcms/view/AdminScenes/MonthlyStats.fxml"),
     REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
     UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml"),
