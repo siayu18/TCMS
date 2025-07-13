@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.StudentController.ViewScheduleController">
+   <children>
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../../css/ViewSchedule.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Monday">
+               <content>
+                  <VBox fx:id="mondayBox" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+          </Tab>
+          <Tab text="Tuesday">
+               <content>
+                  <VBox fx:id="tuesdayBox" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+          </Tab>
+            <Tab text="Wednesday">
+               <content>
+                  <VBox fx:id="wednesdayBox" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Thursday">
+               <content>
+                  <VBox fx:id="thursdayBox" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding></VBox>
+               </content>
+            </Tab>
+            <Tab text="Friday">
+               <content>
+                  <VBox fx:id="fridayBox" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Saturday">
+               <content>
+                  <VBox fx:id="saturdayBox" spacing="10.0">
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

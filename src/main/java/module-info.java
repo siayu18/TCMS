@@ -11,8 +11,6 @@ module org.tcms {
 
     opens org.tcms to javafx.fxml;
     exports org.tcms;
-    exports org.tcms.component;
-    opens org.tcms.component to javafx.fxml;
     exports org.tcms.controller.AdminController;
     opens org.tcms.controller.AdminController to javafx.fxml;
     exports org.tcms.controller.ReceptionistController;

@@ -26,8 +26,10 @@ public class CommunicationService {
     public List<Communication> getConversationWith(String targetUserID, String currentUserID) {
         return comFile.readAll().stream()
                 .filter(row -> {
-                    String currentRowSender = row.get("SenderID"), currentRowReceiver = row.get("ReceiverID");
-                    return (currentRowSender.equals(targetUserID) && currentRowReceiver.equals(currentUserID)) || (currentRowSender.equals(currentUserID) && currentRowReceiver.equals(targetUserID));
+                    String currentRowSender = row.get("SenderID");
+                    String currentRowReceiver = row.get("ReceiverID");
+                    return (currentRowSender.equals(targetUserID) && currentRowReceiver.equals(currentUserID)) ||
+                            (currentRowSender.equals(currentUserID) && currentRowReceiver.equals(targetUserID));
                 })
                 .map(row -> new Communication(
                         row.get("CommunicationID"),

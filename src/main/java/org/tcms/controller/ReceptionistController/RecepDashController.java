@@ -1,6 +1,5 @@
 package org.tcms.controller.ReceptionistController;
 
-import javafx.fxml.FXML;
 import org.tcms.controller.SystemController.BaseDashboardController;
 import org.tcms.utils.Session;
 

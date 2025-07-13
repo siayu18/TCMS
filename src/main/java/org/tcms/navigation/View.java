@@ -13,7 +13,7 @@ public enum View {
     TUTOR_UPDATE_CLASS("/org/tcms/view/TutorScenes/UpdateClassDetails.fxml"),
     TUTOR_VIEW_STD_LIST("/org/tcms/view/TutorScenes/ViewStudentList.fxml"),
     TUTOR_CREATE_CLASS("/org/tcms/view/TutorScenes/TutorCreateClass.fxml"),
-    STUDENT_SIDE_MENU("/org/tcms/view/StudentSideMenu.fxml"),
+    STUDENT_SIDE_MENU("/org/tcms/view/StudentScenes/StudentSideMenu.fxml"),
     RECEP_SIDE_MENU("/org/tcms/view/ReceptionistScenes/ReceptionistSideMenu.fxml"),
     COMMUNICATION("/org/tcms/view/ReceptionistScenes/CommunicationView.fxml"),
     UPD_DEL_STUDENT("/org/tcms/view/ReceptionistScenes/UpdDelStudentView.fxml"),
@@ -25,7 +25,8 @@ public enum View {
     MONTHLY_STATS("/org/tcms/view/AdminScenes/MonthlyStats.fxml"),
     REG_STAFF("/org/tcms/view/AdminScenes/RegStaff.fxml"),
     UPD_STAFF("/org/tcms/view/AdminScenes/UpdateStaffDetails.fxml"),
-    UPD_SUB("/org/tcms/view/AdminScenes/ReassignTutor.fxml");
+    UPD_SUB("/org/tcms/view/AdminScenes/ReassignTutor.fxml"),
+    PAY("/org/tcms/view/StudentScenes/PayView.fxml");
 
     private final String fxmlPath;
 

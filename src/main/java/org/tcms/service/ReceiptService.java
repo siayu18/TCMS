@@ -4,9 +4,7 @@ import org.tcms.model.Student;
 import org.tcms.utils.FileHandler;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 

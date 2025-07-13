@@ -129,7 +129,7 @@ public class UpdEnrollmentController {
         ori2 = enrollments.size() > 1 ? enrollments.get(1) : null;
         ori3 = enrollments.size() > 2 ? enrollments.get(2) : null;
 
-        // stores original's subject names in (classID:subjectName) form
+        // stores original's subject names in {classID:subjectName} form
         Map<String,String> subjectNames = tuitionClassService.getAllClasses().stream()
                 .filter(tc -> (ori1 != null && tc.getClassID().equals(ori1.getClassID()))
                         || (ori2  != null && tc.getClassID().equals(ori2.getClassID()))
@@ -141,8 +141,8 @@ public class UpdEnrollmentController {
 
         // set label to original enrolment
         orgSubjectLabel1.setText(ori1 != null ?
-                "Org ClassID: " + ori1.getClassID() + " - " + subjectNames.getOrDefault(ori1.getClassID(), "Unknown")
-                : "Org ClassID: None");
+                "Org ClassID: " + ori1.getClassID() + " - " + subjectNames.getOrDefault(ori1.getClassID(), "Unknown"):
+                "Org ClassID: None");
         orgSubjectLabel2.setText(ori2 != null ?
                 "Org ClassID: " + ori2.getClassID() + " - " + subjectNames.getOrDefault(ori2.getClassID(), "Unknown"):
                 "Org ClassID: None");

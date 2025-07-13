@@ -1,6 +1,7 @@
 package org.tcms.service;
 
 import org.tcms.model.Payment;
+import org.tcms.model.User;
 import org.tcms.utils.FileHandler;
 
 import java.io.IOException;
@@ -54,5 +55,17 @@ public class PaymentService {
         }
 
         paymentFile.overwriteAll(rows);
+    }
+
+    public void addPayment(Payment payment) {
+        paymentFile.append(Map.of(
+                "PaymentID", payment.getPaymentID(),
+                "StudentID", payment.getStudentID(),
+                "EnrollmentID", payment.getEnrollmentID(),
+                "Amount", payment.getAmount(),
+                "Date", payment.getDate(),
+                "Time", payment.getTime(),
+                "Status", payment.getStatus()
+        ));
     }
 }
