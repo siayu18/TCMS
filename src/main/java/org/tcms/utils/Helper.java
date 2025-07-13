@@ -2,8 +2,13 @@ package org.tcms.utils;
 
 import javafx.scene.control.*;
 import org.tcms.exception.EmptyFieldException;
+import org.tcms.exception.ValidationException;
 import org.tcms.model.TuitionClass;
+import org.tcms.service.TuitionClassService;
 
+import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Helper {
@@ -107,5 +112,47 @@ public class Helper {
                 .orElse(0);
 
         return String.format("TP%03d", currentLastID + 1);
+    }
+
+    public static boolean isTimeSlotOverlapping(String newDay, String newStartTime, String newEndTime) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
+        TuitionClassService tuitionClassService = new TuitionClassService();
+
+        LocalTime newStart = LocalTime.parse(newStartTime.toUpperCase(), formatter);
+        LocalTime newEnd = LocalTime.parse(newEndTime.toUpperCase(), formatter);
+
+        for (TuitionClass cls : tuitionClassService.getClassesFromTutor()) {
+            if (!cls.getDay().equalsIgnoreCase(newDay)) continue;
+
+            LocalTime existingStart = LocalTime.parse(cls.getStartTime().toUpperCase(), formatter);
+            LocalTime existingEnd = LocalTime.parse(cls.getEndTime().toUpperCase(), formatter);
+
+            boolean isOverlapping = newStart.isBefore(existingEnd) && newEnd.isAfter(existingStart);
+
+            if (isOverlapping) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void isRequiredValid(String charges, String startTime, String endTime, String day) throws ValidationException, IOException {
+        if (!charges.matches("\\d+")) {
+            throw new ValidationException("Charges must be an Integer Value!");
+        }
+
+        String timeRegex = "^(0?[1-9]|1[0-2]):[0-5][0-9](am|pm|AM|PM)$";
+
+        if (!startTime.matches(timeRegex)) {
+            throw new ValidationException("Start Time must be in format hh:mmam/pm (e.g., 9:00am)");
+        }
+
+        if (!endTime.matches(timeRegex)) {
+            throw new ValidationException("End Time must be in format hh:mmam/pm (e.g., 10:00am)");
+        }
+
+        if (Helper.isTimeSlotOverlapping(day, startTime, endTime)) {
+            throw new ValidationException("This time slot on " + day + " is already taken.");
+        }
     }
 }
