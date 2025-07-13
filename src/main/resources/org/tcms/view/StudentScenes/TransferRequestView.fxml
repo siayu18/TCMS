@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.StudentController.TransferRequestController">
    <children>
       <BorderPane layoutX="7.0" stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
@@ -32,17 +31,18 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField styleClass="text-field" GridPane.columnIndex="1" />
+                        <TextField fx:id="reasonField" styleClass="text-field" GridPane.columnIndex="1" />
                         <Label styleClass="label-text-regular" text="Reason: " />
                         <Label styleClass="label-text-regular" text="From:" GridPane.rowIndex="1" />
                         <Label styleClass="label-text-regular" text="To: " GridPane.rowIndex="2" />
-                        <ComboBox prefHeight="27.0" prefWidth="178.0" promptText="Select Existing Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox prefHeight="27.0" prefWidth="146.0" promptText="Select New Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="selectOldSub" prefHeight="27.0" prefWidth="178.0" promptText="Select Existing Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="selectNewSub" prefHeight="27.0" prefWidth="146.0" promptText="Select New Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <VBox.margin>
                         <Insets left="150.0" right="150.0" />
                      </VBox.margin>
                   </GridPane>
+                  <Label styleClass="error-label" visible="false" fx:id="errorLabel"/>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0">
                      <children>
                         <JFXButton fx:id="clearBtn" prefHeight="37.0" prefWidth="75.0" styleClass="button-Delete" text="Clear" />
