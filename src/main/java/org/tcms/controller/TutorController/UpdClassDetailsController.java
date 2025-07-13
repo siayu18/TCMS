@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
@@ -15,10 +16,11 @@ import java.util.List;
 
 public class UpdClassDetailsController {
 
-    @FXML public TextField subjectField;
     @FXML public TextField informationField;
     @FXML public TextField chargesField;
-    @FXML public TextField scheduleField;
+    @FXML public TextField startTimeField;
+    @FXML public TextField endTimeField;
+    @FXML public ComboBox<String> dayBox;
 
     @FXML public TableView<TuitionClass> classTable;
     @FXML public TableColumn<TuitionClass, String> classIDColumn;
@@ -30,7 +32,6 @@ public class UpdClassDetailsController {
     @FXML public TableColumn<TuitionClass, String> endTimeColumn;
     @FXML public TableColumn<TuitionClass, String> levelColumn;
 
-    @FXML public ComboBox <TuitionClass> levelBox;
     @FXML public JFXButton deleteBtn;
     @FXML public JFXButton updateBtn;
 
@@ -45,8 +46,33 @@ public class UpdClassDetailsController {
             return;
         }
 
+        dayBox.getItems().addAll("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+        deleteBtn.setDisable(true);
+        updateBtn.setDisable(true);
+
         configureTable();
         loadClassData();
+        configureAction();
+
+    }
+
+
+    private void configureAction(){
+        classTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, tuitionClass) -> {
+            if (tuitionClass != null) {
+                informationField.setText(tuitionClass.getInformation());
+                chargesField.setText(tuitionClass.getCharges());
+                startTimeField.setText(tuitionClass.getStartTime());
+                endTimeField.setText(tuitionClass.getEndTime());
+                dayBox.setValue(tuitionClass.getDay());
+                deleteBtn.setDisable(false);
+                updateBtn.setDisable(false);
+            }
+        });
+
+        updateBtn.setOnAction();
+
+        deleteBtn.setOnAction();
 
     }
 

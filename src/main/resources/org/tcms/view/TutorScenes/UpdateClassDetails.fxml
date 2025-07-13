@@ -49,20 +49,16 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="subjectLabel" styleClass="label-text-regular" text="Subject:" />
-                              <Label fx:id="informationLabel" prefHeight="20.0" prefWidth="209.0" styleClass="label-text-regular" text="Information:" GridPane.rowIndex="1" />
-                              <TextField fx:id="subjectField" styleClass="text-field" stylesheets="@../../css/GlobalStyle.css" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </TextField>
-                              <Label fx:id="scheduleLabel" prefHeight="20.0" prefWidth="156.0" styleClass="label-text-regular" text="Schedule:" GridPane.rowIndex="3" />
-                              <Label fx:id="chargesLabel" styleClass="label-text-regular" text="Charges:" GridPane.rowIndex="2" />
-                              <TextField fx:id="informationField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="chargesField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="scheduleField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="levelLabel" styleClass="label-text-regular" text="Level:" GridPane.rowIndex="4" />
-                              <ComboBox fx:id="levelBox" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="informationLabel" prefHeight="20.0" prefWidth="209.0" styleClass="label-text-regular" text="Information:" />
+                              <Label fx:id="startTimeLabel" prefHeight="20.0" prefWidth="156.0" styleClass="label-text-regular" text="Start Time:" GridPane.rowIndex="3" />
+                              <Label fx:id="chargesLabel" styleClass="label-text-regular" text="Charges:" GridPane.rowIndex="1" />
+                              <TextField fx:id="informationField" GridPane.columnIndex="1" />
+                              <TextField fx:id="chargesField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="startTimeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="endTimeLabel" styleClass="label-text-regular" text="End Time" GridPane.rowIndex="4" />
+                              <Label fx:id="dayLabel" styleClass="label-text-regular" text="Day:" GridPane.rowIndex="2" />
+                              <TextField fx:id="endTimeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ComboBox fx:id="dayBox" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
