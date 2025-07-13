@@ -83,7 +83,7 @@ public class UpdDelStaffController {
                     }
 
 
-                    // 3. Replace tutor ID with "NO TUTOR" in subject.csv
+                    // 3. Replace tutor ID with "NO TUTOR" in tutor.csv
                     tutorService.markTutorAsDeletedInTutorCSV(selectedAccountID);
 
                     // 4. Replace tutor ID with "NO TUTOR" in tuitionclass.csv
