@@ -32,6 +32,7 @@
                 <JFXButton fx:id="registerBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Register and Enrolment" />
                 <JFXButton fx:id="updDelStudentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update &amp; Delete Student" />
                 <JFXButton fx:id="updateEnrolmentBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update Student Enrolment" />
+                <JFXButton fx:id="viewStudentRequestBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; View Student Transfer Request" />
             </children>
         </VBox>
 

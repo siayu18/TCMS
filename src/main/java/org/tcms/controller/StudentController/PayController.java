@@ -60,7 +60,7 @@ public class PayController {
         }
 
         enrollments = enrollmentService.getAllEnrollment();
-        payments = paymentService.getAllPayments();
+        payments = paymentService.getAcceptedPayments();
 
         // Get only the classes that the students enrolled
         classes = enrollments.stream()
@@ -96,13 +96,6 @@ public class PayController {
                         LocalTime.now().withNano(0).toString(),
                         "unaccepted"
                 ));
-
-                payments = paymentService.getAllPayments(); // Reload the payment data
-
-                // Recalculates the updated data and update the label
-                amountPaid = getAmountPaid();
-                remainingAmount = getRemainingAmount();
-                setLabel(); // To Update the Label (To make it real-time)
 
                 AlertUtils.showInformation("Payment Successful", "Successful: Please Kindly Wait for Receptionist to Approve Your Payment");
 
@@ -156,7 +149,7 @@ public class PayController {
     }
 
     private void setLabel() {
-        previousAmountLabel.setText(String.format("You have paid RM %.2f for this class (Including Unaccepted Payments)", amountPaid));
+        previousAmountLabel.setText(String.format("You have paid RM %.2f for this class (Accepted Payments)", amountPaid));
         amountLeftLabel.setText(String.format("RM %.2f", remainingAmount));
     }
 }

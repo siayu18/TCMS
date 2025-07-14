@@ -98,7 +98,6 @@ public class MonthlyReportController {
                 .filter(Objects::nonNull)
                 // Extract subject name
                 .map(TuitionClass::getSubjectName)
-
                 .distinct()
                 .sorted()
                 .toList();

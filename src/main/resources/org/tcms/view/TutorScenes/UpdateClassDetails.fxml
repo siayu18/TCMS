@@ -61,16 +61,24 @@
                               <ComboBox fx:id="dayBox" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
+                        <HBox prefHeight="30.0">
+                           <children>
+                              <Label fx:id="errorLabel" visible="false" styleClass="error-label" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="215.0" top="-10.0" />
+                           </VBox.margin>
+                        </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="15.0">
                            <children>
                               <JFXButton fx:id="deleteBtn" prefHeight="37.0" prefWidth="82.0" styleClass="button-Delete" text="Delete" />
                               <JFXButton fx:id="updateBtn" prefHeight="37.0" prefWidth="82.0" styleClass="button-standard" text="Update" />
                            </children>
                            <VBox.margin>
-                              <Insets left="200.0" />
+                              <Insets left="200.0" top="-15.0" />
                            </VBox.margin>
                            <padding>
-                              <Insets bottom="10.0" top="20.0" />
+                              <Insets bottom="10.0" />
                            </padding>
                         </HBox>
                      </children>

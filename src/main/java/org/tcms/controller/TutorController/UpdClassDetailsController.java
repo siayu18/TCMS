@@ -6,10 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.tcms.model.Student;
+import org.tcms.exception.EmptyFieldException;
+import org.tcms.exception.ValidationException;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
+import org.tcms.utils.Helper;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +23,7 @@ public class UpdClassDetailsController {
     @FXML public TextField startTimeField;
     @FXML public TextField endTimeField;
     @FXML public ComboBox<String> dayBox;
+    @FXML public Label errorLabel;
 
     @FXML public TableView<TuitionClass> classTable;
     @FXML public TableColumn<TuitionClass, String> classIDColumn;
@@ -67,14 +70,38 @@ public class UpdClassDetailsController {
                 dayBox.setValue(tuitionClass.getDay());
                 deleteBtn.setDisable(false);
                 updateBtn.setDisable(false);
+                errorLabel.setVisible(false);
             }
         });
 
-//        updateBtn.setOnAction();
+        updateBtn.setOnAction(e -> {
+            try {
+                isRequiredEmpty();
+                Helper.isClassInfoValid(
+                        chargesField.getText(),
+                        startTimeField.getText(),
+                        endTimeField.getText(),
+                        dayBox.getValue()
+                );
+                errorLabel.setVisible(false);
 
-//        deleteBtn.setOnAction();
+            } catch (EmptyFieldException | ValidationException | IOException ex) {
+                errorLabel.setText(ex.getMessage());
+                errorLabel.setVisible(true);
+            }
+        });
 
+        deleteBtn.setOnAction(e -> {
+            try {
+                isRequiredEmpty();
+
+            } catch (EmptyFieldException | ValidationException ex) {
+                errorLabel.setText(ex.getMessage());
+                errorLabel.setVisible(true);
+            }
+        });
     }
+
 
     private void configureTable(){
         classIDColumn.setCellValueFactory(cell ->
@@ -100,5 +127,16 @@ public class UpdClassDetailsController {
                 tuitionClassService.getClassesFromTutor()
         );
         classTable.setItems(list);
+    }
+
+
+    private void isRequiredEmpty() throws EmptyFieldException {
+        if (Helper.validateFieldNotEmpty(informationField) ||
+                Helper.validateFieldNotEmpty(chargesField) ||
+                Helper.validateFieldNotEmpty(startTimeField) ||
+                Helper.validateFieldNotEmpty(endTimeField) ||
+                Helper.validateComboBoxNotEmpty(dayBox)) {
+            throw new EmptyFieldException("Please ensure all fields are not empty!");
+        }
     }
 }

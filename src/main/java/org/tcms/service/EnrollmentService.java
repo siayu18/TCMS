@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class EnrollmentService {
@@ -53,5 +54,25 @@ public class EnrollmentService {
                 .filter(enroll -> enroll.getEnrollmentID().equals(enrollmentID))
                 .findFirst()
                 .orElse(null); // Return null if not found
+    }
+
+    public void transferEnrollment(String studentID, String oldClassID, String newClassID) {
+        Enrollment enrollment = getAllEnrollment().stream()
+                .filter(enroll -> oldClassID.equals(enroll.getClassID()) && studentID.equals(enroll.getStudentID()))
+                .findFirst()
+                .orElse(null);
+
+        if (enrollment != null) {
+            deleteEnrollment(enrollment.getEnrollmentID());
+        } else {
+            System.out.println("Warning: No matching enrollment found for student " + studentID + " in class " + oldClassID);
+        }
+
+        addEnrollment(new Enrollment(
+                UUID.randomUUID().toString(),
+                studentID,
+                LocalDate.now(),
+                newClassID
+        ));
     }
 }

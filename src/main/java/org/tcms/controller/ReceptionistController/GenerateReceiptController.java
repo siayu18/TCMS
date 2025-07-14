@@ -3,14 +3,10 @@ package org.tcms.controller.ReceptionistController;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.tcms.model.*;
 import org.tcms.service.*;
@@ -60,6 +56,8 @@ public class GenerateReceiptController {
 
         students = studentService.getAllStudents();
         payments = paymentService.getAcceptedPayments();
+
+        // Make it into {id:object of id} to make it easier for mapping
         classMap = tuitionClassService.getAllClasses().stream()
                 .collect(Collectors.toMap(
                         TuitionClass::getClassID,
@@ -109,10 +107,10 @@ public class GenerateReceiptController {
 
         // Add Payment Data Rows
         clearGridRows(paymentGrid, 1); // Clear rows every render to avoid old data leaving there when a new student is selected
-        List<StudentPayment> studentPayments = MappingUtils.mapPaymentsForStudent(selectedStudent, payments, enrollmentMap, classMap);
+        List<StudentPaymentEntry> studentPayments = MappingUtils.mapPaymentsForStudent(selectedStudent, payments, enrollmentMap, classMap);
 
         for (int i = 0; i < studentPayments.size(); i++) {
-            StudentPayment studentPayment = studentPayments.get(i);
+            StudentPaymentEntry studentPayment = studentPayments.get(i);
             Label classLabel = new Label(studentPayment.getClassID());
             classLabel.setStyle("-fx-padding: 0 0 0 5;");
 
@@ -132,7 +130,7 @@ public class GenerateReceiptController {
         totalLabel.setText(String.format("RM %.2f", total));
     }
 
-    private double getTotalPayment(List<StudentPayment> studentPayments) {
+    private double getTotalPayment(List<StudentPaymentEntry> studentPayments) {
         return studentPayments.stream()
                 .mapToDouble(StudentPayment -> Double.parseDouble(StudentPayment.getAmount()))
                 .sum();
