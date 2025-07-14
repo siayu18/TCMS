@@ -10,6 +10,7 @@ import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.TuitionClassService;
+import org.tcms.service.TutorService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 
@@ -50,9 +51,7 @@ public class UpdClassDetailsController {
         }
 
         dayBox.getItems().addAll("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
-        deleteBtn.setDisable(true);
-        updateBtn.setDisable(true);
-
+        disabler();
         configureTable();
         loadClassData();
         configureAction();
@@ -68,22 +67,38 @@ public class UpdClassDetailsController {
                 startTimeField.setText(tuitionClass.getStartTime());
                 endTimeField.setText(tuitionClass.getEndTime());
                 dayBox.setValue(tuitionClass.getDay());
-                deleteBtn.setDisable(false);
-                updateBtn.setDisable(false);
                 errorLabel.setVisible(false);
+                enabler();
             }
         });
 
         updateBtn.setOnAction(e -> {
             try {
                 isRequiredEmpty();
+                TuitionClass selectedClass = classTable.getSelectionModel().getSelectedItem();
                 Helper.isClassInfoValid(
+                        selectedClass.getClassID(),
                         chargesField.getText(),
                         startTimeField.getText(),
                         endTimeField.getText(),
                         dayBox.getValue()
                 );
+
+
+                tuitionClassService.updateClass(
+                        selectedClass.getClassID(),
+                        informationField.getText(),
+                        chargesField.getText(),
+                        dayBox.getValue(),
+                        startTimeField.getText(),
+                        endTimeField.getText()
+                );
+
                 errorLabel.setVisible(false);
+                loadClassData();
+                clearFields();
+                disabler();
+                AlertUtils.showInformation("Successfully Updated Class!", selectedClass.getSubjectName() + "'s details has been updated!");
 
             } catch (EmptyFieldException | ValidationException | IOException ex) {
                 errorLabel.setText(ex.getMessage());
@@ -94,6 +109,15 @@ public class UpdClassDetailsController {
         deleteBtn.setOnAction(e -> {
             try {
                 isRequiredEmpty();
+                TuitionClass selectedClass = classTable.getSelectionModel().getSelectedItem();
+                if (selectedClass != null) {
+                    tuitionClassService.deleteClass(selectedClass.getClassID());
+                    errorLabel.setVisible(false);
+                    loadClassData();
+                    clearFields();
+                    disabler();
+                    AlertUtils.showInformation("Successfully Deleted Class!", selectedClass.getSubjectName() + "class on" + selectedClass.getDay() + "has been deleted!");
+                }
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());
@@ -138,5 +162,33 @@ public class UpdClassDetailsController {
                 Helper.validateComboBoxNotEmpty(dayBox)) {
             throw new EmptyFieldException("Please ensure all fields are not empty!");
         }
+    }
+
+    private void clearFields() {
+        informationField.clear();
+        chargesField.clear();
+        dayBox.getSelectionModel().clearSelection();
+        startTimeField.clear();
+        endTimeField.clear();
+    }
+
+    private void disabler(){
+        informationField.setDisable(true);
+        chargesField.setDisable(true);
+        dayBox.setDisable(true);
+        startTimeField.setDisable(true);
+        endTimeField.setDisable(true);
+        deleteBtn.setDisable(true);
+        updateBtn.setDisable(true);
+    }
+
+    private void enabler(){
+        informationField.setDisable(false);
+        chargesField.setDisable(false);
+        dayBox.setDisable(false);
+        startTimeField.setDisable(false);
+        endTimeField.setDisable(false);
+        deleteBtn.setDisable(false);
+        updateBtn.setDisable(false);
     }
 }
