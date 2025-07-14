@@ -87,4 +87,21 @@ public class TuitionClassService {
                 .findFirst()
                 .orElse(null);
     }
+
+
+    public void updateClass (String classID, String newInfo, String newCharges, String newDay, String newStartTime, String newEndTime) {
+        List<Map<String, String>> rows = classFile.readAll();
+
+        for (Map<String, String> row : rows) {
+            if (classID.equals(row.get("ClassID"))) {
+                row.put("Information", newInfo);
+                row.put("Charges", newCharges);
+                row.put("Day", newDay);
+                row.put("StartTime", newStartTime);
+                row.put("EndTime", newEndTime);
+                break;
+            }
+        }
+        classFile.overwriteAll(rows);
+    }
 }

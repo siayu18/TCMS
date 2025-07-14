@@ -113,7 +113,7 @@ public class Helper {
         return String.format("TP%03d", currentLastID + 1);
     }
 
-    public static boolean isTimeSlotOverlapping(String newDay, String newStartTime, String newEndTime) throws IOException {
+    public static boolean isTimeSlotOverlapping(String newDay, String newStartTime, String newEndTime, String currentClassID) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
         TuitionClassService tuitionClassService = new TuitionClassService();
 
@@ -121,6 +121,7 @@ public class Helper {
         LocalTime newEnd = LocalTime.parse(newEndTime.toUpperCase(), formatter);
 
         for (TuitionClass cls : tuitionClassService.getClassesFromTutor()) {
+            if (cls.getClassID().equals(currentClassID)) continue;
             if (!cls.getDay().equalsIgnoreCase(newDay)) continue;
 
             LocalTime existingStart = LocalTime.parse(cls.getStartTime().toUpperCase(), formatter);
@@ -135,7 +136,7 @@ public class Helper {
         return false;
     }
 
-    public static void isClassInfoValid(String charges, String startTime, String endTime, String day) throws ValidationException, IOException {
+    public static void isClassInfoValid(String classID, String charges, String startTime, String endTime, String day) throws ValidationException, IOException {
         if (!charges.matches("\\d+")) {
             throw new ValidationException("Charges must be an Integer Value!");
         }
@@ -150,7 +151,7 @@ public class Helper {
             throw new ValidationException("End Time must be in format hh:mmam/pm (e.g., 10:00am)");
         }
 
-        if (Helper.isTimeSlotOverlapping(day, startTime, endTime)) {
+        if (Helper.isTimeSlotOverlapping(day, startTime, endTime, classID)) {
             throw new ValidationException("This time slot on " + day + " is already taken.");
         }
     }
