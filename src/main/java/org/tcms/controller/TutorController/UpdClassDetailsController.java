@@ -70,9 +70,9 @@ public class UpdClassDetailsController {
             }
         });
 
-        updateBtn.setOnAction();
+//        updateBtn.setOnAction();
 
-        deleteBtn.setOnAction();
+//        deleteBtn.setOnAction();
 
     }
 
