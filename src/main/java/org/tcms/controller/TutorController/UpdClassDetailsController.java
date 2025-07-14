@@ -67,6 +67,7 @@ public class UpdClassDetailsController {
                 startTimeField.setText(tuitionClass.getStartTime());
                 endTimeField.setText(tuitionClass.getEndTime());
                 dayBox.setValue(tuitionClass.getDay());
+                errorLabel.setVisible(false);
                 enabler();
             }
         });
@@ -97,7 +98,7 @@ public class UpdClassDetailsController {
                 loadClassData();
                 clearFields();
                 disabler();
-                AlertUtils.showInformation("Successfully Updated Class!", subjectColumn.getText() + "'s details has been updated!");
+                AlertUtils.showInformation("Successfully Updated Class!", selectedClass.getSubjectName() + "'s details has been updated!");
 
             } catch (EmptyFieldException | ValidationException | IOException ex) {
                 errorLabel.setText(ex.getMessage());
@@ -108,6 +109,15 @@ public class UpdClassDetailsController {
         deleteBtn.setOnAction(e -> {
             try {
                 isRequiredEmpty();
+                TuitionClass selectedClass = classTable.getSelectionModel().getSelectedItem();
+                if (selectedClass != null) {
+                    tuitionClassService.deleteClass(selectedClass.getClassID());
+                    errorLabel.setVisible(false);
+                    loadClassData();
+                    clearFields();
+                    disabler();
+                    AlertUtils.showInformation("Successfully Deleted Class!", selectedClass.getSubjectName() + "class on" + selectedClass.getDay() + "has been deleted!");
+                }
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());

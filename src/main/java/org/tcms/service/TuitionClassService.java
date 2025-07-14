@@ -104,4 +104,10 @@ public class TuitionClassService {
         }
         classFile.overwriteAll(rows);
     }
+
+    public void deleteClass(String classID) {
+        List<Map<String, String>> rows = classFile.readAll();
+        rows.removeIf(row -> classID.equals(row.get("ClassID")));
+        classFile.overwriteAll(rows);
+    }
 }
