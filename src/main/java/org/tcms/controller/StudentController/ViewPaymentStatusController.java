@@ -1,5 +1,6 @@
 package org.tcms.controller.StudentController;
 
+import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -16,11 +17,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ViewPaymentStatusController {
-    public Label totalAmountLabel;
-    public Label totalPaidLabel;
-    public Label outstandingLabel;
-    public GridPane paymentGrid;
-    public PieChart paymentPie;
+    @FXML private Label totalAmountLabel;
+    @FXML private Label totalPaidLabel;
+    @FXML private Label outstandingLabel;
+    @FXML private GridPane paymentGrid;
+    @FXML private PieChart paymentPie;
+
 
     private List<Payment> payments;
     private List<TuitionClass> classes;

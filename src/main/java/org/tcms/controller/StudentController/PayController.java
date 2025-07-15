@@ -2,6 +2,7 @@ package org.tcms.controller.StudentController;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
@@ -28,14 +29,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class PayController {
-    public JFXComboBox<TuitionClass> chooseClassBox;
-    public AnchorPane payPane;
-    public Label payTitle;
-    public TextField amountField;
-    public Label previousAmountLabel;
-    public Label amountLeftLabel;
-    public JFXButton payBtn;
-    public Label errorLabel;
+    @FXML private JFXComboBox<TuitionClass> chooseClassBox;
+    @FXML private AnchorPane payPane;
+    @FXML private Label payTitle;
+    @FXML private TextField amountField;
+    @FXML private Label previousAmountLabel;
+    @FXML private Label amountLeftLabel;
+    @FXML private JFXButton payBtn;
+    @FXML private Label errorLabel;
 
     private List<Enrollment> enrollments;
     private List<TuitionClass> classes;

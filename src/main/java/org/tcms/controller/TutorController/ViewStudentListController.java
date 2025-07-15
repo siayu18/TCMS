@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 
 public class ViewStudentListController {
 
-    public VBox tableBox;
+    @FXML private VBox tableBox;
     @FXML private JFXComboBox<TuitionClass> chooseClassBox;
-    @FXML TableView<Student> studentTable;
+    @FXML private TableView<Student> studentTable;
     @FXML private TableColumn<Student, String> studentIDColumn;
     @FXML private TableColumn<Student, String> studentNameColumn;
     @FXML private TableColumn<Student, String> levelColumn;

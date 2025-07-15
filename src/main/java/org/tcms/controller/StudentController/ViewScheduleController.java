@@ -1,5 +1,6 @@
 package org.tcms.controller.StudentController;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.tcms.model.Enrollment;
@@ -17,12 +18,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ViewScheduleController {
-    public VBox mondayBox;
-    public VBox tuesdayBox;
-    public VBox wednesdayBox;
-    public VBox thursdayBox;
-    public VBox fridayBox;
-    public VBox saturdayBox;
+    @FXML private VBox mondayBox;
+    @FXML private VBox tuesdayBox;
+    @FXML private VBox wednesdayBox;
+    @FXML private VBox thursdayBox;
+    @FXML private VBox fridayBox;
+    @FXML private VBox saturdayBox;
 
     private List<TuitionClass> classes;
     private List<Enrollment> enrollments;

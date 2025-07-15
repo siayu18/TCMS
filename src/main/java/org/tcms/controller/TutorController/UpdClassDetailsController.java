@@ -10,37 +10,31 @@ import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.TuitionClassService;
-import org.tcms.service.TutorService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
-
 import java.io.IOException;
-import java.util.List;
 
 public class UpdClassDetailsController {
+    @FXML private TextField informationField;
+    @FXML private TextField chargesField;
+    @FXML private TextField startTimeField;
+    @FXML private TextField endTimeField;
+    @FXML private ComboBox<String> dayBox;
+    @FXML private Label errorLabel;
 
-    @FXML public TextField informationField;
-    @FXML public TextField chargesField;
-    @FXML public TextField startTimeField;
-    @FXML public TextField endTimeField;
-    @FXML public ComboBox<String> dayBox;
-    @FXML public Label errorLabel;
-
-    @FXML public TableView<TuitionClass> classTable;
-    @FXML public TableColumn<TuitionClass, String> classIDColumn;
-    @FXML public TableColumn<TuitionClass, String> subjectColumn;
-    @FXML public TableColumn<TuitionClass, String> informationColumn;
-    @FXML public TableColumn<TuitionClass, String> chargesColumn;
-    @FXML public TableColumn<TuitionClass, String> dayColumn;
-    @FXML public TableColumn<TuitionClass, String> startTimeColumn;
-    @FXML public TableColumn<TuitionClass, String> endTimeColumn;
-    @FXML public TableColumn<TuitionClass, String> levelColumn;
-
-    @FXML public JFXButton deleteBtn;
-    @FXML public JFXButton updateBtn;
+    @FXML private TableView<TuitionClass> classTable;
+    @FXML private TableColumn<TuitionClass, String> classIDColumn;
+    @FXML private TableColumn<TuitionClass, String> subjectColumn;
+    @FXML private TableColumn<TuitionClass, String> informationColumn;
+    @FXML private TableColumn<TuitionClass, String> chargesColumn;
+    @FXML private TableColumn<TuitionClass, String> dayColumn;
+    @FXML private TableColumn<TuitionClass, String> startTimeColumn;
+    @FXML private TableColumn<TuitionClass, String> endTimeColumn;
+    @FXML private TableColumn<TuitionClass, String> levelColumn;
+    @FXML private JFXButton deleteBtn;
+    @FXML private JFXButton updateBtn;
 
     private TuitionClassService tuitionClassService;
-    private List <TuitionClass> tuitionClass;
 
     public void initialize(){
         try{

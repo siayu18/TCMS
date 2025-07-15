@@ -21,6 +21,11 @@ public class Tutor extends User {
         this.assignedSubject = assignedSubject;
     }
 
+    public Tutor(String assignedLevel, String assignedSubject) {
+        this.assignedLevel = assignedLevel;
+        this.assignedSubject = assignedSubject;
+    }
+
     // This fixes a bug with ComboBoxes (ReassignTutorController)
     @Override
     public String toString() {
