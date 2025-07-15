@@ -28,6 +28,7 @@ public class StudentSideMenuController extends BaseSideMenuController {
         viewScheduleBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_SCHEDULE, "View Schedule"));
         payBtn.setOnAction(e -> toolbarController.loadContent(View.PAY, "Pay Fees For Class"));
         viewPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_PAYMENT_STATUS, "View Payment Status"));
+        sendRequestBtn.setOnAction(e -> toolbarController.loadContent(View.REQUEST_TRANSFER, "Request To Transfer Subjects"));
     }
 
     @Override
