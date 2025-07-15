@@ -30,7 +30,8 @@ public enum View {
     PAY("/org/tcms/view/StudentScenes/PayView.fxml"),
     VIEW_SCHEDULE("/org/tcms/view/StudentScenes/ViewSchedule.fxml"),
     VIEW_PAYMENT_STATUS("/org/tcms/view/StudentScenes/ViewPaymentStatus.fxml"),
-    REQUEST_TRANSFER("/org/tcms/view/StudentScenes/TransferRequestView.fxml");
+    REQUEST_TRANSFER("/org/tcms/view/StudentScenes/TransferRequestView.fxml"),
+    DELETE_REQUEST("/org/tcms/view/StudentScenes/DeleteRequest.fxml");
 
     private final String fxmlPath;
 

@@ -48,10 +48,9 @@ public class TransferRequestController {
             requestService = new RequestService();
 
 
-            // Get current student ID from Session (no need for custom auth logic)
+            // Get current student ID from Session
             currentStudentId = Session.getCurrentUserID();
 
-            // Validate: Ensure a student is logged in
             if (currentStudentId == null) {
                 AlertUtils.showAlert("Error", "No student logged in. Please log in first.");
                 return;
@@ -105,11 +104,11 @@ public class TransferRequestController {
 
         selectOldSub.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                selectNewSub.setDisable(false); // Enable when old subject is selected
-                loadAvailableNewSubjects(newVal.getLevel()); // Load new subjects
+                selectNewSub.setDisable(false);
+                loadAvailableNewSubjects(newVal.getLevel());
             } else {
-                selectNewSub.setDisable(true); // Disable when no old subject is selected
-                selectNewSub.setItems(null); // Clear items
+                selectNewSub.setDisable(true);
+                selectNewSub.setItems(null);
             }
         });
         clearBtn.setOnAction(e -> clearAll());
@@ -132,8 +131,8 @@ public class TransferRequestController {
             // Get enrollments for the current student (ensure StudentID matches)
             List<Enrollment> studentEnrollments = enrollmentService.getAllEnrollment().stream()
                     .filter(Objects::nonNull) // Filter out null enrollments
-                    .filter(e -> currentStudentId.equals(e.getStudentID())) // Explicit ID comparison
-                    .collect(Collectors.toList());
+                    .filter(e -> currentStudentId.equals(e.getStudentID()))
+                    .toList();
 
             // Map enrollments to TuitionClass (handle null classes)
             List<TuitionClass> existingClasses = studentEnrollments.stream()
@@ -141,7 +140,7 @@ public class TransferRequestController {
                         String classId = e.getClassID();
                         return (classId != null) ? tuitionClassService.getClassByID(classId) : null;
                     })
-                    .filter(Objects::nonNull) // Remove null classes
+                    .filter(Objects::nonNull)
                     .filter(cls -> {
                         // Ensure class has required fields (prevent NPE in cell factory)
                         return cls.getSubjectName() != null && cls.getLevel() != null;
@@ -178,7 +177,6 @@ public class TransferRequestController {
                 }
             });
 
-            // Handle empty state
             if (existingClasses.isEmpty()) {
                 AlertUtils.showInformation("No Enrollments", "You are not enrolled in any classes.");
             }
@@ -190,13 +188,11 @@ public class TransferRequestController {
 
     private void loadAvailableNewSubjects(String studentLevel) {
         try {
-            // Exit if level is null
             if (studentLevel == null || studentLevel.isEmpty()) {
                 selectNewSub.setItems(FXCollections.observableArrayList());
                 return;
             }
 
-            // Get all classes at the student's level (with valid fields)
             List<TuitionClass> allClassesAtLevel = tuitionClassService.getAllClasses().stream()
                     .filter(Objects::nonNull)
                     .filter(cls -> {
@@ -204,25 +200,21 @@ public class TransferRequestController {
                                 && cls.getSubjectName() != null
                                 && !cls.getSubjectName().isEmpty();
                     })
-                    .collect(Collectors.toList());
+                    .toList();
 
-            // Get IDs of classes the student is already enrolled in (to exclude them)
             List<String> existingClassIds = enrollmentService.getAllEnrollment().stream()
                     .filter(Objects::nonNull)
                     .filter(e -> currentStudentId.equals(e.getStudentID()))
                     .map(Enrollment::getClassID)
                     .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
+                    .toList();
 
-            // Filter out classes the student is already enrolled in
             List<TuitionClass> availableClasses = allClassesAtLevel.stream()
                     .filter(cls -> !existingClassIds.contains(cls.getClassID()))
                     .collect(Collectors.toList());
 
-            // Populate selectNewSub
             selectNewSub.setItems(FXCollections.observableArrayList(availableClasses));
 
-            // Cell factory for selectNewSub (type-safe)
             selectNewSub.setCellFactory(param -> new ListCell<TuitionClass>() {
                 @Override
                 protected void updateItem(TuitionClass item, boolean empty) {
@@ -235,7 +227,6 @@ public class TransferRequestController {
                 }
             });
 
-            // Button cell for selectNewSub
             selectNewSub.setButtonCell(new ListCell<TuitionClass>() {
                 @Override
                 protected void updateItem(TuitionClass item, boolean empty) {
@@ -248,7 +239,6 @@ public class TransferRequestController {
                 }
             });
 
-            // Show info if no available classes
             if (availableClasses.isEmpty()) {
                 AlertUtils.showInformation("No Available Classes",
                         "No new classes available at level: " + studentLevel);

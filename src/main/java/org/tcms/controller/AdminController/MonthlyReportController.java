@@ -47,9 +47,8 @@ public class MonthlyReportController {
             loadMonthComboBox();
             loadSubjectComboBox();
             loadLevelComboBox();
-            configureTable(); // Initialize table columns
+            configureTable();
 
-            // Set "View Report" button action
             viewReportBtn.setOnAction(e -> generateAndDisplayReport());
 
 
@@ -175,7 +174,6 @@ public class MonthlyReportController {
                 .sum();
         incomeTotal.setText("RM " + total);
 
-        // Show no results alert
         if (reportData.isEmpty()) {
             AlertUtils.showInformation("No Data", "No payments match the selected filters.");
         }
