@@ -1,45 +1,121 @@
 package org.tcms.controller.StudentController;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
+import org.tcms.model.Enrollment;
+import org.tcms.model.Request;
+import org.tcms.model.TuitionClass;
+import org.tcms.service.EnrollmentService;
+import org.tcms.service.RequestService;
+import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
+import org.tcms.utils.Session;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TransferRequestController {
     //FXML Components
     @FXML private TextField reasonField;
     @FXML private Label errorLabel;
-    @FXML private ComboBox selectOldSub;
-    @FXML private  ComboBox selectNewSub;
+    @FXML private ComboBox<TuitionClass> selectOldSub;
+    @FXML private ComboBox<TuitionClass> selectNewSub;
     @FXML private JFXButton clearBtn;
     @FXML private JFXButton submitBtn;
 
     //Services
+    private EnrollmentService enrollmentService;
+    private TuitionClassService tuitionClassService;
+    private RequestService requestService;
+    private String currentStudentId;
 
+    @FXML
     private void initialize() {
-    };
+        try {
+            enrollmentService = new EnrollmentService();
+            tuitionClassService = new TuitionClassService();
+            requestService = new RequestService();
+
+
+            // Get current student ID from Session (no need for custom auth logic)
+            currentStudentId = Session.getCurrentUserID();
+
+            // Validate: Ensure a student is logged in
+            if (currentStudentId == null) {
+                AlertUtils.showAlert("Error", "No student logged in. Please log in first.");
+                return;
+            }
+
+            loadExistingSubjects();
+            configureActions();
+        } catch (IOException e) {
+            AlertUtils.showAlert("Error", "Failed to load data: " + e.getMessage());
+        }
+    }
 
     private void configureActions(){
         submitBtn.setOnAction(e -> {
             try {
                 isRequiredEmpty();
 
-                errorLabel.setVisible(false);
-                AlertUtils.showInformation("Successfully Submitted Transfer Request!", "Your request to transfer to: " + selectNewSub.getValue().toString() + " has been submitted, check communication hub for updates!");
+                TuitionClass selectedOldClass = selectOldSub.getValue();
+                TuitionClass selectedNewClass = selectNewSub.getValue();
+
+                if (selectedOldClass.getClassID().equals(selectedNewClass.getClassID())) {
+                    throw new ValidationException("Old and new classes cannot be the same!");
+                }
+
+                Request newRequest = new Request(
+                        generateRequestID(),
+                        currentStudentId,
+                        selectedOldClass.getClassID(),
+                        selectedNewClass.getClassID(),
+                        reasonField.getText()
+                );
+
+
+                requestService.addRequest(newRequest);
+
+
+                AlertUtils.showInformation("Success",
+                        "Transfer request submitted!\n" +
+                                "From: " + selectedOldClass.getSubjectName() + "\n" +
+                                "To: " + selectedNewClass.getSubjectName()
+                );
                 clearAll();
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());
                 errorLabel.setVisible(true);
+            } catch (Exception ex) {
+                AlertUtils.showAlert("Error", "Failed to submit request: " + ex.getMessage());
             }
         });
 
+        selectOldSub.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                selectNewSub.setDisable(false); // Enable when old subject is selected
+                loadAvailableNewSubjects(newVal.getLevel()); // Load new subjects
+            } else {
+                selectNewSub.setDisable(true); // Disable when no old subject is selected
+                selectNewSub.setItems(null); // Clear items
+            }
+        });
+        clearBtn.setOnAction(e -> clearAll());
+
     };
+
 
     private void isRequiredEmpty() throws EmptyFieldException {
         boolean hasEmptyFields = Helper.validateFieldNotEmpty(reasonField) ||
@@ -49,6 +125,142 @@ public class TransferRequestController {
         if (hasEmptyFields) {
             throw new EmptyFieldException("Required field(s) with indication (*) is empty!");
         }
+    }
+
+    private void loadExistingSubjects() {
+        try {
+            // Get enrollments for the current student (ensure StudentID matches)
+            List<Enrollment> studentEnrollments = enrollmentService.getAllEnrollment().stream()
+                    .filter(Objects::nonNull) // Filter out null enrollments
+                    .filter(e -> currentStudentId.equals(e.getStudentID())) // Explicit ID comparison
+                    .collect(Collectors.toList());
+
+            // Map enrollments to TuitionClass (handle null classes)
+            List<TuitionClass> existingClasses = studentEnrollments.stream()
+                    .map(e -> {
+                        String classId = e.getClassID();
+                        return (classId != null) ? tuitionClassService.getClassByID(classId) : null;
+                    })
+                    .filter(Objects::nonNull) // Remove null classes
+                    .filter(cls -> {
+                        // Ensure class has required fields (prevent NPE in cell factory)
+                        return cls.getSubjectName() != null && cls.getLevel() != null;
+                    })
+                    .collect(Collectors.toList());
+
+            // Set items (ensure observable list is not null)
+            selectOldSub.setItems(FXCollections.observableArrayList(existingClasses));
+
+            // Cell factory for dropdown list (type-safe)
+            selectOldSub.setCellFactory(param -> new ListCell<TuitionClass>() {
+                @Override
+                protected void updateItem(TuitionClass item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        // Show "Subject (Level)"
+                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                    }
+                }
+            });
+
+            // Button cell (displayed when combobox is closed) - no casting
+            selectOldSub.setButtonCell(new ListCell<TuitionClass>() {
+                @Override
+                protected void updateItem(TuitionClass item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                    }
+                }
+            });
+
+            // Handle empty state
+            if (existingClasses.isEmpty()) {
+                AlertUtils.showInformation("No Enrollments", "You are not enrolled in any classes.");
+            }
+
+        } catch (Exception e) {
+            AlertUtils.showAlert("Error", "Failed to load existing subjects: " + e.getMessage());
+        }
+    }
+
+    private void loadAvailableNewSubjects(String studentLevel) {
+        try {
+            // Exit if level is null
+            if (studentLevel == null || studentLevel.isEmpty()) {
+                selectNewSub.setItems(FXCollections.observableArrayList());
+                return;
+            }
+
+            // Get all classes at the student's level (with valid fields)
+            List<TuitionClass> allClassesAtLevel = tuitionClassService.getAllClasses().stream()
+                    .filter(Objects::nonNull)
+                    .filter(cls -> {
+                        return studentLevel.equals(cls.getLevel())
+                                && cls.getSubjectName() != null
+                                && !cls.getSubjectName().isEmpty();
+                    })
+                    .collect(Collectors.toList());
+
+            // Get IDs of classes the student is already enrolled in (to exclude them)
+            List<String> existingClassIds = enrollmentService.getAllEnrollment().stream()
+                    .filter(Objects::nonNull)
+                    .filter(e -> currentStudentId.equals(e.getStudentID()))
+                    .map(Enrollment::getClassID)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+
+            // Filter out classes the student is already enrolled in
+            List<TuitionClass> availableClasses = allClassesAtLevel.stream()
+                    .filter(cls -> !existingClassIds.contains(cls.getClassID()))
+                    .collect(Collectors.toList());
+
+            // Populate selectNewSub
+            selectNewSub.setItems(FXCollections.observableArrayList(availableClasses));
+
+            // Cell factory for selectNewSub (type-safe)
+            selectNewSub.setCellFactory(param -> new ListCell<TuitionClass>() {
+                @Override
+                protected void updateItem(TuitionClass item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                    }
+                }
+            });
+
+            // Button cell for selectNewSub
+            selectNewSub.setButtonCell(new ListCell<TuitionClass>() {
+                @Override
+                protected void updateItem(TuitionClass item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                    }
+                }
+            });
+
+            // Show info if no available classes
+            if (availableClasses.isEmpty()) {
+                AlertUtils.showInformation("No Available Classes",
+                        "No new classes available at level: " + studentLevel);
+            }
+
+        } catch (Exception e) {
+            AlertUtils.showAlert("Error", "Failed to load available subjects: " + e.getMessage());
+        }
+    }
+
+    private String generateRequestID() {
+        return "REQ-" + UUID.randomUUID().toString().substring(0, 8);
     }
 
     private void clearAll() {
