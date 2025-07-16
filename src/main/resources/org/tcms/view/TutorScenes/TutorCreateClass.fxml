@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,10 +13,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="460.0" prefWidth="700.0" stylesheets="@../../css/GlobalStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.AdminController.RegStaffController">
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<AnchorPane prefHeight="460.0" prefWidth="700.0" stylesheets="@../../css/GlobalStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.TutorController.CreateClassController">
    <children>
       <BorderPane stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -24,78 +25,98 @@
          <left>
    </left>
          <center>
-            <VBox alignment="CENTER" fillWidth="false" spacing="20.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label contentDisplay="CENTER" prefHeight="82.0" prefWidth="429.0" styleClass="label-heading-large" text="Create New Class" textAlignment="CENTER" wrapText="true">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" right="75.0" top="25.0" />
-                     </padding>
-                  </Label>
-                  <GridPane hgap="5.0" vgap="10.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.33331298828125" minWidth="10.0" prefWidth="75.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="341.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label styleClass="label-text-regular" text="Username: " />
-                        <Label prefHeight="20.0" prefWidth="97.0" styleClass="label-text-regular" text="Password:" GridPane.rowIndex="1" />
-                        <TextField fx:id="usernameField" styleClass="text-field" stylesheets="@../../css/GlobalStyle.css" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin></TextField>
-                        <Label prefHeight="20.0" prefWidth="156.0" styleClass="label-text-regular" text="Role:" GridPane.rowIndex="2" />
-                        <TextField fx:id="visiblePasswordField" styleClass="text-field" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <PasswordField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="selectRole" prefWidth="150.0" promptText="Select Role" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-                  <VBox fx:id="tutorSelections" prefHeight="50.0" prefWidth="420.0" spacing="15.0">
-                     <children>
-                        <HBox>
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="81.0" styleClass="label-text-regular" text="Level:" />
-                              <ComboBox fx:id="selectLevel" prefWidth="150.0" promptText="Select Level" styleClass="text-field" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label prefHeight="20.0" prefWidth="80.0" styleClass="label-text-regular" text="Subject:" />
-                              <TextField fx:id="selectSubject" styleClass="text-field" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets top="-5.0" />
-                     </padding>
-                  </VBox>
-                  <JFXCheckBox fx:id="showPassword" checkedColor="#7f8caa" text="Show Password" unCheckedColor="#333446" />
-                  <StackPane>
-                     <children>
-                        <Label fx:id="errorLabel" alignment="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" />
-                        <Label fx:id="emptyLabel" alignment="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" />
-                        <Label fx:id="successLabel" alignment="CENTER" styleClass="success-label" textAlignment="CENTER" visible="false" />
-                     </children>
-                  </StackPane>
-                  <HBox alignment="CENTER_RIGHT" spacing="15.0">
-                     <children>
-                        <JFXButton fx:id="clearBtn" prefHeight="37.0" prefWidth="82.0" styleClass="button-standard" text="Clear" />
-                        <JFXButton fx:id="submitBtn" prefHeight="37.0" prefWidth="85.0" styleClass="button-standard" text="Submit" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="200.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-            </VBox>
+            <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+               <VBox alignment="CENTER" fillWidth="false" spacing="20.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <Label alignment="BOTTOM_LEFT" contentDisplay="CENTER" prefHeight="41.0" prefWidth="430.0" styleClass="label-heading-large" text="Create New Class" textAlignment="CENTER" wrapText="true">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                        <padding>
+                           <Insets bottom="10.0" right="75.0" top="25.0" />
+                        </padding>
+                     </Label>
+                     <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="426.0" spacing="10.0">
+                        <children>
+                           <Label styleClass="label-text-regular" text="Select Class: " />
+                           <JFXComboBox fx:id="chooseClassBox" prefWidth="150.0" />
+                        </children>
+                        <padding>
+                           <Insets bottom="20.0" />
+                        </padding>
+                     </HBox>
+                     <GridPane hgap="5.0" vgap="30.0">
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.33331298828125" minWidth="10.0" prefWidth="80.0" />
+                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="351.0" minWidth="10.0" prefWidth="341.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <Label styleClass="label-text-regular" text="Information:" />
+                           <Label prefHeight="20.0" prefWidth="97.0" styleClass="label-text-regular" text="Charges:" GridPane.rowIndex="1" />
+                           <TextField fx:id="informationField" styleClass="text-field" stylesheets="@../../css/GlobalStyle.css" GridPane.columnIndex="1">
+                              <GridPane.margin>
+                                 <Insets />
+                              </GridPane.margin></TextField>
+                           <TextField fx:id="chargesField" styleClass="text-field" stylesheets="@../../css/GlobalStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <Label styleClass="label-text-regular" text="Day:" GridPane.rowIndex="2" />
+                           <Label styleClass="label-text-regular" text="Start Time:" GridPane.rowIndex="3" />
+                           <Label styleClass="label-text-regular" text="End Time:" GridPane.rowIndex="4" />
+                           <TextField fx:id="startTimeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           <TextField fx:id="endTimeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           <ComboBox fx:id="dayBox" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        </children>
+                     </GridPane>
+                     <HBox prefHeight="30.0">
+                        <VBox.margin>
+                           <Insets left="215.0" top="-10.0" />
+                        </VBox.margin>
+                        <children>
+                           <Label fx:id="errorLabel" visible="false" styleClass="error-label" />
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                        <children>
+                           <JFXButton fx:id="clearBtn" prefHeight="37.0" prefWidth="82.0" styleClass="button-standard" text="Clear" />
+                           <JFXButton fx:id="submitBtn" prefHeight="37.0" prefWidth="85.0" styleClass="button-standard" text="Submit" />
+                        </children>
+                        <VBox.margin>
+                           <Insets left="200.0" />
+                        </VBox.margin>
+                        <padding>
+                           <Insets bottom="20.0" />
+                        </padding>
+                     </HBox>
+                  </children>
+               </VBox>
+            </ScrollPane>
          </center>
+         <bottom>
+            <TableView fx:id="classTable" prefHeight="220.0" prefWidth="700.0" styleClass="label-text-regular" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="classIDColumn" text="Class ID" />
+                  <TableColumn fx:id="subjectColumn" text="Subject" />
+                  <TableColumn fx:id="informationColumn" text="Information" />
+                  <TableColumn fx:id="chargesColumn" text="Charges" />
+                  <TableColumn fx:id="dayColumn" text="Day" />
+                  <TableColumn fx:id="startTimeColumn" text="StartTime" />
+                  <TableColumn fx:id="endTimeColumn" text="EndTime" />
+                  <TableColumn fx:id="levelColumn" text="Level" />
+               </columns>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

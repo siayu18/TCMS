@@ -155,4 +155,18 @@ public class Helper {
             throw new ValidationException("This time slot on " + day + " is already taken.");
         }
     }
+
+    public static String generateClassID() {
+        FileHandler classFile = new FileHandler("tuitionclass.csv", List.of("ClassID","TutorID","SubjectName","Information","Charges","Day","StartTime","EndTime","Level"));
+        List<Map<String, String>> rows = classFile.readAll();
+
+        int currentLastID = rows.stream()
+                .map(row -> row.get("ClassID").replace("CL", ""))
+                .mapToInt(Integer::parseInt)
+                .max()
+                .orElse(0);
+
+        return String.format("CL%03d", currentLastID + 1);
+    }
+
 }

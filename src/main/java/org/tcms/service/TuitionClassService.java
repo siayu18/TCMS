@@ -1,7 +1,9 @@
 package org.tcms.service;
 
 import org.tcms.model.TuitionClass;
+import org.tcms.model.Tutor;
 import org.tcms.utils.FileHandler;
+import org.tcms.utils.Helper;
 import org.tcms.utils.Session;
 
 import java.io.IOException;
@@ -12,9 +14,11 @@ import java.util.stream.Collectors;
 
 public class TuitionClassService {
     private final FileHandler classFile;
+    private final FileHandler subjectFile;
 
     public TuitionClassService() throws IOException {
         classFile = new FileHandler("tuitionclass.csv", Arrays.asList("ClassID","TutorID","SubjectName","Information","Charges","Day","StartTime","EndTime","Level"));
+        subjectFile = new FileHandler("tutor.csv", Arrays.asList("TutorID","AssignedSubjects","AssignedLevels"));
     }
 
     public List<TuitionClass> getAllClasses() {
@@ -67,17 +71,28 @@ public class TuitionClassService {
                 .collect(Collectors.toList());
     }
 
-    public void addClass(TuitionClass tuitionClass) {
+
+    public List<Tutor> getAssignedSubjectsForTutor(){
+        return subjectFile.readAll().stream()
+                .filter(row -> Session.getCurrentUserID().equalsIgnoreCase(row.get("TutorID")))
+                .map(row -> new Tutor(
+                        row.get("AssignedLevels"),
+                        row.get("AssignedSubjects")
+                ))
+                .collect(Collectors.toList());
+    }
+
+    public void addClass(String TutorID, String subjectName, String information, String charges, String day, String startTime, String endTime, String level) {
         classFile.append(Map.of(
-                "ClassID", tuitionClass.getClassID(),
-                "TutorID", tuitionClass.getTutorID(),
-                "SubjectName", tuitionClass.getSubjectName(),
-                "Information", tuitionClass.getInformation(),
-                "Charges", tuitionClass.getCharges(),
-                "Day", tuitionClass.getDay(),
-                "StartTime", tuitionClass.getStartTime(),
-                "EndTime", tuitionClass.getEndTime(),
-                "Level", tuitionClass.getLevel()
+                "ClassID", Helper.generateClassID(),
+                "TutorID", TutorID,
+                "SubjectName", subjectName,
+                "Information", information,
+                "Charges", charges,
+                "Day", day,
+                "StartTime", startTime,
+                "EndTime", endTime,
+                "Level", level
         ));
     }
 
