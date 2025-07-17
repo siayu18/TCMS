@@ -83,8 +83,6 @@ public class LoginController {
                 // initialize side menu and dashboard
                 tbController.initializeWith(role);
 
-                // clear background colour
-                SceneUtils.clearScreenColor(mainPane);
             } else {
                 errorLabel.setVisible(true);
                 loginCount ++;

@@ -7,6 +7,7 @@ import org.tcms.controller.SystemController.BaseSideMenuController;
 import org.tcms.navigation.View;
 
 public class StudentSideMenuController extends BaseSideMenuController {
+    @FXML private JFXButton viewReceiptBtn;
     @FXML private JFXButton subjectManagementBtn;
     @FXML private VBox subManagementSubMenu;
     @FXML private JFXButton viewSubjectBtn;
@@ -28,6 +29,7 @@ public class StudentSideMenuController extends BaseSideMenuController {
         viewScheduleBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_SCHEDULE, "View Schedule"));
         payBtn.setOnAction(e -> toolbarController.loadContent(View.PAY, "Pay Fees For Class"));
         viewPaymentBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_PAYMENT_STATUS, "View Payment Status"));
+        viewReceiptBtn.setOnAction(e -> toolbarController.loadContent(View.VIEW_RECEIPT, "View Receipt"));
         sendRequestBtn.setOnAction(e -> toolbarController.loadContent(View.REQUEST_TRANSFER, "Request To Transfer Subjects"));
         delRequestBtn.setOnAction(e -> toolbarController.loadContent(View.DELETE_REQUEST, "Delete Subject Transfer Request"));
     }

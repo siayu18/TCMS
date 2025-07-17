@@ -32,9 +32,4 @@ public class SceneUtils {
             throw new RuntimeException("Could not load " + view, e);
         }
     }
-
-    // remove screen background colour
-    public static void clearScreenColor(AnchorPane pane) {
-        pane.setBackground(null);
-    }
 }

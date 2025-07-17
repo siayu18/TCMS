@@ -1,41 +1,38 @@
-package org.tcms.controller.ReceptionistController;
+package org.tcms.controller.StudentController;
 
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.tcms.model.*;
+import org.tcms.model.Enrollment;
+import org.tcms.model.Payment;
+import org.tcms.model.Student;
+import org.tcms.model.TuitionClass;
 import org.tcms.service.*;
-import org.tcms.utils.*;
+import org.tcms.utils.AlertUtils;
+import org.tcms.utils.Helper;
+import org.tcms.utils.Session;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GenerateReceiptController {
+public class ViewReceiptController {
+    public AnchorPane receiptPane;
+    public VBox receiptBox;
+    public Label dateLabel;
+    public Label studentLabel;
+    public GridPane paymentGrid;
+    public Label totalLabel;
+    public Label errorLabel;
 
-    @FXML private Button generateBtn;
-    @FXML private Label errorLabel;
-    @FXML private AnchorPane receiptPane;
-    @FXML private VBox receiptBox;
-    @FXML private JFXComboBox chooseStudentBox;
-    @FXML private GridPane paymentGrid;
-    @FXML private Label studentLabel;
-    @FXML private Label dateLabel;
-    @FXML private Label totalLabel;
-
-    private List<Student> students;
     private List<Payment> payments;
     private Map<String, TuitionClass> classMap;
     private Map<String, Enrollment> enrollmentMap;
-    private Student selectedStudent;
 
-    private StudentService studentService;
     private TuitionClassService tuitionClassService;
     private EnrollmentService enrollmentService;
     private PaymentService paymentService;
@@ -44,7 +41,6 @@ public class GenerateReceiptController {
     @FXML
     public void initialize() {
         try {
-            studentService = new StudentService();
             tuitionClassService = new TuitionClassService();
             enrollmentService = new EnrollmentService();
             paymentService = new PaymentService();
@@ -54,7 +50,6 @@ public class GenerateReceiptController {
             return;
         }
 
-        students = studentService.getAllStudents();
         payments = paymentService.getAcceptedPayments();
 
         // Make it into {id:object of id} to make it easier for mapping
@@ -69,33 +64,21 @@ public class GenerateReceiptController {
                         enrollment -> enrollment
                 ));
 
-        ComponentUtils.configureStudentBox(chooseStudentBox, students);
-        configureActions();
+        displayReceiptIfExists();
     }
 
-    private void configureActions() {
-        chooseStudentBox.setOnAction(e -> {
-            selectedStudent = ((Student) chooseStudentBox.getValue());
-            if (selectedStudent != null) {
-                receiptPane.setVisible(true);
-                generateBtn.setVisible(true);
-            }
-        });
-
-        generateBtn.setOnAction(e -> {
+    private void displayReceiptIfExists() {
+        if (receiptService.isReceiptGenerated((Student) Session.getCurrentUser())) {
             receiptBox.setVisible(true);
-            if (receiptService.isReceiptGenerated(selectedStudent)) {
-                errorLabel.setText("Receipt is generated before, loading the receipt...");
-                errorLabel.setVisible(true);
-            } else {
-                errorLabel.setVisible(false);
-                receiptService.addReceipt(selectedStudent);
-            }
-
+            errorLabel.setVisible(false);
             Helper.renderReceipt(
                     receiptBox, dateLabel, studentLabel, totalLabel, paymentGrid,
-                    selectedStudent, payments, enrollmentMap, classMap
+                    (Student) Session.getCurrentUser(), payments, enrollmentMap, classMap
             );
-        });
+        } else {
+            errorLabel.setText("Receipt has not been generated before!");
+            receiptBox.setVisible(false);
+            errorLabel.setVisible(true);
+        }
     }
 }

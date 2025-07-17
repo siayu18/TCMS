@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class MonthlyReportEntry {
-    private String subject;      // TuitionClass
-    private String level;        // TuitionClass
-    private double totalIncome;  // Aggregated from Payment amounts
+    private String subject; // TuitionClass
+    private String level; // TuitionClass
+    private double totalIncome; // Aggregated from Payment amounts
 }

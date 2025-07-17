@@ -39,7 +39,7 @@
                                    <children>
                                       <VBox alignment="CENTER">
                                          <children>
-                                            <Label styleClass="label-heading-large" text="Tuition Centre" />
+                                            <Label styleClass="label-heading-large" text="ATP Tuition Centre" />
                                             <Label styleClass="label-text-regular" text="123, Bukit Jalil, APU, 53000 Kuala Lumpur" />
                                             <Label fx:id="dateLabel" text="Date: " />
                                             <Label fx:id="studentLabel" text="Student: " />

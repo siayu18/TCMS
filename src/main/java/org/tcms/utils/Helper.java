@@ -1,9 +1,12 @@
 package org.tcms.utils;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
-import org.tcms.model.TuitionClass;
+import org.tcms.model.*;
 import org.tcms.service.TuitionClassService;
 
 import java.io.IOException;
@@ -101,7 +104,7 @@ public class Helper {
 
     // get a new accountID
     public static String generateAccountID() {
-        FileHandler accountFile = new FileHandler("account.csv", List.of("AccountID","Name","Password","Role"));
+        FileHandler accountFile = new FileHandler("account.csv", List.of("AccountID", "Name", "Password", "Role"));
         List<Map<String, String>> rows = accountFile.readAll();
 
         int currentLastID = rows.stream()
@@ -157,7 +160,7 @@ public class Helper {
     }
 
     public static String generateClassID() {
-        FileHandler classFile = new FileHandler("tuitionclass.csv", List.of("ClassID","TutorID","SubjectName","Information","Charges","Day","StartTime","EndTime","Level"));
+        FileHandler classFile = new FileHandler("tuitionclass.csv", List.of("ClassID", "TutorID", "SubjectName", "Information", "Charges", "Day", "StartTime", "EndTime", "Level"));
         List<Map<String, String>> rows = classFile.readAll();
 
         int currentLastID = rows.stream()
@@ -167,6 +170,51 @@ public class Helper {
                 .orElse(0);
 
         return String.format("CL%03d", currentLastID + 1);
+    }
+
+    public static void renderReceipt(VBox receiptBox, Label dateLabel, Label studentLabel, Label totalLabel, GridPane paymentGrid,
+                                     Student selectedStudent, List<Payment> payments, Map<String, Enrollment> enrollmentMap, Map<String, TuitionClass> classMap) {
+        receiptBox.setPadding(new Insets(20));
+        receiptBox.setSpacing(15);
+
+        // Set Header
+        String currentDate = java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        dateLabel.setText("Date: " + currentDate);
+        studentLabel.setText("Student: " + selectedStudent.getUsername());
+
+        // Add Payment Data Rows
+        clearGridRows(paymentGrid, 1); // Clear rows every render to avoid old data leaving there when a new student is selected
+        List<StudentPaymentEntry> studentPayments = MappingUtils.mapPaymentsForStudent(selectedStudent, payments, enrollmentMap, classMap);
+
+        for (int i = 0; i < studentPayments.size(); i++) {
+            StudentPaymentEntry studentPayment = studentPayments.get(i);
+            Label classLabel = new Label(studentPayment.getClassID());
+            classLabel.setStyle("-fx-padding: 0 0 0 5;");
+
+            Label subjectLabel = new Label(studentPayment.getSubjectName());
+            subjectLabel.setStyle("-fx-padding: 0 0 0 5;");
+
+            Label amountLabel = new Label(String.format("RM %.2f", Double.parseDouble(studentPayment.getAmount())));
+            amountLabel.setStyle("-fx-padding: 0 0 0 5;");
+
+            paymentGrid.add(classLabel, 0, i + 1);
+            paymentGrid.add(subjectLabel, 1, i + 1);
+            paymentGrid.add(amountLabel, 2, i + 1);
+        }
+
+        // Set total amount
+        double total = getTotalPayment(studentPayments);
+        totalLabel.setText(String.format("RM %.2f", total));
+    }
+
+    private static double getTotalPayment(List<StudentPaymentEntry> studentPayments) {
+        return studentPayments.stream()
+                .mapToDouble(StudentPayment -> Double.parseDouble(StudentPayment.getAmount()))
+                .sum();
+    }
+
+    private static void clearGridRows(GridPane grid, int startRow) {
+        grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) >= startRow);
     }
 
 }
