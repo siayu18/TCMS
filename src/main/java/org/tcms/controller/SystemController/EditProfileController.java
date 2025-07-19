@@ -78,7 +78,7 @@ public class EditProfileController {
 
     private void isPasswordValid(String newPassword, String confirmPassword) {
         if (!Helper.validatePassword(passwordField.getText())) {
-            throw new ValidationException("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
+            throw new ValidationException("Password should be more than 8 characters and contain at least 1 uppercase, lowercase, digit\nand special character.");
         }
 
         if (!newPassword.equals(confirmPassword)) {

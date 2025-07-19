@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import org.tcms.model.*;
 import org.tcms.service.EnrollmentService;
 import org.tcms.service.PaymentService;
@@ -22,7 +23,6 @@ public class ViewPaymentStatusController {
     @FXML private Label outstandingLabel;
     @FXML private GridPane paymentGrid;
     @FXML private PieChart paymentPie;
-
 
     private List<Payment> payments;
     private List<TuitionClass> classes;
@@ -117,6 +117,11 @@ public class ViewPaymentStatusController {
             paymentGrid.add(classIDLabel, 0, i + 1);
             paymentGrid.add(subjectLabel, 1, i + 1);
             paymentGrid.add(amountLabel, 2, i + 1);
+
+            // For fixed heights for each row
+            RowConstraints rc = new RowConstraints();
+            rc.setPrefHeight(30);
+            paymentGrid.getRowConstraints().add(rc);
         }
     }
 

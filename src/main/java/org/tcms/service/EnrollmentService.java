@@ -62,13 +62,16 @@ public class EnrollmentService {
                 .orElse(null); // Return null if not found
     }
 
-    public void transferEnrollment(String studentID, String oldClassID, String newClassID) {
+    public String transferEnrollment(String studentID, String oldClassID, String newClassID) {
         Enrollment enrollment = getAllEnrollment().stream()
                 .filter(enroll -> oldClassID.equals(enroll.getClassID()) && studentID.equals(enroll.getStudentID()))
                 .findFirst()
                 .orElse(null);
 
+        String oldEnrollmentID = null;
+
         if (enrollment != null) {
+            oldEnrollmentID = enrollment.getEnrollmentID();
             deleteEnrollment(enrollment.getEnrollmentID());
         } else {
             System.out.println("Warning: No matching enrollment found for student " + studentID + " in class " + oldClassID);
@@ -80,5 +83,7 @@ public class EnrollmentService {
                 LocalDate.now(),
                 newClassID
         ));
+
+        return oldEnrollmentID;
     }
 }

@@ -47,7 +47,6 @@ public class TransferRequestController {
             tuitionClassService = new TuitionClassService();
             requestService = new RequestService();
 
-
             // Get current student ID from Session
             currentStudentId = Session.getCurrentUserID();
 
@@ -76,7 +75,7 @@ public class TransferRequestController {
                 }
 
                 Request newRequest = new Request(
-                        generateRequestID(),
+                        UUID.randomUUID().toString(),
                         currentStudentId,
                         selectedOldClass.getClassID(),
                         selectedNewClass.getClassID(),
@@ -122,7 +121,7 @@ public class TransferRequestController {
                 Helper.validateComboBoxNotEmpty(selectNewSub);
 
         if (hasEmptyFields) {
-            throw new EmptyFieldException("Required field(s) with indication (*) is empty!");
+            throw new EmptyFieldException("Fields cannot be empty!");
         }
     }
 
@@ -247,10 +246,6 @@ public class TransferRequestController {
         } catch (Exception e) {
             AlertUtils.showAlert("Error", "Failed to load available subjects: " + e.getMessage());
         }
-    }
-
-    private String generateRequestID() {
-        return "REQ-" + UUID.randomUUID().toString().substring(0, 8);
     }
 
     private void clearAll() {

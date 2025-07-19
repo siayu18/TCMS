@@ -80,7 +80,7 @@ public class AcceptPaymentController {
 
     private void configureActions() {
         chooseStudentBox.setOnAction(e -> {
-            selectedStudent = ((Student) chooseStudentBox.getValue());
+            selectedStudent = chooseStudentBox.getValue();
             if (selectedStudent != null) {
                 paymentPane.setVisible(true);
                 acceptBtn.setVisible(true);

@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ViewTransferRequestController {
-
     public TableView<StudentRequestEntry> requestTable;
     public TableColumn<StudentRequestEntry, String> studentIDColumn;
     public TableColumn<StudentRequestEntry, String> studentNameColumn;
@@ -42,6 +41,7 @@ public class ViewTransferRequestController {
     private StudentService studentService;
     private CommunicationService comService;
     private EnrollmentService enrollmentService;
+    private PaymentService paymentService;
 
     public void initialize() {
         try {
@@ -50,6 +50,7 @@ public class ViewTransferRequestController {
             tuitionClassService = new TuitionClassService();
             comService = new CommunicationService();
             enrollmentService = new EnrollmentService();
+            paymentService = new PaymentService();
         } catch (IOException e) {
             AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
@@ -78,13 +79,14 @@ public class ViewTransferRequestController {
 
     private void configureActions() {
         approveBtn.setOnAction(e -> {
-            // Transfer Enrollment & Delete Request (Indicating it is done)
-            enrollmentService.transferEnrollment(
+            // Transfer Enrollment & Delete Request (Indicating it is done) & Delete Old Class's Payment Related to Student
+            String oldEnrollmentID = enrollmentService.transferEnrollment(
                     selectedRequest.getStudentID(),
                     selectedRequest.getOldClassID(),
                     selectedRequest.getNewClassID()
             );
             requestService.deleteRequest(selectedRequest.getRequestID());
+            if (oldEnrollmentID != null) paymentService.deleteStuPaymentForEnrollment(selectedRequest.getStudentID(), oldEnrollmentID);
 
             // Send Approval Message (Communication Hub)
             comService.sendMessage(
@@ -97,8 +99,10 @@ public class ViewTransferRequestController {
                             selectedRequest.getNewClassID(),
                             selectedRequest.getNewSubjectName())
             );
-            AlertUtils.showInformation("Request Approved",
-                    "Enrollment of the selected student has been changed and approval message is sent to the student (Communication Hub)");
+            AlertUtils.showInformation(
+                    "Request Approved",
+                    "Enrollment of the selected student has been changed and approval message is sent to the student (Communication Hub)"
+            );
 
             requests = requestService.getAllRequest(); // refresh the data before loading to table
             loadRequestTable();
@@ -122,7 +126,10 @@ public class ViewTransferRequestController {
                             selectedRequest.getNewClassID(),
                             selectedRequest.getNewSubjectName())
             );
-            AlertUtils.showInformation("Request Rejected", "Rejection message is sent to the student (Communication Hub)");
+            AlertUtils.showInformation(
+                    "Request Rejected",
+                    "Rejection message is sent to the student (Communication Hub)"
+            );
 
             requests = requestService.getAllRequest(); // refresh the data before loading to table
             loadRequestTable();

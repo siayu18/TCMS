@@ -24,10 +24,10 @@ public class RegEnrolStudentController {
     @FXML private TextField contactField;
     @FXML private TextField addressField;
     @FXML private TextField passwordField;
-    @FXML private ComboBox levelBox;
-    @FXML private ComboBox subjectBox1;
-    @FXML private ComboBox subjectBox2;
-    @FXML private ComboBox subjectBox3;
+    @FXML private ComboBox<String> levelBox;
+    @FXML private ComboBox<TuitionClass> subjectBox1;
+    @FXML private ComboBox<TuitionClass> subjectBox2;
+    @FXML private ComboBox<TuitionClass> subjectBox3;
     @FXML private Button clearButton;
     @FXML private Button submitButton;
     @FXML private DatePicker enrolDatePicker;
@@ -88,9 +88,9 @@ public class RegEnrolStudentController {
                 isRequiredValid();
 
                 // Check for duplicate subject selection
-                TuitionClass subject1 = (TuitionClass) subjectBox1.getValue();
-                TuitionClass subject2 = (TuitionClass) subjectBox2.getValue();
-                TuitionClass subject3 = (TuitionClass) subjectBox3.getValue();
+                TuitionClass subject1 = subjectBox1.getValue();
+                TuitionClass subject2 = subjectBox2.getValue();
+                TuitionClass subject3 = subjectBox3.getValue();
 
                 if (Helper.hasDuplicateClassSelections(subject1, subject2, subject3)) {
                     errorLabel.setText("Duplicated class selection, please pick different classes.");
@@ -112,9 +112,9 @@ public class RegEnrolStudentController {
 
         levelBox.setOnAction(e -> {
             // get the class with the same level with student after level box is chosen
-            setSubjectBox(subjectBox1, (String) levelBox.getValue());
-            setSubjectBox(subjectBox2, (String) levelBox.getValue());
-            setSubjectBox(subjectBox3, (String) levelBox.getValue());
+            setSubjectBox(subjectBox1, levelBox.getValue());
+            setSubjectBox(subjectBox2, levelBox.getValue());
+            setSubjectBox(subjectBox3, levelBox.getValue());
             // make subject boxes able to choose and set error message not visible
             subjectBox1.setDisable(false);
             subjectBox2.setDisable(false);

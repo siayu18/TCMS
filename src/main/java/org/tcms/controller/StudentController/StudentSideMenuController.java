@@ -10,7 +10,6 @@ public class StudentSideMenuController extends BaseSideMenuController {
     @FXML private JFXButton viewReceiptBtn;
     @FXML private JFXButton subjectManagementBtn;
     @FXML private VBox subManagementSubMenu;
-    @FXML private JFXButton viewSubjectBtn;
     @FXML private JFXButton viewScheduleBtn;
     @FXML private JFXButton sendRequestBtn;
     @FXML private JFXButton delRequestBtn;

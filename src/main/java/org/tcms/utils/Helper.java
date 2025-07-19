@@ -3,6 +3,7 @@ package org.tcms.utils;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
@@ -117,18 +118,24 @@ public class Helper {
     }
 
     public static boolean isTimeSlotOverlapping(String newDay, String newStartTime, String newEndTime, String currentClassID) throws IOException {
+        newStartTime = newStartTime.trim().toLowerCase();
+        newEndTime = newEndTime.trim().toLowerCase();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
         TuitionClassService tuitionClassService = new TuitionClassService();
 
-        LocalTime newStart = LocalTime.parse(newStartTime.toUpperCase(), formatter);
-        LocalTime newEnd = LocalTime.parse(newEndTime.toUpperCase(), formatter);
+        LocalTime newStart = LocalTime.parse(newStartTime, formatter);
+        LocalTime newEnd = LocalTime.parse(newEndTime, formatter);
 
         for (TuitionClass cls : tuitionClassService.getClassesFromTutor()) {
             if (cls.getClassID().equals(currentClassID)) continue;
             if (!cls.getDay().equalsIgnoreCase(newDay)) continue;
 
-            LocalTime existingStart = LocalTime.parse(cls.getStartTime().toUpperCase(), formatter);
-            LocalTime existingEnd = LocalTime.parse(cls.getEndTime().toUpperCase(), formatter);
+            String clsStartTime = cls.getStartTime().trim().toLowerCase();
+            String clsEndTime = cls.getEndTime().trim().toLowerCase();
+
+            LocalTime existingStart = LocalTime.parse(clsStartTime, formatter);
+            LocalTime existingEnd = LocalTime.parse(clsEndTime, formatter);
 
             boolean isOverlapping = newStart.isBefore(existingEnd) && newEnd.isAfter(existingStart);
 
@@ -200,6 +207,11 @@ public class Helper {
             paymentGrid.add(classLabel, 0, i + 1);
             paymentGrid.add(subjectLabel, 1, i + 1);
             paymentGrid.add(amountLabel, 2, i + 1);
+
+            // For fixed heights for each row
+            RowConstraints rc = new RowConstraints();
+            rc.setPrefHeight(30);
+            paymentGrid.getRowConstraints().add(rc);
         }
 
         // Set total amount

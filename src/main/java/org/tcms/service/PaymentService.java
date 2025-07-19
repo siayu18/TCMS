@@ -1,7 +1,6 @@
 package org.tcms.service;
 
 import org.tcms.model.Payment;
-import org.tcms.model.User;
 import org.tcms.utils.FileHandler;
 
 import java.io.IOException;
@@ -72,6 +71,12 @@ public class PaymentService {
     public void deletePayment(String studentID) {
         List<Map<String, String>> rows = paymentFile.readAll();
         rows.removeIf(row -> studentID.equals(row.get("StudentID")));
+        paymentFile.overwriteAll(rows);
+    }
+
+    public void deleteStuPaymentForEnrollment(String studentID, String enrollmentID) {
+        List<Map<String, String>> rows = paymentFile.readAll();
+        rows.removeIf(row -> studentID.equals(row.get("StudentID")) && enrollmentID.equals(row.get("EnrollmentID")));
         paymentFile.overwriteAll(rows);
     }
 }

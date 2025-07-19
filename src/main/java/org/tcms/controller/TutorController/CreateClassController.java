@@ -63,7 +63,6 @@ public class CreateClassController {
 
     }
 
-
     private void configureAction(){
         chooseClassBox.setOnAction(e -> {
             enabler();
@@ -108,7 +107,6 @@ public class CreateClassController {
         });
     }
 
-
     private void configureTable(){
         classIDColumn.setCellValueFactory(cell ->
                 new ReadOnlyStringWrapper(cell.getValue().getClassID()));
@@ -128,14 +126,12 @@ public class CreateClassController {
                 new ReadOnlyStringWrapper(cell.getValue().getLevel()));
     }
 
-
     private void loadClassData() {
         ObservableList<TuitionClass> list = FXCollections.observableArrayList(
                 tuitionClassService.getClassesFromTutor()
         );
         classTable.setItems(list);
     }
-
 
     private void configureClassBox () {
         chooseClassBox.getItems().setAll(assignedSubjects);
@@ -158,7 +154,6 @@ public class CreateClassController {
         });
     }
 
-
     private void isRequiredEmpty() throws EmptyFieldException {
         if (Helper.validateComboBoxNotEmpty(chooseClassBox) ||
                 Helper.validateFieldNotEmpty(informationField) ||
@@ -170,19 +165,24 @@ public class CreateClassController {
         }
     }
 
-
     private static boolean isTimeSlotOverlapping(String newDay, String newStartTime, String newEndTime) throws IOException {
+        newStartTime = newStartTime.trim().toLowerCase();
+        newEndTime = newEndTime.trim().toLowerCase();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
         TuitionClassService tuitionClassService = new TuitionClassService();
 
-        LocalTime newStart = LocalTime.parse(newStartTime.toUpperCase(), formatter);
-        LocalTime newEnd = LocalTime.parse(newEndTime.toUpperCase(), formatter);
+        LocalTime newStart = LocalTime.parse(newStartTime, formatter);
+        LocalTime newEnd = LocalTime.parse(newEndTime, formatter);
 
         for (TuitionClass cls : tuitionClassService.getClassesFromTutor()) {
             if (!cls.getDay().equalsIgnoreCase(newDay)) continue;
 
-            LocalTime existingStart = LocalTime.parse(cls.getStartTime().toUpperCase(), formatter);
-            LocalTime existingEnd = LocalTime.parse(cls.getEndTime().toUpperCase(), formatter);
+            String clsStartTime = cls.getStartTime().trim().toLowerCase();
+            String clsEndTime = cls.getEndTime().trim().toLowerCase();
+
+            LocalTime existingStart = LocalTime.parse(clsStartTime, formatter);
+            LocalTime existingEnd = LocalTime.parse(clsEndTime, formatter);
 
             boolean isOverlapping = newStart.isBefore(existingEnd) && newEnd.isAfter(existingStart);
 
@@ -192,7 +192,6 @@ public class CreateClassController {
         }
         return false;
     }
-
 
     private static void isClassInfoValid(String charges, String startTime, String endTime, String day) throws ValidationException, IOException {
         if (!charges.matches("\\d+")) {
@@ -214,7 +213,6 @@ public class CreateClassController {
         }
     }
 
-
     private void clearFields() {
         chooseClassBox.getSelectionModel().clearSelection();
         informationField.clear();
@@ -223,7 +221,6 @@ public class CreateClassController {
         startTimeField.clear();
         endTimeField.clear();
     }
-
 
     private void disabler(){
         informationField.setDisable(true);
@@ -234,7 +231,6 @@ public class CreateClassController {
         clearBtn.setDisable(true);
         submitBtn.setDisable(true);
     }
-
 
     private void enabler(){
         informationField.setDisable(false);

@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ViewPaymentController {
-    @FXML private JFXComboBox chooseStudentBox;
+    @FXML private JFXComboBox<Student> chooseStudentBox;
     @FXML private AnchorPane viewPane;
     @FXML private TableView<StudentPaymentEntry> paymentTable;
     @FXML private TableColumn<StudentPaymentEntry, String> accountIDColumn;
@@ -78,7 +78,7 @@ public class ViewPaymentController {
 
     private void configureActions() {
         chooseStudentBox.setOnAction(e -> {
-            selectedStudent = (Student) chooseStudentBox.getValue();
+            selectedStudent = chooseStudentBox.getValue();
             if (selectedStudent != null) {
                 viewPane.setVisible(true);
                 loadPaymentTable(selectedStudent);

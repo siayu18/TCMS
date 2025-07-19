@@ -42,8 +42,6 @@
 
                             <rowConstraints>
                                 <RowConstraints prefHeight="30.0" />
-                                <RowConstraints prefHeight="30.0" />
-                                <RowConstraints prefHeight="30.0" />
                             </rowConstraints>
 
                             <children>

@@ -36,7 +36,7 @@
                                     <TableColumn fx:id="accountIDColumn" prefWidth="233.0" text="Account ID" />
                                     <TableColumn fx:id="nameColumn" minWidth="0.0" prefWidth="233.0" text="Name" />
                                     <TableColumn fx:id="classIDColumn" prefWidth="233.0" text="ClassID" />
-                                    <TableColumn fx:id="subjectNameColumn" prefWidth="233.0" text="SubjectID" />
+                                    <TableColumn fx:id="subjectNameColumn" prefWidth="233.0" text="SubjectName" />
                                     <TableColumn fx:id="amountColumn" prefWidth="233.0" text="Amount" />
                                     <TableColumn fx:id="dateColumn" prefWidth="233.0" text="Date" />
                                     <TableColumn fx:id="timeColumn" prefWidth="233.0" text="Time" />

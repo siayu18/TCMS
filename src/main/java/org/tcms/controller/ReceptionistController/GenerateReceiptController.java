@@ -23,7 +23,7 @@ public class GenerateReceiptController {
     @FXML private Label errorLabel;
     @FXML private AnchorPane receiptPane;
     @FXML private VBox receiptBox;
-    @FXML private JFXComboBox chooseStudentBox;
+    @FXML private JFXComboBox<Student> chooseStudentBox;
     @FXML private GridPane paymentGrid;
     @FXML private Label studentLabel;
     @FXML private Label dateLabel;
@@ -75,7 +75,7 @@ public class GenerateReceiptController {
 
     private void configureActions() {
         chooseStudentBox.setOnAction(e -> {
-            selectedStudent = ((Student) chooseStudentBox.getValue());
+            selectedStudent = chooseStudentBox.getValue();
             if (selectedStudent != null) {
                 receiptPane.setVisible(true);
                 generateBtn.setVisible(true);

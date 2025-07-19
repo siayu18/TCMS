@@ -11,6 +11,7 @@ import org.tcms.model.Enrollment;
 import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;
 import org.tcms.service.EnrollmentService;
+import org.tcms.service.PaymentService;
 import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
@@ -24,11 +25,11 @@ import java.util.stream.Collectors;
 
 public class UpdEnrollmentController {
 
-    @FXML private ComboBox subjectBox1;
-    @FXML private ComboBox subjectBox2;
-    @FXML private ComboBox subjectBox3;
+    @FXML private ComboBox<TuitionClass> subjectBox1;
+    @FXML private ComboBox<TuitionClass> subjectBox2;
+    @FXML private ComboBox<TuitionClass> subjectBox3;
     @FXML private AnchorPane updatePane;
-    @FXML private JFXComboBox chooseStudentBox;
+    @FXML private JFXComboBox<Student> chooseStudentBox;
     @FXML private Label orgSubjectLabel1;
     @FXML private Label orgSubjectLabel2;
     @FXML private Label orgSubjectLabel3;
@@ -37,10 +38,12 @@ public class UpdEnrollmentController {
     @FXML private Label title;
 
     private Student selectedStudent;
-    private TuitionClassService tuitionClassService;
-    private EnrollmentService enrollmentService;
     private StudentService studentService;
     private Enrollment ori1, ori2, ori3;
+
+    private TuitionClassService tuitionClassService;
+    private EnrollmentService enrollmentService;
+    private PaymentService paymentService;
 
     @FXML
     public void initialize() {
@@ -48,6 +51,7 @@ public class UpdEnrollmentController {
             tuitionClassService = new TuitionClassService();
             enrollmentService = new EnrollmentService();
             studentService = new StudentService();
+            paymentService = new PaymentService();
         } catch (IOException e) {
             AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
@@ -64,9 +68,9 @@ public class UpdEnrollmentController {
                 return;
 
             // check if there is any duplicated selection
-            TuitionClass selection1 = (TuitionClass) subjectBox1.getValue();
-            TuitionClass selection2 = (TuitionClass) subjectBox2.getValue();
-            TuitionClass selection3 = (TuitionClass) subjectBox3.getValue();
+            TuitionClass selection1 = subjectBox1.getValue();
+            TuitionClass selection2 = subjectBox2.getValue();
+            TuitionClass selection3 = subjectBox3.getValue();
 
             if (Helper.hasDuplicateClassSelections(selection1, selection2, selection3)) {
                 errorLabel.setText("Duplicated class selection, please pick different classes.");
@@ -81,10 +85,11 @@ public class UpdEnrollmentController {
             handleSlot(ori3, subjectBox3.getValue(), selectedStudent.getAccountId());
 
             AlertUtils.showInformation("Updated!", "Enrollment updated.");
+            clearFields();
         });
 
         chooseStudentBox.setOnAction(e -> {
-            selectedStudent = ((Student) chooseStudentBox.getValue());
+            selectedStudent = chooseStudentBox.getValue();
             if (selectedStudent != null) {
                 title.setText("Update " + selectedStudent.getUsername() + "'s Enrollment:");
                 setSubjectBox(subjectBox1);
@@ -121,7 +126,7 @@ public class UpdEnrollmentController {
     }
 
     private void loadOriginalEnrollments() {
-        Student selectedStudent = ((Student) chooseStudentBox.getValue());
+        Student selectedStudent = chooseStudentBox.getValue();
         List<Enrollment> enrollments = enrollmentService.getByStudent(selectedStudent.getAccountId());
 
         // check how many classes enrolled before
@@ -151,7 +156,7 @@ public class UpdEnrollmentController {
                 "Org ClassID: None");
     }
 
-    private void handleSlot(Enrollment original, Object comboValue, String studentId) {
+    private void handleSlot(Enrollment original, Object comboValue, String studentID) {
         String newClassID = comboValue != null ? ((TuitionClass)comboValue).getClassID(): null;
 
         // do nothing if both are null
@@ -159,7 +164,7 @@ public class UpdEnrollmentController {
             return;
         }
 
-        // original and selected are the same then return nothing
+        // original and selected are the same then do nothing
         if (original != null && newClassID != null &&  original.getClassID().equals(newClassID)) {
             return;
         }
@@ -167,16 +172,39 @@ public class UpdEnrollmentController {
         // delete old one
         if (original != null) {
             enrollmentService.deleteEnrollment(original.getEnrollmentID());
+            paymentService.deleteStuPaymentForEnrollment(studentID, original.getEnrollmentID());
         }
 
         // add new one if selected
         if (newClassID != null) {
             enrollmentService.addEnrollment(new Enrollment(
                     UUID.randomUUID().toString(),
-                    studentId,
+                    studentID,
                     LocalDate.now(),
                     newClassID
             ));
         }
+    }
+
+    private void clearFields() {
+        subjectBox1.setValue(null);
+        subjectBox2.setValue(null);
+        subjectBox3.setValue(null);
+
+        orgSubjectLabel1.setText("Org ClassID: None");
+        orgSubjectLabel2.setText("Org ClassID: None");
+        orgSubjectLabel3.setText("Org ClassID: None");
+
+        title.setText("Update Student Enrollment:");
+        errorLabel.setVisible(false);
+
+        chooseStudentBox.setValue(null);
+        updatePane.setVisible(false);
+        saveBtn.setVisible(false);
+
+        selectedStudent = null;
+        ori1 = null;
+        ori2 = null;
+        ori3 = null;
     }
 }
