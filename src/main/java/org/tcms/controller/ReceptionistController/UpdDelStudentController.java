@@ -5,12 +5,11 @@ import javafx.scene.control.*;
 import org.tcms.exception.EmptyFieldException;
 import org.tcms.exception.ValidationException;
 import org.tcms.model.Student;
-import org.tcms.service.StudentService;
+import org.tcms.service.*;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.tcms.service.TutorService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
 
@@ -29,12 +28,18 @@ public class UpdDelStudentController {
     @FXML private Label errorLabel;
 
     private StudentService studentService;
+    private PaymentService paymentService;
+    private ReceiptService receiptService;
+    private EnrollmentService enrollmentService;
     private String selectedAccountID;
 
     @FXML
     public void initialize() {
         try {
             studentService = new StudentService();
+            paymentService = new PaymentService();
+            receiptService = new ReceiptService();
+            enrollmentService = new EnrollmentService();
         } catch (IOException e) {
             AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
@@ -84,6 +89,9 @@ public class UpdDelStudentController {
             if (selectedAccountID != null) {
                 studentService.deleteStudent(selectedAccountID);
                 studentService.deleteUser(selectedAccountID);
+                enrollmentService.deleteEnrollmentFromStudent(selectedAccountID);
+                paymentService.deletePayment(selectedAccountID);
+                receiptService.deleteReceipt(selectedAccountID);
                 loadStudentData();
                 AlertUtils.showInformation("Successfully Deleted Student!", usernameField.getText() + "'s account has been deleted!");
                 clearFields();

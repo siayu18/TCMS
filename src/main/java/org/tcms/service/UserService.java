@@ -81,7 +81,6 @@ public class UserService {
         accountFile.overwriteAll(rows);
     }
 
-
     public void deleteUser(String accountID) {
         List<Map<String, String>> rows = accountFile.readAll();
         rows.removeIf(row -> accountID.equals(row.get("AccountID")));

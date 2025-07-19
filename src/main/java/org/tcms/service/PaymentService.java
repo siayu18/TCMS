@@ -68,4 +68,10 @@ public class PaymentService {
                 "Status", payment.getStatus()
         ));
     }
+
+    public void deletePayment(String studentID) {
+        List<Map<String, String>> rows = paymentFile.readAll();
+        rows.removeIf(row -> studentID.equals(row.get("StudentID")));
+        paymentFile.overwriteAll(rows);
+    }
 }

@@ -94,7 +94,8 @@ public class ReassignTutorController {
             try {
                 isRequiredEmpty();
                 errorLabel.setVisible(false);
-                AlertUtils.showInformation("Successfully Added New Subject And Tutor", tutorName.getValue().getUsername() + " will be teaching " + subjectField.getText());
+                AlertUtils.showInformation("Successfully Added New Subject And Tutor",
+                        tutorName.getValue().getUsername() + " will be teaching " + subjectField.getText());
                 addTutorToSub();
                 loadAccountData();
                 clearAll();

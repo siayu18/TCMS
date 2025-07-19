@@ -97,7 +97,8 @@ public class ViewTransferRequestController {
                             selectedRequest.getNewClassID(),
                             selectedRequest.getNewSubjectName())
             );
-            AlertUtils.showInformation("Request Approved", "Enrollment of the selected student has been changed and approval message is sent to the student (Communication Hub)");
+            AlertUtils.showInformation("Request Approved",
+                    "Enrollment of the selected student has been changed and approval message is sent to the student (Communication Hub)");
 
             requests = requestService.getAllRequest(); // refresh the data before loading to table
             loadRequestTable();

@@ -5,6 +5,7 @@ import org.tcms.utils.FileHandler;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,5 +31,11 @@ public class ReceiptService {
                 "ReceiptID", UUID.randomUUID().toString(),
                 "StudentID", student.getAccountId()
         ));
+    }
+
+    public void deleteReceipt(String studentID) {
+        List<Map<String, String>> rows = receiptFile.readAll();
+        rows.removeIf(row -> studentID.equals(row.get("StudentID")));
+        receiptFile.overwriteAll(rows);
     }
 }

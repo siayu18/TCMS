@@ -49,6 +49,12 @@ public class EnrollmentService {
         enrollmentFile.overwriteAll(rows);
     }
 
+    public void deleteEnrollmentFromStudent(String studentID) {
+        var rows = enrollmentFile.readAll();
+        rows.removeIf(r -> r.get("StudentID").equals(studentID));
+        enrollmentFile.overwriteAll(rows);
+    }
+
     public Enrollment getEnrollmentByID(String enrollmentID) {
         return getAllEnrollment().stream() // Assume getAllEnrollment() returns all enrollments
                 .filter(enroll -> enroll.getEnrollmentID().equals(enrollmentID))

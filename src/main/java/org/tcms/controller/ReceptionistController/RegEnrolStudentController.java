@@ -101,7 +101,8 @@ public class RegEnrolStudentController {
                 // Everything ok, then proceed
                 errorLabel.setVisible(false);
                 addStudentAndEnrollment();
-                AlertUtils.showInformation("Successfully Added New Student!", usernameField.getText() + "'s account has been created!");
+                AlertUtils.showInformation("Successfully Added New Student!",
+                        usernameField.getText() + "'s account has been created!");
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());
