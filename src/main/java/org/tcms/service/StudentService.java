@@ -50,12 +50,7 @@ public class StudentService extends UserService {
     }
 
     public void addStudent(Student student) {
-        accountFile.append(Map.of(
-                "AccountID", student.getAccountId(),
-                "Name", student.getUsername(),
-                "Password", student.getPassword(),
-                "Role", student.getRole()
-        ));
+        addUser(student);
         studentFile.append(Map.of(
                 "StudentID", student.getAccountId(),
                 "ICNumber", student.getIcNumber(),
@@ -64,5 +59,12 @@ public class StudentService extends UserService {
                 "Address", student.getAddress(),
                 "Level", student.getLevel()
         ));
+    }
+
+    public void deleteStudent(String accountID) {
+        FileHandler studentHandler = new FileHandler("student.csv", List.of("StudentID", "ICNumber", "Email", "ContactNumber", "Address", "Level"));
+        List<Map<String, String>> studentRow = studentHandler.readAll();
+        studentRow.removeIf(row -> accountID.equals(row.get("StudentID")));
+        studentHandler.overwriteAll(studentRow);
     }
 }

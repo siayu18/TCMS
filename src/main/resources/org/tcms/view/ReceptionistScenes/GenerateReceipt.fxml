@@ -7,10 +7,13 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.ReceptionistController.GenerateReceiptController">
     <BorderPane stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <!-- Choosing Section -->
         <top>
@@ -26,14 +29,57 @@
         </top>
 
         <center>
-            <AnchorPane fx:id="receiptPane" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="receiptPane" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" BorderPane.alignment="CENTER">
                 <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20.0">
                     <children>
                         <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" styleClass="label-heading-small" text="View Generated Receipt" />
-
                         <ScrollPane fx:id="scrollBar" fitToWidth="true" VBox.vgrow="ALWAYS">
                             <content>
-                                <VBox fx:id="receiptBox" spacing="8" />
+                                <VBox fx:id="receiptBox" alignment="TOP_CENTER" spacing="15.0" visible="false">
+                                   <children>
+                                      <VBox alignment="CENTER">
+                                         <children>
+                                            <Label styleClass="label-heading-large" text="ATP Tuition Centre" />
+                                            <Label styleClass="label-text-regular" text="123, Bukit Jalil, APU, 53000 Kuala Lumpur" />
+                                            <Label fx:id="dateLabel" text="Date: " />
+                                            <Label fx:id="studentLabel" text="Student: " />
+                                         </children>
+                                      </VBox>
+                                      <GridPane fx:id="paymentGrid" alignment="CENTER" gridLinesVisible="true">
+                                        <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        </rowConstraints>
+                                         <children>
+                                            <Label prefHeight="18.0" prefWidth="280.0" styleClass="label-heading-small" text="ClassID">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin></Label>
+                                            <Label prefHeight="18.0" prefWidth="370.0" styleClass="label-heading-small" text="Subject Name" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin></Label>
+                                            <Label prefHeight="27.0" prefWidth="182.0" styleClass="label-heading-small" text="Amount" GridPane.columnIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin></Label>
+                                         </children>
+                                 <padding>
+                                    <Insets top="30.0" />
+                                 </padding>
+                                      </GridPane>
+                                      <HBox alignment="CENTER_LEFT">
+                                         <children>
+                                            <Label styleClass="label-heading-small" text="Total Paid: " />
+                                            <Label fx:id="totalLabel" styleClass="label-heading-large" />
+                                         </children>
+                                      </HBox>
+                                   </children>
+                                </VBox>
                             </content>
                         </ScrollPane>
                     </children>
@@ -44,7 +90,7 @@
         <bottom>
             <VBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
                 <children>
-                    <Button fx:id="generateBtn" mnemonicParsing="false" styleClass="button-standard" text="Generate Receipt" />
+                    <Button fx:id="generateBtn" mnemonicParsing="false" styleClass="button-standard" text="Generate Receipt" visible="false" />
                     <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
                 </children>
                 <padding>

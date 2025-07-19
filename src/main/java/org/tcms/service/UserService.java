@@ -2,7 +2,6 @@ package org.tcms.service;
 
 import org.tcms.model.*;
 import org.tcms.utils.FileHandler;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,21 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public User getUserByID(String accountID) {
+        return accountFile.readAll().stream()
+                .filter(row -> accountID.equals(row.get("AccountID")))
+                .map(row -> switch (row.get("Role")) {
+                    case "Admin" -> new Admin(row.get("AccountID"), row.get("Name"), row.get("Password"), "Admin");
+                    case "Student" -> new Student(row.get("AccountID"), row.get("Name"), row.get("Password"), "Student");
+                    case "Tutor" -> new Tutor(row.get("AccountID"), row.get("Name"), row.get("Password"), "Tutor");
+                    case "Receptionist" -> new Receptionist(row.get("AccountID"), row.get("Name"), row.get("Password"), "Receptionist");
+                    default -> null;
+                })
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(null);
+    }
+
     public User authenticate(String name, String password) {
         return accountFile.readAll().stream()
                 .map(row -> switch (row.get("Role")) {
@@ -44,13 +58,23 @@ public class UserService {
                 .orElse(null);
     }
 
-    public void updateUser (String accountID, String newUsername, String newPassword) {
+    public void addUser(User user) {
+        accountFile.append(Map.of(
+                "AccountID", user.getAccountId(),
+                "Name", user.getUsername(),
+                "Password", user.getPassword(),
+                "Role", user.getRole()
+        ));
+    }
+
+    public void updateUser (String accountID, String newUsername, String newPassword, String newRole) {
         List<Map<String, String>> rows = accountFile.readAll();
 
         for (Map<String, String> row : rows) {
             if (accountID.equals(row.get("AccountID"))) {
                 row.put("Name", newUsername);
                 row.put("Password", newPassword);
+                row.put("Role", newRole);
                 break;
             }
         }

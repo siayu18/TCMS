@@ -24,7 +24,4 @@ public class Student extends User {
         this.address = address;
         this.level = level;
     }
-
-    @Override public String getDashboardFxml() { return "StudentDashboardView.fxml"; }
-    @Override public String getDashboardTitle() { return "Student Dashboard"; }
 }

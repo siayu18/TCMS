@@ -1,14 +1,11 @@
 package org.tcms.controller.AdminController;
 
-import javafx.fxml.FXML;
-import org.tcms.controller.BaseDashboardController;
+import org.tcms.controller.SystemController.BaseDashController;
+import org.tcms.utils.Session;
 
-public class AdminDashController extends BaseDashboardController {
-
-    @FXML
-    public void initialize() {super.initialize();}
+public class AdminDashController extends BaseDashController {
 
     @Override
-    protected String formatGreeting(){return "Welcome Back Admin!";}
+    protected String formatGreeting() { return "Welcome Back " + "Admin, " + Session.getCurrentUserName() + "!"; }
 }
 

@@ -1,9 +1,9 @@
 package org.tcms.controller.ReceptionistController;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.tcms.exception.EmptyFieldException;
+import org.tcms.exception.ValidationException;
 import org.tcms.model.Enrollment;
 import org.tcms.model.Student;
 import org.tcms.model.TuitionClass;
@@ -12,28 +12,29 @@ import org.tcms.service.StudentService;
 import org.tcms.service.TuitionClassService;
 import org.tcms.utils.AlertUtils;
 import org.tcms.utils.Helper;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
 public class RegEnrolStudentController {
-    public TextField usernameField;
-    public TextField icField;
-    public TextField emailField;
-    public TextField contactField;
-    public TextField addressField;
-    public ComboBox levelBox;
-    public ComboBox subjectBox1;
-    public ComboBox subjectBox2;
-    public ComboBox subjectBox3;
-    public Button clearButton;
-    public Button submitButton;
-    public TextField passwordField;
-    public DatePicker enrolDatePicker;
-    public Label emptyLabel;
-    public Label errorLabel;
+    // FXML components
+    @FXML private TextField usernameField;
+    @FXML private TextField icField;
+    @FXML private TextField emailField;
+    @FXML private TextField contactField;
+    @FXML private TextField addressField;
+    @FXML private TextField passwordField;
+    @FXML private ComboBox<String> levelBox;
+    @FXML private ComboBox<TuitionClass> subjectBox1;
+    @FXML private ComboBox<TuitionClass> subjectBox2;
+    @FXML private ComboBox<TuitionClass> subjectBox3;
+    @FXML private Button clearButton;
+    @FXML private Button submitButton;
+    @FXML private DatePicker enrolDatePicker;
+    @FXML private Label errorLabel;
+    @FXML private Label subjectErrorLabel;
 
+    //Services
     private StudentService studentService;
     private TuitionClassService tuitionClassService;
     private EnrollmentService enrollmentService;
@@ -45,122 +46,113 @@ public class RegEnrolStudentController {
             tuitionClassService = new TuitionClassService();
             enrollmentService = new EnrollmentService();
         } catch (IOException e) {
-            errorLabel.setText("Failed to load data.");
-            errorLabel.setVisible(true);
+            AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
         }
 
         levelBox.getItems().addAll("Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6");
-        preventSubjectWithoutLevel(subjectBox1);
-        preventSubjectWithoutLevel(subjectBox2);
-        preventSubjectWithoutLevel(subjectBox3);
+
         configureActions();
     }
 
-    private void preventSubjectWithoutLevel(ComboBox<TuitionClass> subjectBox) {
-        subjectBox.setOnShowing(new EventHandler<Event>()  {
-            @Override
-            public void handle(Event event) {
-                if (levelBox.getValue() == null) {
-                    AlertUtils.showAlert("Select Level First", "Please select a Level before choosing subjects.");
-                }
-            }
-        });
-    }
-
     private void setSubjectBox(ComboBox box, String level) {
-        List<TuitionClass> tuitionClasses = tuitionClassService.getClassesFromLevel(level);
-        box.getItems().setAll(tuitionClasses);
+        if (level != null) {
+            List<TuitionClass> tuitionClasses = tuitionClassService.getClassesFromLevel(level);
 
-        box.setCellFactory(cb ->
-                new ListCell<TuitionClass>() {
-                    @Override
-                    protected void updateItem(TuitionClass tuitionclass, boolean empty) {
-                        super.updateItem(tuitionclass, empty);
-                        setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + " - " + tuitionclass.getSubjectName());
-                    }
+            box.getItems().setAll(tuitionClasses);
+
+            box.setCellFactory(cb ->
+                    new ListCell<TuitionClass>() {
+                        @Override
+                        protected void updateItem(TuitionClass tuitionclass, boolean empty) {
+                            super.updateItem(tuitionclass, empty);
+                            setText(empty || tuitionclass == null ? null : tuitionclass.getClassID() + " - " + tuitionclass.getSubjectName());
+                        }
+                    });
+
+            box.setButtonCell(new ListCell<TuitionClass>() {
+
+                @Override
+                protected void updateItem(TuitionClass item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty || item == null ? null : item.getClassID() + " - " + item.getSubjectName());
                 }
-        );
-
-        box.setButtonCell(new ListCell<TuitionClass>() {
-            @Override
-            protected void updateItem(TuitionClass item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getClassID() + " - " + item.getSubjectName());
-            }
-        });
+            });
+        }
     }
 
     private void configureActions() {
         submitButton.setOnAction(e -> {
-            boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isICEmpty = Helper.validateFieldNotEmpty(icField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isEmailEmpty = Helper.validateFieldNotEmpty(emailField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isContactEmpty = Helper.validateFieldNotEmpty(contactField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isAddressEmpty = Helper.validateFieldNotEmpty(addressField, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isLevelEmpty = Helper.validateComboBoxNotEmpty(levelBox, emptyLabel, "Required field(s) with indication (*) is empty!");
-            boolean isEnrollDateEmpty = Helper.validateDatePickerNotEmpty(enrolDatePicker, emptyLabel, "Required field(s) with indication (*) is empty!");
-            if (isUsernameEmpty || isICEmpty || isEmailEmpty || isContactEmpty || isAddressEmpty || isLevelEmpty || isEnrollDateEmpty) {
-                emptyLabel.setVisible(true);
-                return;
-            }
+            try {
+                isRequiredEmpty();
+                isRequiredValid();
 
-            boolean isPasswordValid = Helper.validatePassword(passwordField.getText());
-            if (!isPasswordValid) {
-                errorLabel.setText("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
+                // Check for duplicate subject selection
+                TuitionClass subject1 = subjectBox1.getValue();
+                TuitionClass subject2 = subjectBox2.getValue();
+                TuitionClass subject3 = subjectBox3.getValue();
+
+                if (Helper.hasDuplicateClassSelections(subject1, subject2, subject3)) {
+                    errorLabel.setText("Duplicated class selection, please pick different classes.");
+                    errorLabel.setVisible(true);
+                    return;
+                }
+
+                // Everything ok, then proceed
+                errorLabel.setVisible(false);
+                addStudentAndEnrollment();
+                AlertUtils.showInformation("Successfully Added New Student!",
+                        usernameField.getText() + "'s account has been created!");
+
+            } catch (EmptyFieldException | ValidationException ex) {
+                errorLabel.setText(ex.getMessage());
                 errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
             }
-
-            boolean isICValid = Helper.validateIC(icField.getText());
-            if (!isICValid) {
-                errorLabel.setText("IC Format is invalid!");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
-            }
-
-            boolean isEmailValid = Helper.validateEmail(emailField.getText());
-            if (!isEmailValid) {
-                errorLabel.setText("Email is invalid!");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
-            }
-
-            boolean isContactValid = Helper.validateContact(contactField.getText());
-            if(!isContactValid) {
-                errorLabel.setText("Contact is invalid!");
-                errorLabel.setVisible(true);
-                emptyLabel.setVisible(false);
-                return;
-            }
-
-            // check if there is any duplicated selection
-            TuitionClass subject1 = (TuitionClass) subjectBox1.getValue();
-            TuitionClass subject2 = (TuitionClass) subjectBox2.getValue();
-            TuitionClass subject3 = (TuitionClass) subjectBox3.getValue();
-
-            if (Helper.hasDuplicateClassSelections(subject1, subject2, subject3)) {
-                errorLabel.setText("Duplicated class selection, please pick different classes.");
-                errorLabel.setVisible(true);
-                return;
-            }
-
-            emptyLabel.setVisible(false);
-            errorLabel.setVisible(false);
-            addStudentAndEnrollment();
-            AlertUtils.showInformation("Successfully Added New Student!", usernameField.getText() + "'s account has been created!");
         });
 
         levelBox.setOnAction(e -> {
-            setSubjectBox(subjectBox1, (String) levelBox.getValue());
-            setSubjectBox(subjectBox2, (String) levelBox.getValue());
-            setSubjectBox(subjectBox3, (String) levelBox.getValue());
+            // get the class with the same level with student after level box is chosen
+            setSubjectBox(subjectBox1, levelBox.getValue());
+            setSubjectBox(subjectBox2, levelBox.getValue());
+            setSubjectBox(subjectBox3, levelBox.getValue());
+            // make subject boxes able to choose and set error message not visible
+            subjectBox1.setDisable(false);
+            subjectBox2.setDisable(false);
+            subjectBox3.setDisable(false);
+            subjectErrorLabel.setVisible(false);
         });
 
         clearButton.setOnAction(e -> clearAll());
+    }
+
+    private void isRequiredEmpty() throws EmptyFieldException {
+        if (Helper.validateFieldNotEmpty(usernameField) ||
+                Helper.validateFieldNotEmpty(icField) ||
+                Helper.validateFieldNotEmpty(emailField) ||
+                Helper.validateFieldNotEmpty(contactField) ||
+                Helper.validateFieldNotEmpty(addressField) ||
+                Helper.validateComboBoxNotEmpty(levelBox) ||
+                Helper.validateDatePickerNotEmpty(enrolDatePicker)) {
+            throw new EmptyFieldException("Required field(s) with indication (*) is empty!");
+        }
+    }
+
+    private void isRequiredValid() throws ValidationException {
+        if (!Helper.validatePassword(passwordField.getText())) {
+            throw new ValidationException("Password should be more than 8 characters\nand contain at least 1 uppercase, lowercase, digit\nand special character.");
+        }
+
+        if (!Helper.validateIC(icField.getText())) {
+            throw new ValidationException("IC Format is invalid!");
+        }
+
+        if (!Helper.validateEmail(emailField.getText())) {
+            throw new ValidationException("Email is invalid!");
+        }
+
+        if (!Helper.validateContact(contactField.getText())) {
+            throw new ValidationException("Contact is invalid!");
+        }
     }
 
     private void clearAll () {
@@ -171,15 +163,21 @@ public class RegEnrolStudentController {
         addressField.clear();
         passwordField.clear();
         levelBox.setValue(null);
+        enrolDatePicker.setValue(null);
+        errorLabel.setVisible(false);
+
+        // to avoid subjects before clearing still exist
         subjectBox1.setValue(null);
         subjectBox2.setValue(null);
         subjectBox3.setValue(null);
-        enrolDatePicker.setValue(null);
-        errorLabel.setVisible(false);
-        emptyLabel.setVisible(false);
+        subjectBox1.setDisable(true);
+        subjectBox2.setDisable(true);
+        subjectBox3.setDisable(true);
+        subjectErrorLabel.setVisible(true);
     }
 
     private void addStudentAndEnrollment() {
+        // Add a new student
         Student student = new Student(
                 Helper.generateAccountID(),
                 usernameField.getText(),
@@ -194,9 +192,10 @@ public class RegEnrolStudentController {
 
         studentService.addStudent(student);
 
-        TuitionClass selectedClass1 = (TuitionClass) subjectBox1.getValue();
-        TuitionClass selectedClass2 = (TuitionClass) subjectBox2.getValue();
-        TuitionClass selectedClass3 = (TuitionClass) subjectBox3.getValue();
+        // Check selection and add new enrollment
+        TuitionClass selectedClass1 = subjectBox1.getValue();
+        TuitionClass selectedClass2 = subjectBox2.getValue();
+        TuitionClass selectedClass3 = subjectBox3.getValue();
 
         checkAndAddSelection(selectedClass1, enrollmentService, student.getAccountId());
         checkAndAddSelection(selectedClass2, enrollmentService, student.getAccountId());

@@ -32,7 +32,7 @@ public class FileHandler {
         }
     }
 
-    /** Read all rows into a List of Maps (header→value). */
+    // Read all rows into a List of Maps (header -> value).
     public List<Map<String, String>> readAll() {
         try (CSVReader reader = new CSVReader(new FileReader(path.toFile()))) {
             List<Map<String, String>> rows = new ArrayList<>();
@@ -55,7 +55,7 @@ public class FileHandler {
         }
     }
 
-    /** Append a single row (missing keys become empty). */
+    // Append a single row (missing keys become empty).
     public void append(Map<String, String> row) {
         try (CSVWriter writer = new CSVWriter(new FileWriter(path.toFile(), true))) {
             String[] values = new String[headers.size()];
@@ -68,7 +68,7 @@ public class FileHandler {
         }
     }
 
-    /** Overwrite entire file (header + all rows). */
+    // Overwrite entire file (header + all rows)
     public void overwriteAll(List<Map<String, String>> rows) {
         try (CSVWriter writer = new CSVWriter(new FileWriter(path.toFile()))) {
             // Write header first

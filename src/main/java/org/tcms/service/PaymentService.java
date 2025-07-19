@@ -31,6 +31,12 @@ public class PaymentService {
                 .collect(Collectors.toList());
     }
 
+    public List<Payment> getAcceptedPayments() {
+        return getAllPayments().stream()
+                .filter(row -> "accepted".equalsIgnoreCase(row.getStatus()))
+                .collect(Collectors.toList());
+    }
+
     public List<Payment> getUnacceptedPayments() {
         return getAllPayments().stream()
                 .filter(row -> "unaccepted".equalsIgnoreCase(row.getStatus()))
@@ -47,6 +53,30 @@ public class PaymentService {
             }
         }
 
+        paymentFile.overwriteAll(rows);
+    }
+
+    public void addPayment(Payment payment) {
+        paymentFile.append(Map.of(
+                "PaymentID", payment.getPaymentID(),
+                "StudentID", payment.getStudentID(),
+                "EnrollmentID", payment.getEnrollmentID(),
+                "Amount", payment.getAmount(),
+                "Date", payment.getDate(),
+                "Time", payment.getTime(),
+                "Status", payment.getStatus()
+        ));
+    }
+
+    public void deletePayment(String studentID) {
+        List<Map<String, String>> rows = paymentFile.readAll();
+        rows.removeIf(row -> studentID.equals(row.get("StudentID")));
+        paymentFile.overwriteAll(rows);
+    }
+
+    public void deleteStuPaymentForEnrollment(String studentID, String enrollmentID) {
+        List<Map<String, String>> rows = paymentFile.readAll();
+        rows.removeIf(row -> studentID.equals(row.get("StudentID")) && enrollmentID.equals(row.get("EnrollmentID")));
         paymentFile.overwriteAll(rows);
     }
 }

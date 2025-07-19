@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainPane" prefHeight="460.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tcms.controller.SystemController.LoginController">
+   <children>
+      <BorderPane prefHeight="460.0" prefWidth="700.0" stylesheets="@../../css/GlobalStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <center>
+            <AnchorPane prefWidth="339.0" BorderPane.alignment="CENTER">
+               <children>
+                    <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                            <HBox alignment="CENTER" spacing="10">
+                                <ImageView fitHeight="24" fitWidth="24">
+                                    <image>
+                                        <Image url="@../../img/Login.png" />
+                                    </image>
+                                </ImageView>
+                                <Label styleClass="label-heading-large" text="Login" />
+                            </HBox>
+
+                            <HBox alignment="CENTER">
+                                <GridPane hgap="10" vgap="10">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="RIGHT" />
+                                        <ColumnConstraints hgrow="ALWAYS" />
+                                    </columnConstraints>
+
+                                    <children>
+                                        <Label styleClass="label-text-regular" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="usernameField" maxWidth="160.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <Label styleClass="label-text-regular" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <PasswordField fx:id="passwordField" maxWidth="160.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <TextField fx:id="visiblePasswordField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                              <rowConstraints>
+                                 <RowConstraints />
+                                 <RowConstraints />
+                              </rowConstraints>
+                                </GridPane>
+                            </HBox>
+
+                            <CheckBox fx:id="showPasswordCheckBox" text="Show Password" />
+                            <StackPane>
+                                <children>
+                                    <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
+                                    <Label fx:id="cooldownLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="error-label" textAlignment="CENTER" visible="false" wrapText="true" />
+                                </children>
+                            </StackPane>
+
+                            <Button fx:id="loginButton" prefWidth="100.0" styleClass="button-standard" text="Login" />
+                        </children>
+                    </VBox>
+               </children>
+            </AnchorPane>
+          </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

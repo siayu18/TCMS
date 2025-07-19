@@ -2,8 +2,10 @@ package org.tcms.controller.ReceptionistController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.tcms.exception.EmptyFieldException;
+import org.tcms.exception.ValidationException;
 import org.tcms.model.Student;
-import org.tcms.service.StudentService;
+import org.tcms.service.*;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -14,29 +16,32 @@ import org.tcms.utils.Helper;
 import java.io.IOException;
 
 public class UpdDelStudentController {
-    public TextField usernameField;
-    public TextField passwordField;
-    public Button delBtn;
-    public Button saveBtn;
-    public Button updateBtn;
-    public TableView<Student> studentTable;
-    public TableColumn<Student, String> accountIDColumn;
-    public TableColumn<Student, String> nameColumn;
-    public TableColumn<Student, String> passwordColumn;
-    public Label passwordErrorLabel;
-    public Label usernameErrorLabel;
-    public Label errorLabel;
+    @FXML private TextField usernameField;
+    @FXML private TextField passwordField;
+    @FXML private Button delBtn;
+    @FXML private Button saveBtn;
+    @FXML private Button updateBtn;
+    @FXML private TableView<Student> studentTable;
+    @FXML private TableColumn<Student, String> accountIDColumn;
+    @FXML private TableColumn<Student, String> nameColumn;
+    @FXML private TableColumn<Student, String> passwordColumn;
+    @FXML private Label errorLabel;
 
     private StudentService studentService;
+    private PaymentService paymentService;
+    private ReceiptService receiptService;
+    private EnrollmentService enrollmentService;
     private String selectedAccountID;
 
     @FXML
     public void initialize() {
         try {
             studentService = new StudentService();
+            paymentService = new PaymentService();
+            receiptService = new ReceiptService();
+            enrollmentService = new EnrollmentService();
         } catch (IOException e) {
-            errorLabel.setText("Failed to load data.");
-            errorLabel.setVisible(true);
+            AlertUtils.showAlert("Data Loading Issue", "Failed to load data");
             return;
         }
 
@@ -58,33 +63,37 @@ public class UpdDelStudentController {
         });
 
         saveBtn.setOnAction(e -> {
-            String newUsername = usernameField.getText().trim();
-            String newPassword = passwordField.getText().trim();
+            try {
+                String newUsername = usernameField.getText().trim();
+                String newPassword = passwordField.getText().trim();
 
-            boolean isUsernameEmpty = Helper.validateFieldNotEmpty(usernameField, usernameErrorLabel, "Username cannot be empty!");
-            boolean isPasswordEmpty = Helper.validateFieldNotEmpty(passwordField, passwordErrorLabel, "Password cannot be empty!");
+                Helper.isUsernamePasswordEmpty(usernameField, passwordField);
+                if (!Helper.validatePassword(passwordField.getText())) {
+                    throw new ValidationException("Password should be more than 8 characters and contain at least 1 uppercase, lowercase, digit and special character.");
+                }
 
-            if (isUsernameEmpty) {
-                usernameErrorLabel.setVisible(true);
-                return;
+                // everything ok, then proceed
+                errorLabel.setVisible(false);
+                studentService.updateUser(selectedAccountID, newUsername, newPassword, "Student");
+                loadStudentData();
+                AlertUtils.showInformation("Successfully Updated Student!", usernameField.getText() + "'s account has been updated!");
+                clearFields();
+
+            } catch (EmptyFieldException | ValidationException ex) {
+                errorLabel.setText(ex.getMessage());
+                errorLabel.setVisible(true);
             }
-
-            if (isPasswordEmpty) {
-                passwordErrorLabel.setVisible(true);
-                return;
-            }
-
-            usernameErrorLabel.setVisible(false);
-            passwordErrorLabel.setVisible(false);
-            studentService.updateUser(selectedAccountID, newUsername, newPassword);
-            loadStudentData();
-            clearFields();
         });
 
         delBtn.setOnAction(e -> {
             if (selectedAccountID != null) {
+                studentService.deleteStudent(selectedAccountID);
                 studentService.deleteUser(selectedAccountID);
+                enrollmentService.deleteEnrollmentFromStudent(selectedAccountID);
+                paymentService.deletePayment(selectedAccountID);
+                receiptService.deleteReceipt(selectedAccountID);
                 loadStudentData();
+                AlertUtils.showInformation("Successfully Deleted Student!", usernameField.getText() + "'s account has been deleted!");
                 clearFields();
             }
         });
@@ -126,5 +135,4 @@ public class UpdDelStudentController {
         saveBtn.setDisable(true);
         selectedAccountID = null;
     }
-
 }
