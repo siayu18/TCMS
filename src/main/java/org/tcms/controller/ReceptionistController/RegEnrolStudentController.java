@@ -193,9 +193,9 @@ public class RegEnrolStudentController {
         studentService.addStudent(student);
 
         // Check selection and add new enrollment
-        TuitionClass selectedClass1 = (TuitionClass) subjectBox1.getValue();
-        TuitionClass selectedClass2 = (TuitionClass) subjectBox2.getValue();
-        TuitionClass selectedClass3 = (TuitionClass) subjectBox3.getValue();
+        TuitionClass selectedClass1 = subjectBox1.getValue();
+        TuitionClass selectedClass2 = subjectBox2.getValue();
+        TuitionClass selectedClass3 = subjectBox3.getValue();
 
         checkAndAddSelection(selectedClass1, enrollmentService, student.getAccountId());
         checkAndAddSelection(selectedClass2, enrollmentService, student.getAccountId());
