@@ -50,7 +50,7 @@ public class RegEnrolStudentController {
             return;
         }
 
-        levelBox.getItems().addAll("Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6");
+        levelBox.getItems().addAll("Form 1", "Form 2", "Form 3", "Form 4", "Form 5");
 
         configureActions();
     }

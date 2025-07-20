@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/org/tcms/view/SystemScenes/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), stage.getHeight(), stage.getWidth());
-        stage.setTitle("Tuition Centre Management System");
+        stage.setTitle("Advanced Tuition Centre Management System");
         stage.setScene(scene);
         stage.show();
     }

@@ -15,7 +15,7 @@ public class Tutor extends User {
         super(id, name, pwd, role);
     }
 
-    public Tutor(String id, String name, String pwd, String role, String assignedLevel, String assignedSubject){
+    public Tutor(String id, String name, String pwd, String role, String assignedLevel, String assignedSubject) {
         super(id, name, pwd, role);
         this.assignedLevel = assignedLevel;
         this.assignedSubject = assignedSubject;

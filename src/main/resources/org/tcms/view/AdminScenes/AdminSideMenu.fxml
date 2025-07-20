@@ -37,7 +37,7 @@
                 <JFXButton fx:id="updateProfileBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update Profile Details" />
             </children>
         </VBox>
-      <JFXButton fx:id="updateSubjectDetailsBtn" maxWidth="Infinity" styleClass="button-small" text="&gt; Update Subject Details">
+      <JFXButton fx:id="updateSubjectDetailsBtn" maxWidth="Infinity" styleClass="button-small" text="Update Subject Details">
          <graphic>
             <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
                <image>
