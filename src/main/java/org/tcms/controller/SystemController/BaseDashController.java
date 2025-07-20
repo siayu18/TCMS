@@ -13,14 +13,9 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class BaseDashController {
 
-    @FXML
-    protected Label greetingLabel;
-
-    @FXML
-    protected Label timeLabel;
-
-    @FXML
-    protected Label dateLabel;
+    @FXML protected Label greetingLabel;
+    @FXML protected Label timeLabel;
+    @FXML protected Label dateLabel;
 
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm");
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
