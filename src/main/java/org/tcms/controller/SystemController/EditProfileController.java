@@ -52,6 +52,7 @@ public class EditProfileController {
 
                 errorLabel.setVisible(false);
                 userService.updateUser(Session.getCurrentUserID(), newUsername, newPassword, Session.getCurrentUserRole());
+                clearAll();
                 AlertUtils.showInformation("Successfully Updated User!", usernameField.getText() + "'s account has been updated!");
 
             } catch (EmptyFieldException | ValidationException ex) {
@@ -84,6 +85,14 @@ public class EditProfileController {
         if (!newPassword.equals(confirmPassword)) {
             throw new ValidationException("Password not matched.");
         }
+    }
+
+    private void clearAll() {
+        usernameField.clear();
+        passwordField.clear();
+        confirmPasswordField.clear();
+        visiblePasswordField.clear();
+        visibleConfirmPasswordField.clear();
     }
 
 }
