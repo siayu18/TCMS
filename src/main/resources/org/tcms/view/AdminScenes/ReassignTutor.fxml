@@ -34,7 +34,7 @@
                      <children>
                         <VBox>
                            <children>
-                              <Label fx:id="updateStaffHeading1" contentDisplay="CENTER" prefHeight="82.0" prefWidth="429.0" styleClass="label-heading-large" text="Reassign Tutor Subject" textAlignment="CENTER" wrapText="true">
+                              <Label fx:id="updateStaffHeading1" contentDisplay="CENTER" prefHeight="82.0" prefWidth="429.0" styleClass="label-heading-large" text="Subject Management" textAlignment="CENTER" wrapText="true">
                                  <padding>
                                     <Insets right="75.0" top="25.0" />
                                  </padding>
@@ -88,7 +88,7 @@
                <children>
                   <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/StaffIcon.png" />
+                        <Image url="@../../img/ReassignTutorIcon.png" />
                      </image>
                      <effect>
                         <ColorAdjust brightness="0.9" />

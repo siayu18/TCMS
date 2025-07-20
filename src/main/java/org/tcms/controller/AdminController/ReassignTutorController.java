@@ -136,7 +136,6 @@ public class ReassignTutorController {
                         selectedLevel
                 );
 
-                // Refresh UI
                 loadAccountData();
                 clearAll();
                 AlertUtils.showInformation("Success", "Tutor reassigned successfully");

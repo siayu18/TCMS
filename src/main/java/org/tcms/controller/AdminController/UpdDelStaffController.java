@@ -64,7 +64,7 @@ public class UpdDelStaffController {
                 userService.updateUser(selectedAccountID, newUsername, newPassword, newRole);
                 loadAccountData();
                 clearFields();
-                AlertUtils.showInformation("Successfully Updated Student!", newUsername + "'s account has been updated!");
+                AlertUtils.showInformation("Successfully Updated Account!", newUsername + "'s account has been updated!");
 
             } catch (EmptyFieldException | ValidationException ex) {
                 errorLabel.setText(ex.getMessage());
@@ -75,24 +75,19 @@ public class UpdDelStaffController {
         deleteBtn.setOnAction(e -> {
             if (selectedAccountID != null) {
                 try {
-                    // Verify the user is a tutor (safety check)
                     User user = userService.getUserByID(selectedAccountID);
-                    if (user == null || !"Tutor".equals(user.getRole())) {
-                        AlertUtils.showAlert("Error", "Selected user is not a tutor.");
+                    if (user == null) {
+                        AlertUtils.showAlert("Error", "Selected user not found.");
                         return;
                     }
 
+                    if ("Tutor".equals(user.getRole())) {
+                        tutorService.markTutorAsDeletedInTutorCSV(selectedAccountID);
+                        tutorService.markTutorAsDeletedInClassesCSV(selectedAccountID);
+                    }
 
-                    // Replace tutor ID with "NO TUTOR" in tutor.csv
-                    tutorService.markTutorAsDeletedInTutorCSV(selectedAccountID);
-
-                    // Replace tutor ID with "NO TUTOR" in tuitionclass.csv
-                    tutorService.markTutorAsDeletedInClassesCSV(selectedAccountID);
-
-                    // Delete the tutor from account.csv
                     userService.deleteUser(selectedAccountID);
 
-                    // Refresh UI
                     loadAccountData();
                     clearFields();
                     AlertUtils.showInformation("Success", "Tutor deleted, and records updated.");
