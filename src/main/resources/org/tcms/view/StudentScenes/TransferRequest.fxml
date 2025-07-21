@@ -36,7 +36,7 @@
                         <Label styleClass="label-text-regular" text="From:" GridPane.rowIndex="1" />
                         <Label styleClass="label-text-regular" text="To: " GridPane.rowIndex="2" />
                         <ComboBox fx:id="selectOldSub" prefHeight="27.0" prefWidth="178.0" promptText="Select Existing Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="selectNewSub" prefHeight="27.0" prefWidth="146.0" promptText="Select New Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="selectNewSub" prefHeight="27.0" prefWidth="178.0" promptText="Select New Subject" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <VBox.margin>
                         <Insets left="150.0" right="150.0" />

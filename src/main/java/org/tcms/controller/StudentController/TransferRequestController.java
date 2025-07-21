@@ -142,7 +142,7 @@ public class TransferRequestController {
                     .filter(Objects::nonNull)
                     .filter(cls -> {
                         // Ensure class has required fields (prevent NPE in cell factory)
-                        return cls.getSubjectName() != null && cls.getLevel() != null;
+                        return cls.getClassID() != null && cls.getSubjectName() != null && cls.getLevel() != null;
                     })
                     .collect(Collectors.toList());
 
@@ -158,7 +158,7 @@ public class TransferRequestController {
                         setText(null);
                     } else {
                         // Show "Subject (Level)"
-                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                        setText(item.getClassID() + " - " + item.getSubjectName() + " (" + item.getLevel() + ")");
                     }
                 }
             });
@@ -171,7 +171,7 @@ public class TransferRequestController {
                     if (empty || item == null) {
                         setText(null);
                     } else {
-                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                        setText(item.getClassID() + " - " + item.getSubjectName() + " (" + item.getLevel() + ")");
                     }
                 }
             });
@@ -221,7 +221,7 @@ public class TransferRequestController {
                     if (empty || item == null) {
                         setText(null);
                     } else {
-                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                        setText(item.getClassID() + " - " + item.getSubjectName() + " (" + item.getLevel() + ")");
                     }
                 }
             });
@@ -233,7 +233,7 @@ public class TransferRequestController {
                     if (empty || item == null) {
                         setText(null);
                     } else {
-                        setText(item.getSubjectName() + " (" + item.getLevel() + ")");
+                        setText(item.getClassID() + " - " + item.getSubjectName() + " (" + item.getLevel() + ")");
                     }
                 }
             });
